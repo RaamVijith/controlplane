@@ -81,6 +81,7 @@ const TabNavigation = () => {
           </OutlineButton>
           <div className="h-10 border-[1px] my-2"></div>
           <AddContactDialog
+            mode="add"
             trigger={
               <FillButton>
                 <IoAdd />
@@ -103,6 +104,7 @@ const TabNavigation = () => {
           </OutlineButton>
           <div className="h-10 border-[1px]"></div>
           <AddContactDialog
+            mode="add"
             trigger={
               <FillButton>
                 <IoAdd />

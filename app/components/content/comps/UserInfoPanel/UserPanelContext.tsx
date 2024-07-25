@@ -17,7 +17,9 @@ const UserPanelContext = createContext({
     notes: [],
   },
   isPanelVisible: false,
+  isExtendedUserInfoPanelVisible: false,
   setPanelVisible: (value: boolean) => {},
+  setExtendedUserInfoPanelVisible: (value: boolean) => {},
   setPanelData: (data: any) => {},
 });
 
@@ -28,15 +30,18 @@ interface IPanelProvider {
 // Create a provider component
 export const UserPanelProvider: React.FC<IPanelProvider> = ({ children }) => {
   const [isPanelVisible, setPanelVisible] = useState<boolean>(false);
-
+  const [isExtendedUserInfoPanelVisible, setExtendedUserInfoPanelVisible] =
+    useState<boolean>(false);
   const [panelData, setPanelData] = useState<any>(null);
 
   return (
     <UserPanelContext.Provider
       value={{
         isPanelVisible,
+        isExtendedUserInfoPanelVisible,
         panelData,
         setPanelVisible,
+        setExtendedUserInfoPanelVisible,
         setPanelData,
       }}
     >

@@ -5,6 +5,7 @@ import { UserPanelProvider } from "../components/content/comps/UserInfoPanel/Use
 import UserInfoPanel from "../components/content/comps/UserInfoPanel/UserInfoPanel";
 import SideNav from "../components/sidenav/SideNav";
 import MainPage from "../components/content/MainPage";
+import ExtendedUserInfoPanel from "../components/content/comps/UserInfoPanel/ExtendedUserInfoPanel";
 
 export default function Home() {
   const [data, setData] = useState<null | object>({});
@@ -15,6 +16,7 @@ export default function Home() {
       {/* side nav */}
       <UserPanelProvider>
         <UserInfoPanel />
+        <ExtendedUserInfoPanel />
         <SideNav />
         <MainPage />
       </UserPanelProvider>

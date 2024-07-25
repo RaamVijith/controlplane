@@ -54,6 +54,8 @@ import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline, MdOutlineHistory } from "react-icons/md";
 import { GrContactInfo } from "react-icons/gr";
 import { BiTransfer } from "react-icons/bi";
+import ConvertContact from "../UserInfoPanel/ConvertContact";
+
 const data: Users[] = UsersData;
 
 export type Users = {
@@ -93,8 +95,16 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const { setPanelVisible, setPanelData } = usePanel();
+  const { setPanelVisible, setPanelData, setExtendedUserInfoPanelVisible } =
+    usePanel();
 
+  const [isConvertContactDialog, setIsConvertContactDialog] =
+    React.useState(false);
+
+  const handleMenuItemClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
   const columns: ColumnDef<Users>[] = [
     {
       accessorKey: "name",
@@ -358,8 +368,18 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-                <DropdownMenuItem className="cursor-pointer">
-                  <CiEdit className="mr-2 text-black" size={20} /> Edit
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={handleMenuItemClick}
+                >
+                  <AddContactDialog
+                    mode="edit"
+                    trigger={
+                      <span className="flex items-center justify-center">
+                        <CiEdit className="mr-2 text-black" size={20} /> Edit
+                      </span>
+                    }
+                  />
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {
@@ -369,16 +389,38 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
 
                     setPanelData(tmp_data);
                     setPanelVisible(true);
+                    setExtendedUserInfoPanelVisible(false);
                   }}
                   className="cursor-pointer"
                 >
                   <GrContactInfo className="mr-2" size={20} /> Contact View
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem
+                  onClick={() => {
+                    const tmp_data = UsersData.find(
+                      (item) => item.id === row.getValue("id")
+                    );
+
+                    setPanelData(tmp_data);
+                    setExtendedUserInfoPanelVisible(true);
+                    setPanelVisible(false);
+                  }}
+                  className="cursor-pointer"
+                >
                   <GrContactInfo className="mr-2" size={20} /> Contact Full View
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  <BiTransfer className="mr-2" size={20} /> Convert Contact
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={handleMenuItemClick}
+                >
+                  <ConvertContact
+                    trigger={
+                      <span className="flex items-center justify-center">
+                        <BiTransfer className="mr-2" size={20} />
+                        Convert Contact
+                      </span>
+                    }
+                  />
                 </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
                   <MdOutlineHistory className="mr-2" size={20} /> History

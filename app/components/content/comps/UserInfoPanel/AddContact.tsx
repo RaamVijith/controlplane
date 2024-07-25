@@ -52,7 +52,7 @@ interface AddContactDialogProps {
     gender: string;
     country: string;
     occupation: string;
-    // Add other fields as necessary
+    mode: string;
   };
 }
 const AddContactDialog: React.FC<AddContactDialogProps> = ({
