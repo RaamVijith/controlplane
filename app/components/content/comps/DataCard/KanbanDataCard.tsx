@@ -80,7 +80,7 @@ const DataCard = ({ user }: UserCardProps) => {
                 </Avatar>
 
                 <div className="absolute bottom-2 right-1 transform translate-x-1/2 translate-y-1/2">
-                  <div className="flex items-center justify-center w-5 h-5 bg-slate-100 rounded-full border border-gray-400 ">
+                  <div className="flex items-center justify-center w-5 h-5 bg-white rounded-full border border-gray-400 ">
                     {user.gender === "Male" && (
                       <BsGenderMale size={11} className="text-gray-600" />
                     )}

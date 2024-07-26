@@ -5,6 +5,7 @@ import { InverseFillButton } from "../../libs/buttons";
 import UsersData from "@/public/data/users";
 import UserInfoPanel from "../comps/UserInfoPanel/UserInfoPanel";
 import DataTable from "../comps/Table/Table";
+import SearchBar from "../comps/SearchBar";
 
 type Activity = {
   id: number;
@@ -109,10 +110,13 @@ const ListFragment = () => {
             </div>
           ))}
         </div>
-        <InverseFillButton>
-          <IoAdd size={16} />
-          <div className="text-sm">Add Categories</div>
-        </InverseFillButton>
+        <div className="flex items-center justify-center gap-1">
+          <SearchBar />
+          <InverseFillButton>
+            <IoAdd size={16} />
+            <div className="text-sm">Add Categories</div>
+          </InverseFillButton>
+        </div>
       </div>
       <div>
         <DataTable users={filteredUsers} />

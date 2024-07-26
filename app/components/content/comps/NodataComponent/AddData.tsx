@@ -20,6 +20,7 @@ const AddData: React.FC<AddDataProps> = ({ buttonText }) => {
         </p>
         <div className="mt-4 flex items-center justify-center">
           <AddContactDialog
+            mode="add"
             trigger={
               <FillButton className="w-[10rem]">
                 <IoAdd />

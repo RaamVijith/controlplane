@@ -89,7 +89,7 @@ const KanbanFragment = () => {
         return (
           <div key={category} className="w-[350px] flex-shrink-0 ">
             <div className="mb-3  shadow-lg rounded-md">
-              <CardHeader className="bg-slate-100">
+              <CardHeader className="bg-slate-100 p-3">
                 <div className="flex items-center justify-between">
                   <h6
                     onClick={() => toggleVisibility(category)}
