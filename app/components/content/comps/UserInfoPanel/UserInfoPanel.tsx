@@ -39,9 +39,9 @@ const UserInfoPanel = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-white w-full sm:w-[50%] md:w-[45%] flex flex-col z-20 overflow-y-scroll"
+            className="bg-white w-full md:w-full lg:w-[80%] xl:w-[50%] flex flex-col z-20 overflow-y-scroll"
           >
-            <div className="w-[56.5em] md:w-full">
+            <div className="w-full">
               {/* Top header */}
               <div className="flex justify-between py-4 px-10 border-b-[1px] border-gray-300">
                 <div className="flex gap-2 items-center justify-center text-[#1D62B4] font-[500]">

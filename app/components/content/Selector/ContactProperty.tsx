@@ -71,13 +71,29 @@ const ContactProperty = () => {
     setDropdown5SelectedOption(option);
     setDropdown5Open(false);
   };
-
+  const renderDropdown = (
+    open: boolean,
+    options: Array<{ label: string; value: string }>,
+    handleSelectOption: (option: string) => void
+  ) => (
+    <div className="absolute z-10 mt-1 w-[135px] h-auto bg-white shadow-lg rounded-md">
+      {options.map((option) => (
+        <div
+          key={option.value}
+          className="py-2 px-3 cursor-pointer hover:bg-gray-100"
+          onClick={() => handleSelectOption(option.label)}
+        >
+          {option.label}
+        </div>
+      ))}
+    </div>
+  );
   return (
-    <div className="flex border-[2px] border-[#1D62B4] items-center cursor-default">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:w-full sm:w-full lg:grid-cols-5">
       {/* Box 1 */}
       <div className="relative flex-grow">
         <div
-          className={`flex p-4 border-r-2 border-[#1D62B4] items-center justify-center gap-2 w-full ${
+          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full ${
             dropdown1SelectedOption === "Existing"
               ? "bg-[#ffccd5] text-[#e03f44]"
               : "bg-[#1D62B440] text-[#1D62B4]"
@@ -106,7 +122,7 @@ const ContactProperty = () => {
       {/* Box 2 */}
       <div className="relative flex-grow">
         <div
-          className="flex p-4 border-r-2 border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
+          className="flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
           onClick={toggleDropdown2}
         >
           <MdOutlineCheck />
@@ -131,7 +147,7 @@ const ContactProperty = () => {
       {/* Box 3 */}
       <div className="relative flex-grow">
         <div
-          className="flex p-4 border-r-2 border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
+          className="flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
           onClick={toggleDropdown3}
         >
           <MdOutlineCheck />
@@ -156,7 +172,7 @@ const ContactProperty = () => {
       {/* Box 4 */}
       <div className="relative flex-grow">
         <div
-          className="flex p-4 border-r-2 border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
+          className="flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
           onClick={toggleDropdown4}
         >
           <MdOutlineCheck />
@@ -181,7 +197,7 @@ const ContactProperty = () => {
       {/* Box 5 */}
       <div className="relative flex-grow">
         <div
-          className="flex p-4 items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
+          className="flex p-4 items-center border border-[#1D62B4] justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
           onClick={toggleDropdown5}
         >
           <MdOutlineCheck />

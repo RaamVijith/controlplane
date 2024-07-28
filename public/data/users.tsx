@@ -9,6 +9,7 @@ const UsersData = [
     contact: "(248)563-9023",
     job_title: "Conservator, museum/gallery",
     annual_revenue: 240608,
+    image: `/users/${1}.jpg`,
     status: "Qualified",
     location: "Iowa",
     company: "Sample company",
@@ -54,6 +55,7 @@ const UsersData = [
     contact: "001-406-818-4162x591",
     job_title: "Forensic scientist",
     annual_revenue: 466306,
+    image: `/users/${2}.jpg`,
     status: "Qualified",
     location: "Pennsylvania",
     company: "Sample company",
@@ -97,11 +99,12 @@ const UsersData = [
     gender: "Female",
     email: "juliatorres@yahoo.com",
     contact: "892.357.5812x90813",
+    image: `/users/${3}.jpg`,
     job_title: "Government social research officer",
     annual_revenue: 220509,
     status: "Not Qualified",
     location: "Montana",
-    country: "Australia",
+    country: "Sweden",
     category: "Employee",
     company: "Sample company",
     activities: [
@@ -144,9 +147,10 @@ const UsersData = [
     contact: "299.084.8504",
     job_title: "Furniture designer",
     annual_revenue: 218381,
+    image: `/users/${4}.jpg`,
     status: "Not Qualified",
     location: "Michigan",
-    country: "India",
+    country: "SriLanka",
     category: "Partners",
     company: "Sample company",
     activities: [
@@ -191,7 +195,8 @@ const UsersData = [
     annual_revenue: 258188,
     status: "Not Qualified",
     location: "North Dakota",
-    country: "India",
+    image: `/users/${5}.jpg`,
+    country: "USA",
     category: "Employee",
     company: "Sample company",
     activities: [
@@ -236,7 +241,8 @@ const UsersData = [
     annual_revenue: 173161,
     status: "Pending",
     location: "Ohio",
-    country: "India",
+    country: "Canada",
+    image: `/users/${6}.jpg`,
     category: "Customers",
     company: "Sample company",
     activities: [
@@ -281,7 +287,8 @@ const UsersData = [
     annual_revenue: 206820,
     status: "Not Qualified",
     location: "Kansas",
-    country: "India",
+    country: "Sweden",
+    image: `/users/${7}.jpg`,
     category: "Customers",
     company: "Sample company",
     activities: [
@@ -326,7 +333,8 @@ const UsersData = [
     annual_revenue: 444816,
     status: "Pending",
     location: "New Mexico",
-    country: "India",
+    image: `/users/${8}.jpg`,
+    country: "Netherlands",
     category: "Customers",
     company: "Sample company",
     activities: [
@@ -373,6 +381,7 @@ const UsersData = [
     location: "Delaware",
     country: "India",
     category: "Customers",
+    image: `/users/${9}.jpg`,
     company: "Sample company",
     activities: [
       {
@@ -415,6 +424,7 @@ const UsersData = [
     job_title: "Arts administrator",
     annual_revenue: 328140,
     status: "Pending",
+    image: `/users/${10}.jpg`,
     location: "South Dakota",
     country: "India",
     category: "Customers",
@@ -461,6 +471,7 @@ const UsersData = [
     annual_revenue: 300752,
     status: "Pending",
     location: "Maine",
+    image: `/users/${11}.jpg`,
     country: "India",
     category: "Partners",
     company: "Sample company",
@@ -507,6 +518,7 @@ const UsersData = [
     status: "Pending",
     location: "Wisconsin",
     country: "India",
+    image: `/users/${13}.jpg`,
     category: "Partners",
     company: "Sample company",
     activities: [
@@ -553,6 +565,7 @@ const UsersData = [
     country: "India",
     location: "Iowa",
     category: "Customers",
+    image: `/users/${14}.jpg`,
     company: "Sample company",
     activities: [
       {
@@ -596,6 +609,7 @@ const UsersData = [
     annual_revenue: 473299,
     status: "Qualified",
     country: "India",
+    image: `/users/${15}.jpg`,
     location: "Missouri",
     category: "Employee",
     company: "Sample company",
@@ -643,6 +657,7 @@ const UsersData = [
     country: "India",
     location: "Montana",
     category: "Partners",
+    image: `/users/${16}.jpg`,
     company: "Sample company",
     activities: [
       {
@@ -688,6 +703,7 @@ const UsersData = [
     country: "India",
     location: "Alaska",
     category: "Partners",
+    image: `/users/${17}.jpg`,
     company: "Sample company",
     activities: [
       {
@@ -732,6 +748,7 @@ const UsersData = [
     status: "Pending",
     country: "India",
     location: "New Hampshire",
+    image: `/users/${18}.jpg`,
     category: "Customers",
     company: "Sample company",
     activities: [
@@ -778,6 +795,7 @@ const UsersData = [
     location: "Ohio",
     country: "India",
     category: "Partners",
+    image: `/users/${19}.jpg`,
     company: "Sample company",
     activities: [
       {
@@ -823,6 +841,7 @@ const UsersData = [
     location: "Michigan",
     country: "India",
     category: "Customers",
+    image: `/users/${20}.jpg`,
     company: "Sample company",
     activities: [
       {
@@ -1365,16 +1384,46 @@ export const upcomingData = [
     task: "high",
     user: "im",
   },
-  // {
-  //   created: "Lucy Lockwood",
-  //   time: "Today 11:00 PM",
-  //   preparedFor: "Jenny Wilson",
-  //   description:
-  //     " She interested in our new product and wants to negotiate the price. Please include our price listing and set up a call. She interested in our new product and wants to negotiate the price.",
-  //   reminder: "",
-  //   task: "",
-  //   user: "",
-  // },
+  {
+    created: "Lucy Lockwood",
+    time: "Today 11:00 PM",
+    preparedFor: "Jenny Wilson",
+    description:
+      " She interested in our new product and wants to negotiate the price. Please include our price listing and set up a call. She interested in our new product and wants to negotiate the price.",
+    reminder: "",
+    task: "",
+    user: "",
+  },
+  {
+    created: "Lucy Lockwood",
+    time: "Today 11:00 PM",
+    preparedFor: "Jenny Wilson",
+    description:
+      " She interested in our new product and wants to negotiate the price. Please include our price listing and set up a call. She interested in our new product and wants to negotiate the price.",
+    reminder: "not reminder",
+    task: "high",
+    user: "im",
+  },
+  {
+    created: "Lucy Lockwood",
+    time: "Today 11:00 PM",
+    preparedFor: "Jenny Wilson",
+    description:
+      " She interested in our new product and wants to negotiate the price. Please include our price listing and set up a call. She interested in our new product and wants to negotiate the price.",
+    reminder: "",
+    task: "",
+    user: "",
+  },
+  {
+    created: "Lucy Lockwood",
+    time: "Today 11:00 PM",
+    preparedFor: "Jenny Wilson",
+    description:
+      " She interested in our new product and wants to negotiate the price. Please include our price listing and set up a call. She interested in our new product and wants to negotiate the price.",
+    reminder: "not reminder",
+    task: "high",
+    user: "im",
+  },
 ];
 
 export const HistoryActivity = [

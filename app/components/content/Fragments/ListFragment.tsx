@@ -6,6 +6,7 @@ import UsersData from "@/public/data/users";
 import UserInfoPanel from "../comps/UserInfoPanel/UserInfoPanel";
 import DataTable from "../comps/Table/Table";
 import SearchBar from "../comps/SearchBar";
+import Email from "../../Email";
 
 type Activity = {
   id: number;
@@ -40,6 +41,7 @@ type Users = {
 const ListFragment = () => {
   const [isSelected, setIsSelected] = useState<number>(1);
   const [filteredUsers, setFilteredUsers] = useState<Users[]>(UsersData);
+  const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
   const usersheader = [
     { name: "Name", uid: "name" },
     { name: "Email", uid: "email" },
@@ -87,6 +89,13 @@ const ListFragment = () => {
       }
     }
   };
+  const handleAddCategoryClick = () => {
+    setIsCardOpen(true);
+  };
+
+  const handleCloseCard = () => {
+    setIsCardOpen(false);
+  };
 
   // const filteredData = getFilteredData();
   return (
@@ -112,7 +121,7 @@ const ListFragment = () => {
         </div>
         <div className="flex items-center justify-center gap-1">
           <SearchBar />
-          <InverseFillButton>
+          <InverseFillButton onClick={handleAddCategoryClick}>
             <IoAdd size={16} />
             <div className="text-sm">Add Categories</div>
           </InverseFillButton>
@@ -121,6 +130,7 @@ const ListFragment = () => {
       <div>
         <DataTable users={filteredUsers} />
       </div>
+      {isCardOpen && <Email onClose={handleCloseCard} />}
     </div>
   );
 };

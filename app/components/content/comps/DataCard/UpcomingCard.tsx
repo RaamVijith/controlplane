@@ -77,18 +77,18 @@ const UpcomingActivityCard: React.FC<UpcomingActivityCardProps> = ({
                 <GoTriangleDown size={12} />
               </div>
               {reminderOpen && (
-                <div className="absolute bg-white border border-gray-300 mt-16 rounded shadow-lg">
+                <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
                   <div
-                    className="p-2 hover:bg-gray-100 cursor-pointer"
-                    onClick={() => handleReminderSelect("reminder")}
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                    onClick={() => handleReminderSelect("Reminder")}
                   >
-                    reminder
+                    Reminder
                   </div>
                   <div
-                    className="p-2 hover:bg-gray-100 cursor-pointer"
-                    onClick={() => handleReminderSelect("not reminder")}
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                    onClick={() => handleReminderSelect("No Reminder")}
                   >
-                    not reminder
+                    No Reminder
                   </div>
                 </div>
               )}
@@ -104,22 +104,42 @@ const UpcomingActivityCard: React.FC<UpcomingActivityCardProps> = ({
                 className="flex gap-2 items-center text-sm cursor-pointer"
                 onClick={toggleTaskPriorityDropdown}
               >
-                <div>{taskPriority}</div>
+                {/* <div>{taskPriority}</div> */}
+                {taskPriority === "High" ? (
+                  <div className="flex items-center">
+                    <span className="inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
+                    High
+                  </div>
+                ) : taskPriority === "Low" ? (
+                  <div className="flex items-center">
+                    <span className="inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
+                    Low
+                  </div>
+                ) : (
+                  <div>{taskPriority}</div>
+                )}
                 <GoTriangleDown size={12} />
               </div>
               {taskPriorityOpen && (
-                <div className="absolute bg-white border border-gray-300 mt-16 rounded shadow-lg">
+                <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
                   <div
-                    className="p-2 hover:bg-gray-100 cursor-pointer"
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
                     onClick={() => handleTaskPrioritySelect("High")}
                   >
-                    High
+                    <span className=" flex items-center">
+                      <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
+                      High
+                    </span>
                   </div>
+
                   <div
-                    className="p-2 hover:bg-gray-100 cursor-pointer"
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
                     onClick={() => handleTaskPrioritySelect("Low")}
                   >
-                    Low
+                    <span className=" flex items-center">
+                      <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
+                      Low
+                    </span>
                   </div>
                 </div>
               )}
@@ -139,15 +159,15 @@ const UpcomingActivityCard: React.FC<UpcomingActivityCardProps> = ({
                 <GoTriangleDown size={12} />
               </div>
               {assignedToOpen && (
-                <div className="absolute bg-white border border-gray-300 mt-16 rounded shadow-lg">
+                <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
                   <div
-                    className="p-2 hover:bg-gray-100 cursor-pointer"
-                    onClick={() => handleAssignedToSelect("User")}
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                    onClick={() => handleAssignedToSelect("lucy")}
                   >
-                    User
+                    Lucy Headwood
                   </div>
                   <div
-                    className="p-2 hover:bg-gray-100 cursor-pointer"
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
                     onClick={() => handleAssignedToSelect("Admin")}
                   >
                     Admin

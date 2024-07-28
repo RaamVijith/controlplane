@@ -23,9 +23,12 @@ const FillButton: React.FC<IButton> = ({ children, className, onClick }) => {
   );
 };
 
-const InverseFillButton: React.FC<IButton> = ({ children }) => {
+const InverseFillButton: React.FC<IButton> = ({ onClick, children }) => {
   return (
-    <div className="flex cursor-pointer items-center justify-center gap-2 rounded-md px-3 py-2 text-[#3f76ff] hover:bg-[#1D62B4] hover:text-white">
+    <div
+      onClick={onClick}
+      className="flex cursor-pointer items-center justify-center gap-2 rounded-md px-3 py-2 text-[#3f76ff] hover:bg-[#1D62B4] hover:text-white"
+    >
       {children}
     </div>
   );

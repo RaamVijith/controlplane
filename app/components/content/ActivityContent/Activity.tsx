@@ -6,7 +6,7 @@ const Activity = () => {
   return (
     <div>
       <UpcomingActivity />
-      {/* <ActivityHistory /> */}
+      <ActivityHistory />
     </div>
   );
 };

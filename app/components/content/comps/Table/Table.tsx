@@ -55,6 +55,8 @@ import { MdDeleteOutline, MdOutlineHistory } from "react-icons/md";
 import { GrContactInfo } from "react-icons/gr";
 import { BiTransfer } from "react-icons/bi";
 import ConvertContact from "../UserInfoPanel/ConvertContact";
+import Email from "@/app/components/Email";
+import History from "@/app/components/History/History";
 
 const data: Users[] = UsersData;
 
@@ -263,7 +265,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
         const countryCode = getCountryCode(countryName);
         return (
           <div className="flex items-center gap-2">
-            {countryCode && <Flag code={countryCode} className="w-4 h-4" />}
+            {countryCode && <Flag code={countryCode} className="h-3" />}
             <span>{countryName}</span>
           </div>
         );
@@ -289,8 +291,8 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
             className="rounded-full transition-all group-hover:scale-110"
             alt="profile"
             src={`/users/${row.getValue("id")}.jpg`}
-            width={14}
-            height={14}
+            width={20}
+            height={20}
           />
           <div className="capitalize">{row.getValue("company")}</div>
         </div>
@@ -422,8 +424,17 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                     }
                   />
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  <MdOutlineHistory className="mr-2" size={20} /> History
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={handleMenuItemClick}
+                >
+                  <History
+                    trigger={
+                      <span className="flex items-center justify-center">
+                        <MdOutlineHistory className="mr-2" size={20} /> History
+                      </span>
+                    }
+                  />
                 </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer">
                   <RiDeleteBin5Line className="mr-2 text-red-500" size={20} />{" "}

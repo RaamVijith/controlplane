@@ -2,24 +2,25 @@ import React, { useState } from "react";
 import ActivityHeader from "../../ActivityContent/Activity";
 import { FaSearch } from "react-icons/fa";
 import Activity from "../../ActivityContent/Activity";
+import { Input } from "@/components/ui/input";
 
 const Activities = () => {
   const [activeTab, setActiveTab] = useState("Activity");
   const tabs = ["Activity", "Emails", "Notes", "Meetings"];
   return (
     <>
-      <div className="flex items-center relative">
+      <div className="flex items-center relative ">
         <FaSearch className="absolute left-3 text-gray-500" size={16} />
-        <input
+        <Input
           type="text"
-          className="pl-10 pr-3 py-4 w-full rounded-md focus:outline-none focus:ring focus:border-slate-200"
+          className="pl-10 pr-3 py-6 mt-1 w-full border-none focus:outline-none focus:ring focus:border-slate-200"
           placeholder="Search emails, activities, notes and more"
         />
       </div>
       <hr className="my-2" />
 
       <div className="w-full">
-        <div className="flex justify-around border-b border-gray-200">
+        <div className="flex justify-around border-b border-gray-200 p-3">
           {tabs.map((tab) => (
             <button
               key={tab}

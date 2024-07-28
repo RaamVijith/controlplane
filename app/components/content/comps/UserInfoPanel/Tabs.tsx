@@ -14,7 +14,7 @@ const Tabs = () => {
           }`}
           onClick={() => setActiveTab("leads")}
         >
-          Leads Info
+          Contact Info
         </button>
         <button
           className={`flex-grow px-10 py-2 -mb-px text-sm font-medium focus:outline-none ${
