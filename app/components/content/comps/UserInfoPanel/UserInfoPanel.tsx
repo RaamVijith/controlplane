@@ -21,10 +21,37 @@ import {
 import { CiEdit } from "react-icons/ci";
 import Switch from "react-switch";
 import ContactProperty from "../../Selector/ContactProperty";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const UserInfoPanel = () => {
   const { isPanelVisible, panelData, setPanelVisible } = usePanel();
   const [isChecked, setIsChecked] = useState(false);
+  const [reminderOpen, setReminderOpen] = useState(false);
+  const [taskPriorityOpen, setTaskPriorityOpen] = useState(false);
+  const [assignedToOpen, setAssignedToOpen] = useState(false);
 
+  const [reminder, setReminder] = useState("reminder");
+  const [taskPriority, setTaskPriority] = useState("High");
+  const [assignedTo, setAssignedTo] = useState("User");
+
+  const toggleReminderDropdown = () => setReminderOpen(!reminderOpen);
+  const toggleTaskPriorityDropdown = () =>
+    setTaskPriorityOpen(!taskPriorityOpen);
+  const toggleAssignedToDropdown = () => setAssignedToOpen(!assignedToOpen);
+
+  const handleReminderSelect = (option: string) => {
+    setReminder(option);
+    setReminderOpen(false);
+  };
+
+  const handleTaskPrioritySelect = (option: string) => {
+    setTaskPriority(option);
+    setTaskPriorityOpen(false);
+  };
+
+  const handleAssignedToSelect = (option: string) => {
+    setAssignedTo(option);
+    setAssignedToOpen(false);
+  };
   const handleSwitchChange = (checked: boolean) => {
     setIsChecked(checked);
     // Add your logic
@@ -55,25 +82,24 @@ const UserInfoPanel = () => {
 
               {/* user info box */}
               <div className="flex flex-col px-10 py-8 gap-10 border-b-[1px] border-gray-300 text-xs 2xl:text-sm">
-                <div className=" border-b-[1px] border-gray-300">
+                <div className=" border border-green-300">
                   {/* top part */}
-                  <div className="flex justify-between border-[1px] border-gray-300 p-4 text-xs">
+                  <div className="flex justify-between border-[1px] border-blue-600 p-4 text-xs">
                     <div className="flex gap-2 items-center">
-                      <div className="rounded-full mr-3">
-                        <Image
-                          className="rounded-full"
-                          alt="profile"
+                      <Avatar>
+                        <AvatarImage
                           src={`/users/${panelData.id}.jpg`}
-                          width={60}
-                          height={60}
+                          alt="@shadcn"
                         />
-                      </div>
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+
                       <div>
                         <div className="flex gap-4 items-center">
                           <div className="text-gray-700 font-[500]">
-                            {panelData.name}
+                            <strong>{panelData.name}</strong>
                           </div>
-                          <div className="flex gap-2 items-center justify-center bg-[#eee] px-4 rounded-full text-gray-500">
+                          <div className="flex gap-2 items-center justify-center bg-[#eee] px-4 py-1 rounded-full text-gray-500">
                             <div className="bg-[#5A925F] h-[10px] w-[10px] rounded-full"></div>
                             <div className="flex">
                               {"Last Activity: " + "2 days ago"}
@@ -85,8 +111,8 @@ const UserInfoPanel = () => {
                             <TfiEmail />
                             <div>{panelData.email}</div>
                           </div>
-                          <div className="bg-gray-700 h-[5px] w-[5px] rounded-full"></div>
-                          <div className="flex gap-2 items-center text-[10px]">
+                          {/* <div className="bg-gray-700 h-[5px] w-[5px] rounded-full"></div> */}
+                          <div className="flex gap-2 items-center text-[12px]">
                             <PiPhoneLight className="text-[16px] lg:text-[20px]" />
                             <div>{panelData.contact}</div>
                           </div>
@@ -94,24 +120,24 @@ const UserInfoPanel = () => {
                       </div>
                     </div>
                     <div className="flex text-gray-700 items-center justify-center gap-2">
-                      <div className="flex items-center justify-center p-2 border-[1px] border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
+                      <div className="hidden sm:flex items-center justify-center p-2 border border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
                         <PiPhoneLight />
                       </div>
-                      <div className="flex items-center justify-center p-2 border-[1px] border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
+                      <div className="hidden sm:flex items-center justify-center p-2 border border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
                         <TfiEmail />
                       </div>
-                      <div className="flex items-center justify-center p-2 border-[1px] border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
+                      <div className="hidden sm:flex items-center justify-center p-2 border border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
                         <VscSend />
                       </div>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <div className="flex items-center justify-center p-2 border-[1px] border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
+                          <div className="items-center justify-center p-2 border border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
                             <RxDotsHorizontal />
                           </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem className="cursor-pointer">
-                            <VscBell size={16} className="mr-2" /> Notification{" "}
+                            <VscBell size={16} className="mr-2" /> Notification
                             <Switch
                               onChange={handleSwitchChange}
                               checked={isChecked}
@@ -122,18 +148,22 @@ const UserInfoPanel = () => {
                               className="ml-2"
                             />
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer">
+                          <DropdownMenuItem className="cursor-pointer sm:hidden">
+                            <PiPhoneLight size={16} className="mr-2" /> Call
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="cursor-pointer sm:hidden">
                             <CiEdit size={16} className="mr-2" /> Edit
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer">
-                            <MdDeleteOutline size={16} className="mr-2" />{" "}
+                          <DropdownMenuItem className="cursor-pointer sm:hidden">
+                            <MdDeleteOutline size={16} className="mr-2" />
                             Delete
                           </DropdownMenuItem>
-                        </DropdownMenuContent>{" "}
+                        </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
                   </div>
                   {/* bottom part */}
+
                   <div className="flex">
                     <div className="flex items-center justify-center w-full flex-col border-[1px] border-t-0 p-4 gap-1">
                       <div className="text-sm text-gray-500">Lead Owner</div>
@@ -201,16 +231,14 @@ const UserInfoPanel = () => {
                     key={activity.id}
                     className="mx-10 border-[1px] border-gray-300"
                   >
-                    <div className="flex p-4">
-                      <div className="rounded-full mr-3">
-                        <Image
-                          className="rounded-full"
-                          alt="profile"
-                          src={`/users/${panelData.id}.jpg`}
-                          width={40}
-                          height={40}
+                    <div className="flex p-4 gap-3">
+                      <Avatar className="mb-5">
+                        <AvatarImage
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
                         />
-                      </div>
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
                       <div>
                         <div className="font-[500] text-gray-600">
                           Prepare quote for Jenny Wilson
@@ -227,45 +255,109 @@ const UserInfoPanel = () => {
                         <div className="text-sm font-[500] text-gray-600">
                           Reminder
                         </div>
-                        <div className="flex gap-2 items-center text-sm">
-                          <div>{activity.remainder}</div>
+                        <div
+                          className="flex text-center gap-2 items-center text-sm cursor-pointer"
+                          onClick={toggleReminderDropdown}
+                        >
+                          <div>{reminder}</div>
                           <GoTriangleDown size={12} />
                         </div>
+                        {reminderOpen && (
+                          <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                            <div
+                              className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                              onClick={() => handleReminderSelect("Reminder")}
+                            >
+                              Reminder
+                            </div>
+                            <div
+                              className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                              onClick={() =>
+                                handleReminderSelect("No Reminder")
+                              }
+                            >
+                              No Reminder
+                            </div>
+                          </div>
+                        )}
                       </div>
+
                       <div className="flex flex-col p-4 w-full border-r-[1px] border-gray-300 gap-2">
                         <div className="text-sm font-[500] text-gray-600">
                           Task Priority
                         </div>
-                        <div className="flex  gap-2 text-sm items-center cursor-pointer">
-                          <div
-                            className={clsx(
-                              "h-[20px] w-[20px] rounded-full",
-                              activity.task_priority === "High"
-                                ? "bg-[#C46660]"
-                                : activity.task_priority === "Med"
-                                ? "bg-[#f2912f]"
-                                : "bg-[#66c460]"
-                            )}
-                          ></div>
-                          <div>{activity.task_priority}</div>
+                        <div
+                          className="flex gap-2 items-center text-sm cursor-pointer"
+                          onClick={toggleTaskPriorityDropdown}
+                        >
+                          {/* <div>{taskPriority}</div> */}
+                          {taskPriority === "High" ? (
+                            <div className="flex items-center">
+                              <span className="inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
+                              High
+                            </div>
+                          ) : taskPriority === "Low" ? (
+                            <div className="flex items-center">
+                              <span className="inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
+                              Low
+                            </div>
+                          ) : (
+                            <div>{taskPriority}</div>
+                          )}
                           <GoTriangleDown size={12} />
                         </div>
+                        {taskPriorityOpen && (
+                          <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                            <div
+                              className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                              onClick={() => handleTaskPrioritySelect("High")}
+                            >
+                              <span className="flex items-center">
+                                <span className="inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
+                                High
+                              </span>
+                            </div>
+                            <div
+                              className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                              onClick={() => handleTaskPrioritySelect("Low")}
+                            >
+                              <span className="flex items-center">
+                                <span className="inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
+                                Low
+                              </span>
+                            </div>
+                          </div>
+                        )}
                       </div>
                       <div className="flex flex-col p-4 w-full gap-2">
                         <div className="text-sm font-[500] text-gray-600">
                           Assigned to
                         </div>
-                        <div className="flex items-center gap-2 cursor-pointer">
-                          <Image
-                            className="rounded-full"
-                            alt="profile"
-                            src={"/users/dp.jpg"}
-                            width={24}
-                            height={24}
-                          />
-                          <div>{activity.assigned_to}</div>
+                        <div
+                          className="flex gap-2 items-center text-sm cursor-pointer"
+                          onClick={toggleAssignedToDropdown}
+                        >
+                          <div>{assignedTo}</div>
                           <GoTriangleDown size={12} />
                         </div>
+                        {assignedToOpen && (
+                          <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                            <div
+                              className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                              onClick={() =>
+                                handleAssignedToSelect("Lucy Headwood")
+                              }
+                            >
+                              Lucy Headwood
+                            </div>
+                            <div
+                              className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                              onClick={() => handleAssignedToSelect("Admin")}
+                            >
+                              Admin
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

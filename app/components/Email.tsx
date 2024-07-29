@@ -157,7 +157,7 @@ const Email = ({ onClose }: { onClose: () => void }) => {
             className="flex-1 w-full h-full border-none outline-none text-gray-700 p-2 resize-none"
           />
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center pb-2">
           <div>
             <div {...getRootProps()} className="cursor-pointer">
               <input {...getInputProps()} />
