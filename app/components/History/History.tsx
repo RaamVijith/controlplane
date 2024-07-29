@@ -7,12 +7,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { CommonTable } from "@/components/data-table";
+import { CommonTable } from "@/components/HistoryTable/data-table";
 import axios from "axios";
 import {
   HistoryTable,
   columns,
-} from "../content/comps/Table/HistoryColumnTable";
+} from "../../../components/HistoryTable/HistoryColumnTable";
 interface AddHistoryDialogProps {
   trigger: React.ReactNode;
 }

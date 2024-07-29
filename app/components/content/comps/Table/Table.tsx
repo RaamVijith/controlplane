@@ -57,6 +57,7 @@ import { BiTransfer } from "react-icons/bi";
 import ConvertContact from "../UserInfoPanel/ConvertContact";
 import Email from "@/app/components/Email";
 import History from "@/app/components/History/History";
+import Delete from "@/app/components/Delete";
 
 const data: Users[] = UsersData;
 
@@ -436,9 +437,21 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                     }
                   />
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  <RiDeleteBin5Line className="mr-2 text-red-500" size={20} />{" "}
-                  Delete
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={handleMenuItemClick}
+                >
+                  <Delete
+                    trigger={
+                      <span className="flex items-center justify-center">
+                        <RiDeleteBin5Line
+                          className="mr-2 text-red-500"
+                          size={20}
+                        />{" "}
+                        Delete
+                      </span>
+                    }
+                  />
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="cursor-pointer">

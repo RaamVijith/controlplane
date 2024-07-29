@@ -23,7 +23,7 @@ const Email = ({ onClose }: { onClose: () => void }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic
-    console.log({ to, cc, bcc, subject, message, attachments });
+    // console.log({ to, cc, bcc, subject, message, attachments });
   };
   // Calculate height based on CC and BCC visibility
   // Calculate height based on CC and BCC visibility
