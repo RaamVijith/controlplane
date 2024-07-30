@@ -13,7 +13,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 import Flag from "react-world-flags";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -47,7 +46,6 @@ import UsersData from "@/public/data/users";
 import { usePanel } from "../UserInfoPanel/UserPanelContext";
 import { getCountryCode } from "@/public/data/countryCode";
 import { FaAngleDown } from "react-icons/fa";
-import { FillButton } from "@/app/components/libs/buttons";
 import AddContactDialog from "../UserInfoPanel/AddContact";
 import AddData from "../NodataComponent/AddData";
 import { CiEdit } from "react-icons/ci";
@@ -58,6 +56,7 @@ import ConvertContact from "../UserInfoPanel/ConvertContact";
 import Email from "@/app/components/Email";
 import History from "@/app/components/History/History";
 import Delete from "@/app/components/Delete";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const data: Users[] = UsersData;
 
@@ -101,9 +100,6 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
   const { setPanelVisible, setPanelData, setExtendedUserInfoPanelVisible } =
     usePanel();
 
-  const [isConvertContactDialog, setIsConvertContactDialog] =
-    React.useState(false);
-
   const handleMenuItemClick = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
@@ -113,59 +109,84 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
       accessorKey: "name",
       header: ({ table, column }) => {
         return (
-          <div className="flex gap-2 items-center">
-            {/* <Checkbox
-              checked={
-                table.getIsAllPageRowsSelected() ||
-                (table.getIsSomePageRowsSelected() && 'indeterminate')
-              }
-              onCheckedChange={(value) =>
-                table.toggleAllPageRowsSelected(!!value)
-              }
-              aria-label="Select all"
-            /> */}
-            <div
-              className="flex items-center gap-2 cursor-pointer select-none"
-              onClick={() =>
-                column.toggleSorting(column.getIsSorted() === "asc")
-              }
-            >
-              Name
-              <RiExpandUpDownLine />
-            </div>
-          </div>
+          //<Checkbox
+          //   checked={
+          //     table.getIsAllPageRowsSelected() ||
+          //     (table.getIsSomePageRowsSelected() && 'indeterminate')
+          //   }
+          //   onCheckedChange={(value) =>
+          //     table.toggleAllPageRowsSelected(!!value)
+          //   }
+          //   aria-label="Select all"
+          // />
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() =>
+          //     column.toggleSorting(column.getIsSorted() === "asc")
+          //   }
+          // >
+          //   Name
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Name
+            <RiExpandUpDownLine />
+          </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="flex gap-2 items-center">
-          <Checkbox
-            className="border-gray-300"
-            checked={row.getIsSelected()}
-            onCheckedChange={(value) => row.toggleSelected(!!value)}
-            aria-label="Select row"
-          />
-          <Image
+      cell: ({ row }) => {
+        const name = row.getValue("name") as string;
+        const firstInitial = name.charAt(0).toUpperCase();
+        return (
+          <div className="flex gap-2 items-center">
+            <Checkbox
+              className="border-gray-300"
+              checked={row.getIsSelected()}
+              onCheckedChange={(value) => row.toggleSelected(!!value)}
+              aria-label="Select row"
+            />
+            {/* <Image
             className="rounded-full transition-all group-hover:scale-110"
             alt="profile"
             src={`/users/${row.getValue("id")}.jpg`}
             width={24}
             height={24}
-          />
-          <div className="capitalize">{row.getValue("name") + ""}</div>
-        </div>
-      ),
+          /> */}
+            <Avatar className="w-5 h-5">
+              <AvatarImage
+                src={`/users/${row.getValue("id")}.jpg`}
+                alt="@shadcn"
+              />
+              <AvatarFallback>{firstInitial}</AvatarFallback>
+            </Avatar>
+            <div className="capitalize text-sm">{name}</div>
+          </div>
+        );
+      },
     },
     {
       accessorKey: "email",
       header: ({ column }) => {
         return (
-          <div
-            className="flex items-center gap-2 cursor-pointer select-none"
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   Email
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Email
             <RiExpandUpDownLine />
-          </div>
+          </Button>
         );
       },
       cell: ({ row }) => (
@@ -179,13 +200,21 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
       accessorKey: "contact",
       header: ({ column }) => {
         return (
-          <div
-            className="flex items-center gap-2 cursor-pointer select-none"
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   <div>Phone</div>
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            <div>Phone</div>
+            Phone
             <RiExpandUpDownLine />
-          </div>
+          </Button>
         );
       },
       // This code for extension separation
@@ -223,13 +252,21 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
         //     </div>
         //   );
         // },
-        <div
-          className="flex items-center gap-2 cursor-pointer select-none"
+        // <div
+        //   className="flex items-center gap-2 cursor-pointer select-none"
+        //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        // >
+        //   Category
+        //   <RiExpandUpDownLine />
+        // </div>
+        <Button
+          className="p-[1px] text-sm"
+          variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Category
           <RiExpandUpDownLine />
-        </div>
+        </Button>
       ),
 
       cell: ({ row }) => (
@@ -251,13 +288,21 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
       accessorKey: "country",
       header: ({ column }) => {
         return (
-          <div
-            className="flex items-center gap-2 cursor-pointer select-none"
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   Country
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Country
             <RiExpandUpDownLine />
-          </div>
+          </Button>
         );
       },
 
@@ -276,13 +321,21 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
       accessorKey: "company",
       header: ({ column }) => {
         return (
-          <div
-            className="flex items-center gap-2 cursor-pointer select-none"
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   Company
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Company
             <RiExpandUpDownLine />
-          </div>
+          </Button>
         );
       },
 
@@ -303,13 +356,21 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
       accessorKey: "location",
       header: ({ column }) => {
         return (
-          <div
-            className="flex items-center gap-2 cursor-pointer select-none"
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   <div>Location</div>
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            <div>Location</div>
+            Location
             <RiExpandUpDownLine />
-          </div>
+          </Button>
         );
       },
       cell: ({ row }) => (
@@ -323,13 +384,21 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
       accessorKey: "gender",
       header: ({ column }) => {
         return (
-          <div
-            className="flex items-center gap-2 cursor-pointer select-none"
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   <div>Gender</div>
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            <div>Gender</div>
+            Gender
             <RiExpandUpDownLine />
-          </div>
+          </Button>
         );
       },
       cell: ({ row }) => (
@@ -345,15 +414,15 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
     },
     {
       accessorKey: "id",
-      header: () => <div className="text">Action</div>,
+      header: () => <div className="text cursor-default">Action</div>,
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("amount"));
+        // const amount = parseFloat(row.getValue("amount"));
 
-        // Format the amount as a dollar amount
-        const formatted = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(amount);
+        // // Format the amount as a dollar amount
+        // const formatted = new Intl.NumberFormat("en-US", {
+        //   style: "currency",
+        //   currency: "USD",
+        // }).format(amount);
 
         return (
           <div className="flex gap-2 items-center text-right font-medium">
