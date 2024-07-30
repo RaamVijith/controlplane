@@ -54,8 +54,8 @@ const ExtendedUserInfoPanel = () => {
             {/* <div className="w-[56.5em] md:w-full"> */}
             {/* Top header */}
             <div className="flex justify-between py-6 px-10 border-b-[1px] border-gray-300">
-              <div className="flex gap-2 items-center justify-center text-[#1D62B4] font-[500]">
-                <FaArrowCircleRight size={24} />
+              <div className="flex gap-2 items-center justify-center font-[500]">
+                <FaArrowCircleRight size={24} className="text-[#3f76ff]" />
               </div>
               <div className=" flex cursor-pointer items-center justify-center text-xs font-semibold text-gray-500 px-2 rounded-sm outline outline-[1px] outline-gray-300 hover:bg-[#1D62B4] hover:text-white">
                 View contact details
@@ -85,7 +85,7 @@ const ExtendedUserInfoPanel = () => {
           </span>
         </Badge> */}
                   <div className="flex gap-2 items-center justify-center bg-[#eee] px-4 mb-5 rounded-full text-gray-500">
-                    <div className="bg-[#5A925F] h-[10px] w-[10px] rounded-full"></div>
+                    <div className="bg-[#5A925F] h-[8px] w-[8px] rounded-full"></div>
                     <div className="flex">
                       {"Last Activity: " + "2 days ago"}
                     </div>

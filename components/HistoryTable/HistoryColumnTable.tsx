@@ -40,7 +40,7 @@ export const columns: ColumnDef<HistoryTable>[] = [
           className="flex items-center gap-2 cursor-pointer select-none"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Object Server
+          Object Name
           <RiExpandUpDownLine className="ml-2 h-4 w-4" />
         </div>
       );

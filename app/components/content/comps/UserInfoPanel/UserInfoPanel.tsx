@@ -73,7 +73,7 @@ const UserInfoPanel = () => {
               <div className="flex justify-between py-4 px-10 border-b-[1px] border-gray-300">
                 <div className="flex gap-2 items-center justify-center text-[#1D62B4] font-[500]">
                   <LuArrowRightFromLine />
-                  <div className="cursor-default text-sm">Lead Preview</div>
+                  <div className="cursor-default text-sm">Customer View</div>
                 </div>
                 <div className=" flex cursor-pointer items-center justify-center text-xs font-semibold text-gray-500 px-2 rounded-sm outline outline-[1px] outline-gray-300 hover:bg-[#1D62B4] hover:text-white">
                   View full details
@@ -81,10 +81,10 @@ const UserInfoPanel = () => {
               </div>
 
               {/* user info box */}
-              <div className="flex flex-col px-10 py-8 gap-10 border-b-[1px] border-gray-300 text-xs 2xl:text-sm">
-                <div className=" border border-green-300">
+              <div className="flex flex-col px-10 py-8 gap-10 border-b-[1px] border-slate-300 text-xs 2xl:text-sm">
+                <div className=" border border-slate-300">
                   {/* top part */}
-                  <div className="flex justify-between border-[1px] border-blue-600 p-4 text-xs">
+                  <div className="flex justify-between border-b-[1px] border-slate-300 p-4 text-xs">
                     <div className="flex gap-2 items-center">
                       <Avatar>
                         <AvatarImage
@@ -152,10 +152,19 @@ const UserInfoPanel = () => {
                             <PiPhoneLight size={16} className="mr-2" /> Call
                           </DropdownMenuItem>
                           <DropdownMenuItem className="cursor-pointer sm:hidden">
-                            <CiEdit size={16} className="mr-2" /> Edit
+                            <TfiEmail size={16} className="mr-2" /> Email
                           </DropdownMenuItem>
                           <DropdownMenuItem className="cursor-pointer sm:hidden">
-                            <MdDeleteOutline size={16} className="mr-2" />
+                            <VscSend size={16} className="mr-2" /> Send
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="cursor-pointer">
+                            <CiEdit size={16} className="mr-2" /> Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="cursor-pointer">
+                            <MdDeleteOutline
+                              size={16}
+                              className="mr-2 text-red-600"
+                            />
                             Delete
                           </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -165,19 +174,19 @@ const UserInfoPanel = () => {
                   {/* bottom part */}
 
                   <div className="flex">
-                    <div className="flex items-center justify-center w-full flex-col border-[1px] border-t-0 p-4 gap-1">
+                    <div className="flex items-center justify-center w-full flex-col border-r-[1px] border-t-0 p-4 gap-1">
                       <div className="text-sm text-gray-500">Lead Owner</div>
                       <div className="text-sm">{panelData.name}</div>
                     </div>
-                    <div className="flex items-center justify-center w-full flex-col border-[1px] border-t-0 p-4 gap-1">
+                    <div className="flex items-center justify-center w-full flex-col border-r-[1px] border-t-0 p-4 gap-1">
                       <div className="text-sm text-gray-500">Company</div>
                       <div className="text-sm">{panelData.name}</div>
                     </div>
-                    <div className="flex items-center justify-center w-full flex-col border-[1px] border-t-0 p-4 gap-1">
+                    <div className="flex items-center justify-center w-full flex-col border-r-[1px] border-t-0 p-4 gap-1">
                       <div className="text-sm text-gray-500">Job Title</div>
                       <div className="text-sm">{panelData.job_title}</div>
                     </div>
-                    <div className="flex items-center justify-center w-full flex-col border-[1px] border-t-0 p-4 gap-1">
+                    <div className="flex items-center justify-center w-full flex-col border-t-0 p-4 gap-1">
                       <div className="text-sm text-gray-500">
                         Annual revenue
                       </div>

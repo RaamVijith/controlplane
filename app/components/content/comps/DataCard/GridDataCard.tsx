@@ -30,6 +30,12 @@ import { GrContactInfo } from "react-icons/gr";
 import { BiTransfer } from "react-icons/bi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { IoMailOpenOutline } from "react-icons/io5";
+import AddContactDialog from "../UserInfoPanel/AddContact";
+import ConvertContact from "../UserInfoPanel/ConvertContact";
+import History from "@/app/components/History/History";
+import Delete from "@/app/components/Delete";
+import { useState } from "react";
+import Email from "@/app/components/Email";
 // import { User } from "@/public/data/users";
 
 type Activity = {
@@ -67,7 +73,21 @@ type GridCardProps = {
   users: User[];
 };
 const GridCard: React.FC<GridCardProps> = ({ users }) => {
-  const { setPanelVisible, setPanelData } = usePanel();
+  const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
+  const { setPanelVisible, setPanelData, setExtendedUserInfoPanelVisible } =
+    usePanel();
+
+  const handleAddCategoryClick = () => {
+    setIsCardOpen(true);
+  };
+
+  const handleCloseCard = () => {
+    setIsCardOpen(false);
+  };
+  const handleMenuItemClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
   return (
     <>
       {users.length > 0 ? (
@@ -116,8 +136,19 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
 
                     <DropdownMenuContent align="end">
                       {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-                      <DropdownMenuItem className="cursor-pointer">
-                        <CiEdit className="mr-2" size={20} /> Edit
+                      <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={handleMenuItemClick}
+                      >
+                        <AddContactDialog
+                          mode="edit"
+                          trigger={
+                            <span className="flex items-center justify-center">
+                              <CiEdit className="mr-2 text-black" size={20} />{" "}
+                              Edit
+                            </span>
+                          }
+                        />
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => {
@@ -127,41 +158,85 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
 
                           setPanelData(tmp_data);
                           setPanelVisible(true);
+                          setExtendedUserInfoPanelVisible(false);
                         }}
                         className="cursor-pointer"
                       >
                         <GrContactInfo className="mr-2" size={20} /> Contact
                         View
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer">
+                      <DropdownMenuItem
+                        onClick={() => {
+                          const tmp_data = UsersData.find(
+                            (item) => item.id === user.id
+                          );
+
+                          setPanelData(tmp_data);
+                          setPanelVisible(false);
+                          setExtendedUserInfoPanelVisible(true);
+                        }}
+                        className="cursor-pointer"
+                      >
                         <GrContactInfo className="mr-2" size={20} /> Contact
                         Full View
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer">
-                        <BiTransfer className="mr-2" size={20} /> Convert
-                        Contact
+                      <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={handleMenuItemClick}
+                      >
+                        <ConvertContact
+                          trigger={
+                            <span className="flex items-center justify-center">
+                              <BiTransfer className="mr-2" size={20} />
+                              Convert Contact
+                            </span>
+                          }
+                        />
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer">
-                        <MdOutlineHistory className="mr-2" size={20} /> History
+                      <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={handleMenuItemClick}
+                      >
+                        <History
+                          trigger={
+                            <span className="flex items-center justify-center">
+                              <MdOutlineHistory className="mr-2" size={20} />{" "}
+                              History
+                            </span>
+                          }
+                        />
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer">
-                        <RiDeleteBin5Line
-                          className="mr-2 text-red-500"
-                          size={20}
-                        />{" "}
-                        Delete
+                      <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={handleMenuItemClick}
+                      >
+                        <Delete
+                          trigger={
+                            <span className="flex items-center justify-center">
+                              <RiDeleteBin5Line
+                                className="mr-2 text-red-500"
+                                size={20}
+                              />
+                              Delete
+                            </span>
+                          }
+                        />
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem className="cursor-pointer">
                         <PiPhoneLight className="mr-2" size={20} /> Call
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="cursor-pointer">
+                      <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={handleAddCategoryClick}
+                      >
                         <IoMailOpenOutline className="mr-2" size={20} /> Mail
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-                <div className="flex items-center ">
+                {isCardOpen && <Email onClose={handleCloseCard} />}
+                <div className="flex items-center">
                   <p
                     className={clsx(
                       "mt-1 p-1 cursor-default rounded-md text-sm",

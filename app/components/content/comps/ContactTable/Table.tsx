@@ -96,6 +96,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [isCardOpen, setIsCardOpen] = React.useState<boolean>(false);
 
   const { setPanelVisible, setPanelData, setExtendedUserInfoPanelVisible } =
     usePanel();
@@ -425,113 +426,121 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
         // }).format(amount);
 
         return (
-          <div className="flex gap-2 items-center text-right font-medium">
-            {/* <div className="items-center px-2 py-2 gap-2 border border-gray-300 rounded-md hover:bg-gray-300 cursor-pointer hidden md:flex">
+          <>
+            <div className="flex gap-2 items-center text-right font-medium">
+              {/* <div className="items-center px-2 py-2 gap-2 border border-gray-300 rounded-md hover:bg-gray-300 cursor-pointer hidden md:flex">
               <PiPhoneLight className="text-[16px] lg:text-[20px] hidden md:flex" />
             </div>
             <div className="items-center px-2 py-2 gap-2 border border-gray-300 rounded-md hover:bg-gray-300 cursor-pointer hidden md:flex">
               <IoMailOpenOutline className="text-[16px] lg:text-[20px] hidden md:flex" />
             </div> */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <div className="cursor-pointer rounded-full hover:bg-gray-200 h-8 w-8 p-0 flex items-center justify-center">
-                  <BsThreeDots className="h-4 w-4" />
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-                <DropdownMenuItem
-                  className="cursor-pointer"
-                  onClick={handleMenuItemClick}
-                >
-                  <AddContactDialog
-                    mode="edit"
-                    trigger={
-                      <span className="flex items-center justify-center">
-                        <CiEdit className="mr-2 text-black" size={20} /> Edit
-                      </span>
-                    }
-                  />
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    const tmp_data = UsersData.find(
-                      (item) => item.id === row.getValue("id")
-                    );
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div className="cursor-pointer rounded-full hover:bg-gray-200 h-8 w-8 p-0 flex items-center justify-center">
+                    <BsThreeDots className="h-4 w-4" />
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleMenuItemClick}
+                  >
+                    <AddContactDialog
+                      mode="edit"
+                      trigger={
+                        <span className="flex items-center justify-center">
+                          <CiEdit className="mr-2 text-black" size={20} /> Edit
+                        </span>
+                      }
+                    />
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      const tmp_data = UsersData.find(
+                        (item) => item.id === row.getValue("id")
+                      );
 
-                    setPanelData(tmp_data);
-                    setPanelVisible(true);
-                    setExtendedUserInfoPanelVisible(false);
-                  }}
-                  className="cursor-pointer"
-                >
-                  <GrContactInfo className="mr-2" size={20} /> Contact View
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    const tmp_data = UsersData.find(
-                      (item) => item.id === row.getValue("id")
-                    );
+                      setPanelData(tmp_data);
+                      setPanelVisible(true);
+                      setExtendedUserInfoPanelVisible(false);
+                    }}
+                    className="cursor-pointer"
+                  >
+                    <GrContactInfo className="mr-2" size={20} /> Contact View
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      const tmp_data = UsersData.find(
+                        (item) => item.id === row.getValue("id")
+                      );
 
-                    setPanelData(tmp_data);
-                    setExtendedUserInfoPanelVisible(true);
-                    setPanelVisible(false);
-                  }}
-                  className="cursor-pointer"
-                >
-                  <GrContactInfo className="mr-2" size={20} /> Contact Full View
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="cursor-pointer"
-                  onClick={handleMenuItemClick}
-                >
-                  <ConvertContact
-                    trigger={
-                      <span className="flex items-center justify-center">
-                        <BiTransfer className="mr-2" size={20} />
-                        Convert Contact
-                      </span>
-                    }
-                  />
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="cursor-pointer"
-                  onClick={handleMenuItemClick}
-                >
-                  <History
-                    trigger={
-                      <span className="flex items-center justify-center">
-                        <MdOutlineHistory className="mr-2" size={20} /> History
-                      </span>
-                    }
-                  />
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="cursor-pointer"
-                  onClick={handleMenuItemClick}
-                >
-                  <Delete
-                    trigger={
-                      <span className="flex items-center justify-center">
-                        <RiDeleteBin5Line
-                          className="mr-2 text-red-500"
-                          size={20}
-                        />{" "}
-                        Delete
-                      </span>
-                    }
-                  />
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer">
-                  <PiPhoneLight className="mr-2 " size={20} /> Call
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
-                  <IoMailOpenOutline className="mr-2 " size={20} /> Mail
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+                      setPanelData(tmp_data);
+                      setExtendedUserInfoPanelVisible(true);
+                      setPanelVisible(false);
+                    }}
+                    className="cursor-pointer"
+                  >
+                    <GrContactInfo className="mr-2" size={20} /> Contact Full
+                    View
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleMenuItemClick}
+                  >
+                    <ConvertContact
+                      trigger={
+                        <span className="flex items-center justify-center">
+                          <BiTransfer className="mr-2" size={20} />
+                          Convert Contact
+                        </span>
+                      }
+                    />
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleMenuItemClick}
+                  >
+                    <History
+                      trigger={
+                        <span className="flex items-center justify-center">
+                          <MdOutlineHistory className="mr-2" size={20} />{" "}
+                          History
+                        </span>
+                      }
+                    />
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleMenuItemClick}
+                  >
+                    <Delete
+                      trigger={
+                        <span className="flex items-center justify-center">
+                          <RiDeleteBin5Line
+                            className="mr-2 text-red-500"
+                            size={20}
+                          />{" "}
+                          Delete
+                        </span>
+                      }
+                    />
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="cursor-pointer">
+                    <PiPhoneLight className="mr-2 " size={20} /> Call
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleAddCategoryClick}
+                  >
+                    <IoMailOpenOutline className="mr-2 " size={20} /> Mail
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            {isCardOpen && <Email onClose={handleCloseCard} />}
+          </>
         );
       },
     },
@@ -582,6 +591,13 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
     );
   }
 
+  const handleAddCategoryClick = () => {
+    setIsCardOpen(true);
+  };
+
+  const handleCloseCard = () => {
+    setIsCardOpen(false);
+  };
   return (
     <div className="w-full py-4 px-8">
       {table.getRowModel().rows?.length ? (

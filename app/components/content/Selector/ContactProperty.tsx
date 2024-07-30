@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdOutlineCheck } from "react-icons/md"; // Import your icons here
 import { IoChevronDownSharp } from "react-icons/io5";
-
+import { FaXmark } from "react-icons/fa6";
 const ContactProperty = () => {
   const options = [
     // box1
@@ -93,7 +93,7 @@ const ContactProperty = () => {
       {/* Box 1 */}
       <div className="relative flex-grow">
         <div
-          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full ${
+          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full text-sm ${
             dropdown1SelectedOption === "Existing"
               ? "bg-[#ffccd5] text-[#e03f44]"
               : "bg-[#1D62B440] text-[#1D62B4]"
@@ -121,11 +121,27 @@ const ContactProperty = () => {
 
       {/* Box 2 */}
       <div className="relative flex-grow">
-        <div
+        {/* <div
           className="flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
           onClick={toggleDropdown2}
         >
           <MdOutlineCheck />
+          <div>{dropdown2SelectedOption || "Contacted"}</div>
+          <IoChevronDownSharp />
+        </div> */}
+        <div
+          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full text-sm ${
+            dropdown2SelectedOption === "Not Contacted"
+              ? "bg-[#ffccd5] text-[#e03f44]"
+              : "bg-[#1D62B440] text-[#1D62B4]"
+          }`}
+          onClick={toggleDropdown2}
+        >
+          {dropdown2SelectedOption === "Not Contacted" ? (
+            <FaXmark />
+          ) : (
+            <MdOutlineCheck />
+          )}
           <div>{dropdown2SelectedOption || "Contacted"}</div>
           <IoChevronDownSharp />
         </div>
@@ -146,11 +162,27 @@ const ContactProperty = () => {
 
       {/* Box 3 */}
       <div className="relative flex-grow">
-        <div
+        {/* <div
           className="flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
           onClick={toggleDropdown3}
         >
           <MdOutlineCheck />
+          <div>{dropdown3SelectedOption || "Qualified"}</div>
+          <IoChevronDownSharp />
+        </div> */}
+        <div
+          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full text-sm ${
+            dropdown3SelectedOption === "Not Qualified"
+              ? "bg-[#ffccd5] text-[#e03f44]"
+              : "bg-[#1D62B440] text-[#1D62B4]"
+          }`}
+          onClick={toggleDropdown3}
+        >
+          {dropdown3SelectedOption === "Not Qualified" ? (
+            <FaXmark />
+          ) : (
+            <MdOutlineCheck />
+          )}
           <div>{dropdown3SelectedOption || "Qualified"}</div>
           <IoChevronDownSharp />
         </div>
@@ -171,11 +203,27 @@ const ContactProperty = () => {
 
       {/* Box 4 */}
       <div className="relative flex-grow">
-        <div
+        {/* <div
           className="flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
           onClick={toggleDropdown4}
         >
           <MdOutlineCheck />
+          <div>{dropdown4SelectedOption || "Negotiation"}</div>
+          <IoChevronDownSharp />
+        </div> */}
+        <div
+          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full text-sm ${
+            dropdown4SelectedOption === "Not Started"
+              ? "bg-[#ffccd5] text-[#e03f44]"
+              : "bg-[#1D62B440] text-[#1D62B4]"
+          }`}
+          onClick={toggleDropdown4}
+        >
+          {dropdown4SelectedOption === "Not Started" ? (
+            <FaXmark />
+          ) : (
+            <MdOutlineCheck />
+          )}
           <div>{dropdown4SelectedOption || "Negotiation"}</div>
           <IoChevronDownSharp />
         </div>
@@ -197,7 +245,7 @@ const ContactProperty = () => {
       {/* Box 5 */}
       <div className="relative flex-grow">
         <div
-          className="flex p-4 items-center border border-[#1D62B4] justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
+          className="flex p-4 items-center border border-[#1D62B4] justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4] text-sm "
           onClick={toggleDropdown5}
         >
           <MdOutlineCheck />

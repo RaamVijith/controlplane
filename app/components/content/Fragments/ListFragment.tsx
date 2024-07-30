@@ -43,7 +43,6 @@ type Users = {
 
 const ListFragment = () => {
   const [isSelected, setIsSelected] = useState<number>(1);
-  const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState("");
 
   // const usersheader = [
@@ -80,13 +79,6 @@ const ListFragment = () => {
 
   const handleNavClick = (id: number) => {
     setIsSelected(id);
-  };
-  const handleAddCategoryClick = () => {
-    setIsCardOpen(true);
-  };
-
-  const handleCloseCard = () => {
-    setIsCardOpen(false);
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,7 +140,7 @@ const ListFragment = () => {
               className="pl-10"
             />
           </div>
-          <InverseFillButton onClick={handleAddCategoryClick}>
+          <InverseFillButton>
             <IoAdd size={16} />
             <div className="text-sm">Add Categories</div>
           </InverseFillButton>
@@ -157,7 +149,6 @@ const ListFragment = () => {
       <div>
         <DataTable users={displayedUsers} />
       </div>
-      {isCardOpen && <Email onClose={handleCloseCard} />}
     </div>
   );
 };
