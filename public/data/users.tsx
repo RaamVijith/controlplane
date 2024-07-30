@@ -1382,7 +1382,7 @@ export const upcomingData = [
       " She interested in our new product and wants to negotiate the price. Please include our price listing and set up a call. She interested in our new product and wants to negotiate the price.",
     reminder: "not reminder",
     task: "high",
-    user: "im",
+    user: "",
   },
   {
     created: "Lucy Lockwood",

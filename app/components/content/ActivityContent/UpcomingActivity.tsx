@@ -6,8 +6,8 @@ import { FaTasks } from "react-icons/fa";
 import { GoTriangleDown } from "react-icons/go";
 import { RiCalendarScheduleLine } from "react-icons/ri";
 import UpcomingActivityCard from "../comps/DataCard/UpcomingCard";
-import { upcomingData } from "@/public/data/users";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { upcomingData } from "@/public/data/users";
 const UpcomingActivity = () => {
   const [isOpen, setIsOpen] = useState<number[]>([]);
 
@@ -64,7 +64,7 @@ const UpcomingActivity = () => {
             }`}
           >
             <div className="p-4 border-t">
-              <UpcomingActivityCard data={data} />
+              <UpcomingActivityCard data={upcomingData} />
             </div>
           </div>
         </div>

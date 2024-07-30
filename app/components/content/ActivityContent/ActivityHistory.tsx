@@ -11,6 +11,7 @@ const ActivityHistory = () => {
         <FaHistory />
         <p className="font-semibold">Activity History</p>
       </div>
+
       <UpcomingActivityCard data={upcomingData} />
     </div>
   );
