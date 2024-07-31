@@ -7,38 +7,35 @@ import { useDropzone } from "react-dropzone";
 import { RiAttachment2 } from "react-icons/ri";
 import { FillButton } from "./libs/buttons";
 import { IoSendSharp } from "react-icons/io5";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 const Email = ({ onClose }: { onClose: () => void }) => {
   const [showCC, setShowCC] = useState(false);
   const [showBCC, setShowBCC] = useState(false);
   const [attachments, setAttachments] = useState<File[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [value, setValue] = useState("");
-  const toolbarOptions = [
-    ["bold", "italic", "underline", "strike"], // toggled buttons
-    ["blockquote", "code-block"],
-    ["link", "image", "video", "formula"],
+  // const toolbarOptions = [
+  //   ["bold", "italic", "underline", "strike"],
+  //   ["blockquote", "code-block"],
+  //   ["link", "image", "video", "formula"],
 
-    [{ header: 1 }, { header: 2 }], // custom button values
-    [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
-    [{ script: "sub" }, { script: "super" }], // superscript/subscript
-    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-    [{ direction: "rtl" }], // text direction
+  //   [{ header: 1 }, { header: 2 }], // custom button values
+  //   [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+  //   [{ script: "sub" }, { script: "super" }],
+  //   [{ indent: "-1" }, { indent: "+1" }],
+  //   [{ direction: "rtl" }],
+  //   [{ size: ["small", false, "large", "huge"] }],
+  //   [{ header: [1, 2, 3, 4, 5, 6, false] }],
+  //   [{ color: [] }, { background: [] }],
+  //   [{ font: [] }],
+  //   [{ align: [] }],
+  //   ["clean"],
+  // ];
 
-    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-    [{ font: [] }],
-    [{ align: [] }],
-
-    ["clean"], // remove formatting button
-  ];
-
-  const richTextEditor = {
-    toolbar: toolbarOptions,
-  };
+  // const richTextEditor = {
+  //   toolbar: toolbarOptions,
+  // };
 
   const toggleCC = () => setShowCC(!showCC);
   const toggleBCC = () => setShowBCC(!showBCC);
@@ -189,7 +186,7 @@ const Email = ({ onClose }: { onClose: () => void }) => {
           className="flex flex-col border border-gray-300 mb-2 overflow-hidden"
           style={{ height: emailBodyBoxHeight }}
         >
-          <ReactQuill
+          {/* <ReactQuill
             modules={richTextEditor}
             theme="snow"
             value={value}
@@ -197,7 +194,7 @@ const Email = ({ onClose }: { onClose: () => void }) => {
             className="flex-1 overflow-y-auto"
             // className="flex-1 w-full h-fit border-none outline-none text-gray-700 resize-none"
             // className="flex-1 w-full h-full border-none outline-none text-gray-700 p-2 resize-none overflow-y-auto"
-          />
+          /> */}
           {/* <textarea className="flex-1 w-full h-full border-none outline-none text-gray-700 p-2 resize-none overflow-y-auto" /> */}
         </div>
         <div className="flex justify-between items-center pb-2">

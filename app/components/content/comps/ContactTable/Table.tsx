@@ -449,7 +449,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                     <AddContactDialog
                       mode="edit"
                       trigger={
-                        <span className="flex items-center justify-center">
+                        <span className="pl-2 gap-1 flex items-center justify-center">
                           <CiEdit className="mr-2 text-black" size={20} /> Edit
                         </span>
                       }
@@ -467,7 +467,9 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                     }}
                     className="cursor-pointer"
                   >
-                    <GrContactInfo className="mr-2" size={20} /> Contact View
+                    <span className="pl-2 gap-1 flex items-center justify-center">
+                      <GrContactInfo className="mr-2" size={20} /> Contact View
+                    </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => {
@@ -481,8 +483,10 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                     }}
                     className="cursor-pointer"
                   >
-                    <GrContactInfo className="mr-2" size={20} /> Contact Full
-                    View
+                    <span className="pl-2 gap-1 flex items-center justify-center">
+                      <GrContactInfo className="mr-2" size={20} /> Contact Full
+                      View
+                    </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="cursor-pointer"
@@ -490,7 +494,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                   >
                     <ConvertContact
                       trigger={
-                        <span className="flex items-center justify-center">
+                        <span className="pl-2 gap-1 flex items-center justify-center">
                           <BiTransfer className="mr-2" size={20} />
                           Convert Contact
                         </span>
@@ -503,7 +507,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                   >
                     <History
                       trigger={
-                        <span className="flex items-center justify-center">
+                        <span className="pl-2 gap-1 flex items-center justify-center">
                           <MdOutlineHistory className="mr-2" size={20} />{" "}
                           History
                         </span>
@@ -516,7 +520,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                   >
                     <Delete
                       trigger={
-                        <span className="flex items-center justify-center">
+                        <span className="pl-2 gap-1 flex items-center justify-center">
                           <RiDeleteBin5Line
                             className="mr-2 text-red-500"
                             size={20}
@@ -528,13 +532,17 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="cursor-pointer">
-                    <PiPhoneLight className="mr-2 " size={20} /> Call
+                    <span className="pl-2 gap-1 flex items-center justify-center">
+                      <PiPhoneLight className="mr-2 " size={20} /> Call
+                    </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="cursor-pointer"
                     onClick={handleAddCategoryClick}
                   >
-                    <IoMailOpenOutline className="mr-2 " size={20} /> Mail
+                    <span className="pl-2 gap-1 flex items-center justify-center">
+                      <IoMailOpenOutline className="mr-2 " size={20} /> Mail
+                    </span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
