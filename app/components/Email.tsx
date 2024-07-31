@@ -7,14 +7,38 @@ import { useDropzone } from "react-dropzone";
 import { RiAttachment2 } from "react-icons/ri";
 import { FillButton } from "./libs/buttons";
 import { IoSendSharp } from "react-icons/io5";
-import { Bold, Italic, Underline } from "lucide-react";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 const Email = ({ onClose }: { onClose: () => void }) => {
   const [showCC, setShowCC] = useState(false);
   const [showBCC, setShowBCC] = useState(false);
   const [attachments, setAttachments] = useState<File[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const contentEditableRef = useRef<HTMLDivElement>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [value, setValue] = useState("");
+  const toolbarOptions = [
+    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["blockquote", "code-block"],
+    ["link", "image", "video", "formula"],
+
+    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+    [{ script: "sub" }, { script: "super" }], // superscript/subscript
+    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+    [{ direction: "rtl" }], // text direction
+
+    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ["clean"], // remove formatting button
+  ];
+
+  const richTextEditor = {
+    toolbar: toolbarOptions,
+  };
 
   const toggleCC = () => setShowCC(!showCC);
   const toggleBCC = () => setShowBCC(!showBCC);
@@ -33,27 +57,36 @@ const Email = ({ onClose }: { onClose: () => void }) => {
   const emailBodyBoxHeight =
     showCC && showBCC ? "45%" : showCC || showBCC ? "55%" : "62%";
 
-  const toggleFormat = (format: string) => {
-    document.execCommand(format, false, "");
-  };
+  const toggleExpand = () => setIsExpanded(!isExpanded);
   return (
     <form onSubmit={handleSubmit}>
       {/* <div className="fixed bottom-4 right-4 bg-white shadow-lg rounded-md p-3 w-[90%] h-full  md:h-full md:w-[90%] lg:w-[750px] lg:h-[700px] xl:w-[750px] xl:h-[700px] md:bottom-0"> */}
-      <div
+      {/* <div
         className={`fixed bottom-4 right-4 bg-white shadow-sm rounded-md p-3 w-[90%] sm:h-[80%] md:w-[80%] lg:w-[800px] lg:h-[750px] xl:w-[800px] xl:h-[750px] ${
           showCC || showBCC ? "h-[90%]" : "h-[100%]"
         }`}
+      > */}
+      <div
+        className={`fixed bottom-4 right-4 bg-white shadow-sm rounded-md p-3 w-[90%] ${
+          isExpanded
+            ? "h-[95%] w-[95%]"
+            : "h-[80%] sm:h-[80%] md:w-[80%] lg:w-[800px] lg:h-[750px] xl:w-[800px] xl:h-[750px]"
+        } transition-all duration-300 ease-in-out`}
       >
         <div className="bg-blue-600 text-white rounded-t-md py-4">
           <div className="flex justify-between items-center px-2">
-            <h6 className="text-sm font-semibold">Create new email</h6>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justi fy-center gap-2">
               <button
-                onClick={onClose}
+                type="button"
+                onClick={toggleExpand}
                 className="text-white hover:text-gray-200"
               >
-                <FaExpandAlt size={12} />
+                <FaExpandAlt size={14} />
               </button>
+              <h6 className="text-sm font-semibold">Create new email</h6>
+            </div>
+
+            <div className="flex items-center gap-4">
               <button
                 onClick={onClose}
                 className="text-white hover:text-gray-200"
@@ -153,48 +186,19 @@ const Email = ({ onClose }: { onClose: () => void }) => {
 
         {/* Email Body Box */}
         <div
-          className={`flex flex-col border border-gray-300 mb-2 ${
-            showCC || showBCC ? "md:h-[90%]" : "md:h-[100%]"
-          }`}
+          className="flex flex-col border border-gray-300 mb-2 overflow-hidden"
           style={{ height: emailBodyBoxHeight }}
         >
-          {/* ToggleGroup for text formatting */}
-          <div className="flex justify-start items-center gap-2 p-2">
-            <ToggleGroup type="multiple">
-              <ToggleGroupItem
-                value="bold"
-                aria-label="Toggle bold"
-                onClick={() => toggleFormat("bold")}
-              >
-                <Bold className="h-4 w-4" />
-              </ToggleGroupItem>
-              <ToggleGroupItem
-                value="italic"
-                aria-label="Toggle italic"
-                onClick={() => toggleFormat("italic")}
-              >
-                <Italic className="h-4 w-4" />
-              </ToggleGroupItem>
-              <ToggleGroupItem
-                value="underline"
-                aria-label="Toggle underline"
-                onClick={() => toggleFormat("underline")}
-              >
-                <Underline className="h-4 w-4" />
-              </ToggleGroupItem>
-            </ToggleGroup>
-          </div>
-          <div
-            ref={contentEditableRef}
-            contentEditable
-            className="flex-1 w-full h-full border-none outline-none text-gray-700 p-2 resize-none overflow-y-auto"
-            onFocus={() => setIsEditing(true)}
-            onBlur={() => setIsEditing(false)}
-          >
-            {!isEditing && !contentEditableRef.current?.innerText && (
-              <span className="text-gray-400">Type your email here...</span>
-            )}
-          </div>
+          <ReactQuill
+            modules={richTextEditor}
+            theme="snow"
+            value={value}
+            onChange={setValue}
+            className="flex-1 overflow-y-auto"
+            // className="flex-1 w-full h-fit border-none outline-none text-gray-700 resize-none"
+            // className="flex-1 w-full h-full border-none outline-none text-gray-700 p-2 resize-none overflow-y-auto"
+          />
+          {/* <textarea className="flex-1 w-full h-full border-none outline-none text-gray-700 p-2 resize-none overflow-y-auto" /> */}
         </div>
         <div className="flex justify-between items-center pb-2">
           <div>
