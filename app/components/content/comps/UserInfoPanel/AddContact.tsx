@@ -443,7 +443,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
                 disabled={!selectedState}
               >
                 <SelectTrigger className="w-full relative">
-                  <FaMapMarkerAlt className="absolute left-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <CiLocationOn className="absolute left-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <span className={`ml-8 ${!selectedCity && "pl-3"}`}>
                     {selectedCity
                       ? cities.find((city) => city.name === selectedCity)?.name
