@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import * as Dialog from "@radix-ui/react-dialog";
 import {
   Dialog,
   DialogClose,
@@ -42,9 +41,25 @@ import FlagSelector from "../../Selector/FlagSelector";
 
 interface AddContactDialogProps {
   trigger: React.ReactNode;
+  mode: "add" | "edit";
+  contactData?: {
+    firstName: string;
+    lastName: string;
+    category: string;
+    email: string;
+    company: string;
+    birthDate: Date;
+    gender: string;
+    country: string;
+    occupation: string;
+    mode: string;
+  };
 }
-
-const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
+const AddContactDialog: React.FC<AddContactDialogProps> = ({
+  trigger,
+  mode,
+  contactData,
+}) => {
   const [date, setDate] = useState<Date>();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [phone, setPhone] = useState<string>("");
@@ -66,12 +81,16 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
 
   const Selection = [
     {
-      value: "family",
-      name: "Family",
+      value: "employee",
+      name: "Employee",
     },
     {
-      value: "friend",
-      name: "Friend",
+      value: "partners",
+      name: "Partners",
+    },
+    {
+      value: "partners",
+      name: "Partners",
     },
   ];
 
@@ -82,7 +101,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
       {/* <Dialog.Overlay className="bg-black bg-opacity-50 fixed inset-0" /> */}
       <DialogContent className="fixed bg-white p-4 rounded-md shadow-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[650px]">
         <DialogTitle className="text-lg font-medium">
-          Create New Contact
+          {mode === "add" ? "Create New Contact" : "Update Contact"}
         </DialogTitle>
         <hr className="my-2" />
         <DialogDescription className="mt-2 mb-4 text-sm text-gray-500">
@@ -128,6 +147,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
                   id="firstName"
                   placeholder="Enter first name here"
                   name="firstName"
+                  defaultValue={contactData?.firstName || ""}
                 />
               </div>
               <div className="w-full md:w-1/2">
@@ -142,6 +162,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
                   id="lastName"
                   placeholder="Enter last name here"
                   name="firstName"
+                  defaultValue={contactData?.lastName || ""}
                 />
               </div>
             </div>
@@ -154,7 +175,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
                   Contact Categories
                 </label>
 
-                <Select>
+                <Select defaultValue={contactData?.category || ""}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select Category" />
                   </SelectTrigger>
@@ -182,6 +203,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
                   id="email"
                   placeholder="Enter email here"
                   name="email"
+                  defaultValue={contactData?.email || ""}
                 />
               </div>
             </div>
@@ -215,6 +237,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
                   id="company"
                   placeholder="Enter company name here"
                   name="company"
+                  defaultValue={contactData?.company || ""}
                 />
               </div>
             </div>
@@ -262,6 +285,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
                   id="occupation"
                   placeholder="Enter occupation here"
                   name="occupation"
+                  defaultValue={contactData?.occupation || ""}
                 />
               </div>
             </div>
@@ -272,7 +296,10 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
               >
                 Gender
               </label>
-              <RadioGroup defaultValue="male" className="flex space-x-4">
+              <RadioGroup
+                defaultValue={contactData?.gender || "male"}
+                className="flex space-x-4"
+              >
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="male" id="r1" />
                   <label htmlFor="r1">Male</label>
@@ -338,7 +365,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({ trigger }) => {
             </button>
           </DialogClose>
           <button className="px-4 py-2 bg-black text-white rounded-md w-full md:w-1/2">
-            Save
+            {mode === "add" ? "Save" : "Update"}
           </button>
         </div>
       </DialogContent>

@@ -66,117 +66,113 @@ const UpcomingActivityCard: React.FC<UpcomingActivityCardProps> = ({
             </div>
           </div>
           <div className="flex m-4">
-            {activity.reminder && (
-              <div className="flex flex-col p-4 w-full border-[1px] border-gray-300 gap-2">
-                <div className="text-sm font-[500] text-gray-600">Reminder</div>
+            <div className="flex flex-col p-4 w-full border-[1px] border-gray-300 gap-2">
+              <div className="text-sm font-[500] text-gray-600">Reminder</div>
 
-                <div
-                  className="flex text-center gap-2 items-center text-sm cursor-pointer"
-                  onClick={toggleReminderDropdown}
-                >
-                  <div>{reminder}</div>
-                  <GoTriangleDown size={12} />
-                </div>
-                {reminderOpen && (
-                  <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
-                    <div
-                      className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
-                      onClick={() => handleReminderSelect("Reminder")}
-                    >
-                      Reminder
-                    </div>
-                    <div
-                      className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
-                      onClick={() => handleReminderSelect("No Reminder")}
-                    >
-                      No Reminder
-                    </div>
-                  </div>
-                )}
+              <div
+                className="flex text-center gap-2 items-center text-sm cursor-pointer"
+                onClick={toggleReminderDropdown}
+              >
+                <div>{reminder}</div>
+                <GoTriangleDown size={12} />
               </div>
-            )}
-            {activity.task && (
-              <div className="flex flex-col p-4 w-full border-[1px] md:border-[1px] border-gray-300 gap-2">
-                <div className="text-sm font-[500] text-gray-600">
-                  Task Priority
+              {reminderOpen && (
+                <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                  <div
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                    onClick={() => handleReminderSelect("Reminder")}
+                  >
+                    Reminder
+                  </div>
+                  <div
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                    onClick={() => handleReminderSelect("No Reminder")}
+                  >
+                    No Reminder
+                  </div>
                 </div>
+              )}
+            </div>
 
-                <div
-                  className="flex gap-2 items-center text-sm cursor-pointer"
-                  onClick={toggleTaskPriorityDropdown}
-                >
-                  {/* <div>{taskPriority}</div> */}
-                  {taskPriority === "High" ? (
-                    <div className="flex items-center">
-                      <span className="inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
+            <div className="flex flex-col p-4 w-full border-[1px] md:border-[1px] border-gray-300 gap-2">
+              <div className="text-sm font-[500] text-gray-600">
+                Task Priority
+              </div>
+
+              <div
+                className="flex gap-2 items-center text-sm cursor-pointer"
+                onClick={toggleTaskPriorityDropdown}
+              >
+                {/* <div>{taskPriority}</div> */}
+                {taskPriority === "High" ? (
+                  <div className="flex items-center">
+                    <span className="inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
+                    High
+                  </div>
+                ) : taskPriority === "Low" ? (
+                  <div className="flex items-center">
+                    <span className="inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
+                    Low
+                  </div>
+                ) : (
+                  <div>{taskPriority}</div>
+                )}
+                <GoTriangleDown size={12} />
+              </div>
+              {taskPriorityOpen && (
+                <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                  <div
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                    onClick={() => handleTaskPrioritySelect("High")}
+                  >
+                    <span className=" flex items-center">
+                      <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
                       High
-                    </div>
-                  ) : taskPriority === "Low" ? (
-                    <div className="flex items-center">
-                      <span className="inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
+                    </span>
+                  </div>
+
+                  <div
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                    onClick={() => handleTaskPrioritySelect("Low")}
+                  >
+                    <span className=" flex items-center">
+                      <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
                       Low
-                    </div>
-                  ) : (
-                    <div>{taskPriority}</div>
-                  )}
-                  <GoTriangleDown size={12} />
-                </div>
-                {taskPriorityOpen && (
-                  <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
-                    <div
-                      className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
-                      onClick={() => handleTaskPrioritySelect("High")}
-                    >
-                      <span className=" flex items-center">
-                        <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
-                        High
-                      </span>
-                    </div>
-
-                    <div
-                      className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
-                      onClick={() => handleTaskPrioritySelect("Low")}
-                    >
-                      <span className=" flex items-center">
-                        <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
-                        Low
-                      </span>
-                    </div>
+                    </span>
                   </div>
-                )}
-              </div>
-            )}
-            {activity.user && (
-              <div className="flex flex-col p-4 w-full gap-2 border-[1px] border-gray-300">
-                <div className="text-sm font-[500] text-gray-600">
-                  Assigned to
                 </div>
+              )}
+            </div>
 
-                <div
-                  className="flex gap-2 items-center text-sm cursor-pointer"
-                  onClick={toggleAssignedToDropdown}
-                >
-                  <div>{assignedTo}</div>
-                  <GoTriangleDown size={12} />
-                </div>
-                {assignedToOpen && (
-                  <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
-                    <div
-                      className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
-                      onClick={() => handleAssignedToSelect("lucy")}
-                    >
-                      Lucy Headwood
-                    </div>
-                    <div
-                      className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
-                      onClick={() => handleAssignedToSelect("Admin")}
-                    >
-                      Admin
-                    </div>
-                  </div>
-                )}
+            <div className="flex flex-col p-4 w-full gap-2 border-[1px] border-gray-300">
+              <div className="text-sm font-[500] text-gray-600">
+                Assigned to
               </div>
-            )}
+
+              <div
+                className="flex gap-2 items-center text-sm cursor-pointer"
+                onClick={toggleAssignedToDropdown}
+              >
+                <div>{assignedTo}</div>
+                <GoTriangleDown size={12} />
+              </div>
+              {assignedToOpen && (
+                <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                  <div
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                    onClick={() => handleAssignedToSelect("lucy")}
+                  >
+                    Lucy Headwood
+                  </div>
+                  <div
+                    className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                    onClick={() => handleAssignedToSelect("Admin")}
+                  >
+                    Admin
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       ))}

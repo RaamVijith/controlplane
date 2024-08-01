@@ -97,12 +97,16 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
 
   const Selection = [
     {
-      value: "family",
-      name: "Family",
+      value: "employee",
+      name: "Employee",
     },
     {
-      value: "friend",
-      name: "Friend",
+      value: "partners",
+      name: "Partners",
+    },
+    {
+      value: "customers",
+      name: "Customers",
     },
   ];
 
