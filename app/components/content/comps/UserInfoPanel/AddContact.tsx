@@ -37,8 +37,20 @@ import Image from "next/image";
 import { IoIosClose } from "react-icons/io";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import FlagSelector from "../../Selector/FlagSelector";
-
+// import FlagSelector from "../../Selector/FlagSelector";
+import { Country, State, City } from "country-state-city";
+import Flag from "react-world-flags";
+import { FaMapMarkerAlt } from "react-icons/fa";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectGroup,
+//   SelectItem,
+//   SelectLabel,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
+// import { CiLocationOn } from "react-icons/ci";
 interface AddContactDialogProps {
   trigger: React.ReactNode;
   mode: "add" | "edit";
@@ -63,6 +75,10 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
   const [date, setDate] = useState<Date>();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [phone, setPhone] = useState<string>("");
+  // country selector
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
 
   const handleButtonClick = () => {
     document.getElementById("fileInput")?.click();
@@ -89,6 +105,29 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
       name: "Friend",
     },
   ];
+
+  const handleCountryChange = (value: string) => {
+    setSelectedCountry(value);
+    setSelectedState("");
+    setSelectedCity("");
+  };
+
+  const handleStateChange = (value: string) => {
+    setSelectedState(value);
+    setSelectedCity("");
+  };
+
+  const handleCityChange = (value: string) => {
+    setSelectedCity(value);
+  };
+
+  const countries = Country.getAllCountries();
+  const states = selectedCountry
+    ? State.getStatesOfCountry(selectedCountry)
+    : [];
+  const cities = selectedState
+    ? City.getCitiesOfState(selectedCountry, selectedState)
+    : [];
 
   return (
     <Dialog>
@@ -131,7 +170,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
           </div>
           <form className="space-y-4">
             <div className="flex flex-col md:flex-row md:space-x-4">
-              <div className="w-full md:w-1/2">
+              <div className="w-1/2 md:w-1/2">
                 <label
                   htmlFor="firstName"
                   className="block text-sm font-medium text-black mb-1"
@@ -146,7 +185,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
                   defaultValue={contactData?.firstName || ""}
                 />
               </div>
-              <div className="w-full md:w-1/2">
+              <div className="w-1/2 md:w-1/2">
                 <label
                   htmlFor="lastName"
                   className="block text-sm font-medium text-black mb-1"
@@ -269,7 +308,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
                   </PopoverContent>
                 </Popover>
               </div>
-              <div className="w-full md:w-1/2">
+              <div className="w-1/2 md:w-1/2">
                 <label
                   htmlFor="occupation"
                   className="block text-sm font-medium text-black mb-1"
@@ -285,58 +324,147 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
                 />
               </div>
             </div>
-            <div>
-              <label
-                htmlFor="gender"
-                className="block text-sm font-medium text-black mb-1"
-              >
-                Gender
-              </label>
-              <RadioGroup
-                defaultValue={contactData?.gender || "male"}
-                className="flex space-x-4"
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="male" id="r1" />
-                  <label htmlFor="r1">Male</label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="female" id="r2" />
-                  <label htmlFor="r2">Female</label>
-                </div>
-              </RadioGroup>
-            </div>
             <div className="flex flex-col md:flex-row md:space-x-4">
               <div className="w-full md:w-1/2">
                 <label
-                  htmlFor="firstName"
+                  htmlFor="gender"
+                  className="block text-sm font-medium text-black mb-1"
+                >
+                  Gender
+                </label>
+                <RadioGroup
+                  defaultValue={contactData?.gender || "male"}
+                  className="flex space-x-4"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="male" id="r1" />
+                    <label htmlFor="r1">Male</label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="female" id="r2" />
+                    <label htmlFor="r2">Female</label>
+                  </div>
+                </RadioGroup>
+              </div>
+            </div>
+            {/*  */}
+            <div className="flex flex-col md:flex-row md:space-x-4">
+              <div className="w-full md:w-1/2">
+                <label
+                  htmlFor="country"
                   className="block text-sm font-medium text-black mb-1"
                 >
                   Country
                 </label>
-                <FlagSelector />
+
+                <Select onValueChange={handleCountryChange}>
+                  <SelectTrigger className="w-full relative">
+                    {selectedCountry && (
+                      <Flag
+                        code={selectedCountry}
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 w-6 h-6"
+                      />
+                    )}
+                    <span className={`ml-8 ${!selectedCountry && "pl-3"}`}>
+                      {selectedCountry
+                        ? countries.find(
+                            (country) => country.isoCode === selectedCountry
+                          )?.name
+                        : "Select Country"}
+                    </span>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Select Country</SelectLabel>
+                      {countries.map((country) => (
+                        <SelectItem
+                          key={country.isoCode}
+                          value={country.isoCode}
+                        >
+                          <div className="flex items-center">
+                            <Flag
+                              code={country.isoCode}
+                              className="w-5 h-5 mr-2"
+                            />
+                            {country.name}
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="w-full md:w-1/2">
                 <label
-                  htmlFor="city"
+                  htmlFor="state"
                   className="block text-sm font-medium text-black mb-1"
                 >
-                  City
+                  State
                 </label>
-                <div className="relative">
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <CiLocationOn className="text-gray-500" />
-                  </span>
-                  <Input
-                    type="text"
-                    id="city"
-                    placeholder="Enter City"
-                    name="city"
-                    className="pl-10"
-                  />
-                </div>
+                <Select
+                  onValueChange={handleStateChange}
+                  disabled={!selectedCountry}
+                >
+                  <SelectTrigger className="w-full relative">
+                    <CiLocationOn className="absolute left-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+                    <span className={`ml-8 ${!selectedState && "pl-3"}`}>
+                      {selectedState
+                        ? states.find(
+                            (state) => state.isoCode === selectedState
+                          )?.name
+                        : selectedCountry
+                        ? "Select State"
+                        : "Select a Country First"}
+                    </span>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Select State</SelectLabel>
+                      {states.map((state) => (
+                        <SelectItem key={state.isoCode} value={state.isoCode}>
+                          <div className="flex items-center">{state.name}</div>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
+
+            <div className="w-full">
+              <label
+                htmlFor="city"
+                className="block text-sm font-medium text-black mb-1"
+              >
+                City
+              </label>
+              <Select
+                onValueChange={handleCityChange}
+                disabled={!selectedState}
+              >
+                <SelectTrigger className="w-full relative">
+                  <FaMapMarkerAlt className="absolute left-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <span className={`ml-8 ${!selectedCity && "pl-3"}`}>
+                    {selectedCity
+                      ? cities.find((city) => city.name === selectedCity)?.name
+                      : selectedState
+                      ? "Select City"
+                      : "Select a State First"}
+                  </span>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Select City</SelectLabel>
+                    {cities.map((city) => (
+                      <SelectItem key={city.name} value={city.name}>
+                        <div className="flex items-center">{city.name}</div>
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            {/*  */}
             <div className="w-full">
               <label
                 htmlFor="address"
