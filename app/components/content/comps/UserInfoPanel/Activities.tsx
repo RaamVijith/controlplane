@@ -3,6 +3,7 @@ import ActivityHeader from "../../ActivityContent/Activity";
 import { FaSearch } from "react-icons/fa";
 import Activity from "../../ActivityContent/Activity";
 import { Input } from "@/components/ui/input";
+import EmailsView from "../../EmailContent/EmailsView";
 
 const Activities = () => {
   const [activeTab, setActiveTab] = useState("Activity");
@@ -41,7 +42,11 @@ const Activities = () => {
               <Activity />
             </div>
           )}
-          {activeTab === "Emails" && <div>{/* <Email /> */}Email</div>}
+          {activeTab === "Emails" && (
+            <div>
+              <EmailsView />
+            </div>
+          )}
           {activeTab === "Notes" && <div>Notes Content</div>}
           {activeTab === "Meetings" && <div>Meetings Content</div>}
         </div>

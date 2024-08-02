@@ -59,8 +59,10 @@ const UpcomingActivity = () => {
     <>
       <div className="border-gray-300 border-b-[1px] pb-10">
         <div className="flex gap-2 py-2 px-2 items-center text-[#1D62B4] font-[500]">
-          <RiCalendarScheduleLine />
-          <div className="cursor-default text-sm">Upcoming Activities</div>
+          <RiCalendarScheduleLine size={18} />
+          <div className="cursor-default text-md font-semibold">
+            Upcoming Activities
+          </div>
         </div>
         <div>
           <div
@@ -205,7 +207,7 @@ const UpcomingActivity = () => {
                         onClick={() => handleTaskPrioritySelect("High")}
                       >
                         <span className=" flex items-center">
-                          <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
+                          <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
                           High
                         </span>
                       </div>
@@ -215,7 +217,7 @@ const UpcomingActivity = () => {
                         onClick={() => handleTaskPrioritySelect("Low")}
                       >
                         <span className=" flex items-center">
-                          <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
+                          <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
                           Low
                         </span>
                       </div>
@@ -254,7 +256,24 @@ const UpcomingActivity = () => {
                 </div>
               </div>
               <div className="mx-4">
-                <div className="border-x border-gray-300 ">he;;p</div>
+                <div className="p-2 border-x border-gray-300 flex items-center gap-1">
+                  <span>
+                    <Avatar className="w-[20px] h-[20px]">
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="@shadcn"
+                      />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                  </span>
+                  <span className="text-[13px] text-black font-semibold">
+                    Lucy Lockwood
+                  </span>
+                  <span className="text-[13px] text-gray-500">
+                    im missing a file access, i need to assist with your work.
+                    Thankyou. your good.
+                  </span>
+                </div>
               </div>
               <div className="mx-4 mb-1 relative">
                 <Textarea
