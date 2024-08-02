@@ -4,6 +4,8 @@ import { FaSearch } from "react-icons/fa";
 import Activity from "../../ActivityContent/Activity";
 import { Input } from "@/components/ui/input";
 import EmailsView from "../../EmailContent/EmailsView";
+import NotesView from "../../NotesContent/NotesView";
+import MeetingView from "../../MeetingContent/MeetingView";
 
 const Activities = () => {
   const [activeTab, setActiveTab] = useState("Activity");
@@ -47,8 +49,16 @@ const Activities = () => {
               <EmailsView />
             </div>
           )}
-          {activeTab === "Notes" && <div>Notes Content</div>}
-          {activeTab === "Meetings" && <div>Meetings Content</div>}
+          {activeTab === "Notes" && (
+            <div>
+              <NotesView />
+            </div>
+          )}
+          {activeTab === "Meetings" && (
+            <div>
+              <MeetingView />
+            </div>
+          )}
         </div>
       </div>
     </>
