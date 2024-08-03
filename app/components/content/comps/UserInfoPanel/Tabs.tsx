@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-
+import { SlLocationPin } from "react-icons/sl";
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState("leads");
   return (
@@ -68,9 +68,12 @@ const Tabs = () => {
             <p className="text-sm mb-3">400,000 USD</p>
           </div>
         ) : (
-          <div>
+          <div className="flex items-center gap-4">
             {/* Address Info content goes here */}
-            <p>Address Info Content</p>
+            <SlLocationPin size={20} className="text-gray-500 font-semibold" />
+            <p className="text-gray-500 text-md font-semibold">
+              12005 Main St <br /> Suite# 100 <br /> Frisco. Texas 75085 USA{" "}
+            </p>
           </div>
         )}
       </div>
