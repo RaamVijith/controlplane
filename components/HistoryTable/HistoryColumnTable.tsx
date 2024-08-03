@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { RiExpandUpDownLine } from "react-icons/ri";
 import { MoreHorizontal } from "lucide-react";
+import { MdOutlineHistory } from "react-icons/md";
 
 export type HistoryTable = {
   id: string;
@@ -96,15 +97,23 @@ export const columns: ColumnDef<HistoryTable>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
+            {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
+            {/* <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(user.id)}
             >
               Copy user ID
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             {/* <DropdownMenuSeparator /> */}
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>
+              <span className="pl-2 gap-1 flex items-center justify-center">
+                <MdOutlineHistory className="mr-2" size={20} /> History Details
+              </span>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <span className="pl-2 gap-1 flex items-center justify-center">
+                <MdOutlineHistory className="mr-2" size={20} /> Audit Logs
+              </span>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

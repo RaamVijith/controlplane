@@ -128,13 +128,18 @@ export function CommonTable<TData, TValue>({
           <div>
             <Select>
               <SelectTrigger className="w-[180px] text-sm p-1 h-8 border outline-none focus:ring-0">
-                <SelectValue placeholder="Select a fruit" />
+                <SelectValue placeholder="Select Period" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {/* <SelectLabel>Fruits</SelectLabel> */}
-                  <SelectItem value="apple">Apple</SelectItem>
-                  <SelectItem value="banana">Banana</SelectItem>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="one">1 Hour</SelectItem>
+                  <SelectItem value="three">3 Hour</SelectItem>
+                  <SelectItem value="six">6 Hour</SelectItem>
+                  <SelectItem value="nine">9 Hour</SelectItem>
+                  <SelectItem value="twelve">12 Hour</SelectItem>
+                  <SelectItem value="twentyfour">24 Hour</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
