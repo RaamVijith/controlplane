@@ -157,7 +157,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
             width={24}
             height={24}
           /> */}
-            <Avatar className="w-5 h-5">
+            <Avatar className="w-6 h-6">
               <AvatarImage
                 src={`/users/${row.getValue("id")}.jpg`}
                 alt="@shadcn"
@@ -346,8 +346,8 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
             className="rounded-full transition-all group-hover:scale-110"
             alt="profile"
             src={`/users/${row.getValue("id")}.jpg`}
-            width={20}
-            height={20}
+            width={24}
+            height={24}
           />
           <div className="capitalize">{row.getValue("company")}</div>
         </div>

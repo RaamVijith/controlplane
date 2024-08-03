@@ -5,6 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { CiUser, CiSettings, CiLogout } from "react-icons/ci";
 import SearchBar from "./SearchBar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Header = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -13,7 +14,7 @@ const Header = () => {
     setDropdownVisible(!dropdownVisible);
   };
   return (
-    <div className="flex px-10 py-6 justify-between items-center border-b-2">
+    <div className="flex px-10 py-3 justify-between items-center border-b-2">
       <SearchBar />
       <div className="flex gap-2">
         <ActionItem
@@ -27,16 +28,20 @@ const Header = () => {
           className="hidden md:flex"
         />
         {/* Profile Menu */}
-        <div className="group cursor-pointer flex justify-center items-center text-gray-600 transition-all">
-          <div className="rounded-full mr-3 w-[20px] h-[20px] overflow-hidden">
+        <div className="group cursor-pointer flex justify-center items-center text-gray-600 transition-all ">
+          {/* <div className="rounded-full mr-3 w-[20px] h-[20px] overflow-hidden">
             <Image
               className="rounded-full transition-all group-hover:scale-110"
               alt="profile"
               src={"/users/dp.jpg"}
-              width={20}
-              height={20}
+              width={24}
+              height={24}
             />
-          </div>
+          </div> */}
+          <Avatar className="w-6 h-6 mr-2 overflow-hidden">
+            <AvatarImage src="/users/dp.jpg" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
           <div className="text-sm hidden md:flex">Dana Morris</div>
           <div
             onClick={toggleDropdown}
