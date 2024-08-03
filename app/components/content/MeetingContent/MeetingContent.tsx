@@ -135,10 +135,9 @@ const MeetingContent = () => {
                   "She's interested in our new product and wants to negotiate the price. Please include our price listings and set up a call."
                 }
               </div>
-              <div className="p-3 flex items-center gap-2">
+
+              <div className="p-3">
                 <AvatarGroup />
-                <CgAttachment />
-                <BiMessageRounded />
               </div>
             </div>
           </div>
