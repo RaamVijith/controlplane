@@ -27,7 +27,7 @@ import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline, MdOutlineHistory } from "react-icons/md";
 import { SiConvertio } from "react-icons/si";
 import { GrContactInfo } from "react-icons/gr";
-import { BiTransfer } from "react-icons/bi";
+import { BiSolidEdit, BiTransfer } from "react-icons/bi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { IoMailOpenOutline } from "react-icons/io5";
 import AddContactDialog from "../UserInfoPanel/AddContact";
@@ -36,6 +36,8 @@ import History from "@/app/components/History/History";
 import Delete from "@/app/components/Delete";
 import { useState } from "react";
 import Email from "@/app/components/Email";
+import { FiPhone } from "react-icons/fi";
+import { HiOutlineMailOpen } from "react-icons/hi";
 // import { User } from "@/public/data/users";
 
 type Activity = {
@@ -143,9 +145,9 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
                         <AddContactDialog
                           mode="edit"
                           trigger={
-                            <span className="flex items-center justify-center">
-                              <CiEdit className="mr-2 text-black" size={20} />{" "}
-                              Edit
+                            <span className="pl-2 gap-3 flex items-center justify-center">
+                              <BiSolidEdit className="text-black" size={20} />{" "}
+                              Edit{" "}
                             </span>
                           }
                         />
@@ -162,8 +164,9 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
                         }}
                         className="cursor-pointer"
                       >
-                        <GrContactInfo className="mr-2" size={20} /> Contact
-                        View
+                        <span className="pl-2 gap-3 flex items-center justify-center">
+                          <GrContactInfo size={20} /> Contact View
+                        </span>
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => {
@@ -177,8 +180,9 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
                         }}
                         className="cursor-pointer"
                       >
-                        <GrContactInfo className="mr-2" size={20} /> Contact
-                        Full View
+                        <span className="pl-2 gap-3 flex items-center justify-center">
+                          <GrContactInfo size={20} /> Contact Full View
+                        </span>
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         className="cursor-pointer"
@@ -186,8 +190,8 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
                       >
                         <ConvertContact
                           trigger={
-                            <span className="flex items-center justify-center">
-                              <BiTransfer className="mr-2" size={20} />
+                            <span className="pl-2 gap-3 flex items-center justify-center">
+                              <BiTransfer size={20} />
                               Convert Contact
                             </span>
                           }
@@ -199,9 +203,8 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
                       >
                         <History
                           trigger={
-                            <span className="flex items-center justify-center">
-                              <MdOutlineHistory className="mr-2" size={20} />{" "}
-                              History
+                            <span className="pl-2 gap-3 flex items-center justify-center">
+                              <MdOutlineHistory size={20} /> History
                             </span>
                           }
                         />
@@ -212,9 +215,9 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
                       >
                         <Delete
                           trigger={
-                            <span className="flex items-center justify-center">
+                            <span className="pl-2 gap-3 flex items-center justify-center">
                               <RiDeleteBin5Line
-                                className="mr-2 text-red-500"
+                                className="text-red-500"
                                 size={20}
                               />
                               Delete
@@ -224,13 +227,17 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem className="cursor-pointer">
-                        <PiPhoneLight className="mr-2" size={20} /> Call
+                        <span className="pl-2 gap-3 flex items-center justify-center">
+                          <FiPhone size={20} /> Call
+                        </span>
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         className="cursor-pointer"
                         onClick={handleAddCategoryClick}
                       >
-                        <IoMailOpenOutline className="mr-2" size={20} /> Mail
+                        <span className="pl-2 gap-3 flex items-center justify-center">
+                          <HiOutlineMailOpen size={20} /> Mail
+                        </span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
