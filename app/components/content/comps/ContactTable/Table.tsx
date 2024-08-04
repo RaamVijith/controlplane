@@ -48,7 +48,7 @@ import { getCountryCode } from "@/public/data/countryCode";
 import { FaAngleDown } from "react-icons/fa";
 import AddContactDialog from "../UserInfoPanel/AddContact";
 import AddData from "../NodataComponent/AddData";
-import { CiEdit } from "react-icons/ci";
+import { FaFilePen } from "react-icons/fa6";
 import { MdDeleteOutline, MdOutlineHistory } from "react-icons/md";
 import { GrContactInfo } from "react-icons/gr";
 import { BiTransfer } from "react-icons/bi";
@@ -57,7 +57,10 @@ import Email from "@/app/components/Email";
 import History from "@/app/components/History/History";
 import Delete from "@/app/components/Delete";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
+import { FiPhone } from "react-icons/fi";
+import { FaEdit } from "react-icons/fa";
+import { HiOutlineMailOpen } from "react-icons/hi";
+import { BiSolidEdit } from "react-icons/bi";
 const data: Users[] = UsersData;
 
 export type Users = {
@@ -449,8 +452,16 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                     <AddContactDialog
                       mode="edit"
                       trigger={
-                        <span className="pl-2 gap-1 flex items-center justify-center">
-                          <CiEdit className="mr-2 text-black" size={20} /> Edit
+                        <span className="pl-2 gap-3 flex items-center justify-center">
+                          <BiSolidEdit className="text-black" size={20} />
+                          {/* <Image
+                            src="/icons/edit.png"
+                            alt="edit.png"
+                            // className="w-5 h-5"
+                            width={18}
+                            height={18}
+                          /> */}
+                          Edit
                         </span>
                       }
                     />
@@ -467,8 +478,8 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                     }}
                     className="cursor-pointer"
                   >
-                    <span className="pl-2 gap-1 flex items-center justify-center">
-                      <GrContactInfo className="mr-2" size={20} /> Contact View
+                    <span className="pl-2 gap-3 flex items-center justify-center">
+                      <GrContactInfo className="" size={20} /> Contact View
                     </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
@@ -483,9 +494,8 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                     }}
                     className="cursor-pointer"
                   >
-                    <span className="pl-2 gap-1 flex items-center justify-center">
-                      <GrContactInfo className="mr-2" size={20} /> Contact Full
-                      View
+                    <span className="pl-2 gap-3 flex items-center justify-center">
+                      <GrContactInfo className="" size={20} /> Contact Full View
                     </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
@@ -494,8 +504,8 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                   >
                     <ConvertContact
                       trigger={
-                        <span className="pl-2 gap-1 flex items-center justify-center">
-                          <BiTransfer className="mr-2" size={20} />
+                        <span className="pl-2 gap-3 flex items-center justify-center">
+                          <BiTransfer className="" size={20} />
                           Convert Contact
                         </span>
                       }
@@ -507,9 +517,8 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                   >
                     <History
                       trigger={
-                        <span className="pl-2 gap-1 flex items-center justify-center">
-                          <MdOutlineHistory className="mr-2" size={20} />{" "}
-                          History
+                        <span className="pl-2 gap-3 flex items-center justify-center">
+                          <MdOutlineHistory className="" size={20} /> History
                         </span>
                       }
                     />
@@ -520,11 +529,11 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                   >
                     <Delete
                       trigger={
-                        <span className="pl-2 gap-1 flex items-center justify-center">
+                        <span className="pl-2 gap-3 flex items-center justify-center">
                           <RiDeleteBin5Line
-                            className="mr-2 text-red-500"
+                            className="text-red-500"
                             size={20}
-                          />{" "}
+                          />
                           Delete
                         </span>
                       }
@@ -532,16 +541,16 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="cursor-pointer">
-                    <span className="pl-2 gap-1 flex items-center justify-center">
-                      <PiPhoneLight className="mr-2 " size={20} /> Call
+                    <span className="pl-2 gap-3 flex items-center justify-center">
+                      <FiPhone className="" size={20} /> Call
                     </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="cursor-pointer"
                     onClick={handleAddCategoryClick}
                   >
-                    <span className="pl-2 gap-1 flex items-center justify-center">
-                      <IoMailOpenOutline className="mr-2 " size={20} /> Mail
+                    <span className="pl-2 gap-3 flex items-center justify-center">
+                      <HiOutlineMailOpen size={20} /> Mail
                     </span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
