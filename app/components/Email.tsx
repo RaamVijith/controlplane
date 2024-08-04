@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState, Suspense } from "react";
 import { IoIosClose } from "react-icons/io";
 import { FaExpandAlt } from "react-icons/fa";
 import Image from "next/image";
@@ -7,35 +7,23 @@ import { useDropzone } from "react-dropzone";
 import { RiAttachment2 } from "react-icons/ri";
 import { FillButton } from "./libs/buttons";
 import { IoSendSharp } from "react-icons/io5";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
+import { CKEditor as CKEditorType } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
+const CKEditor = React.lazy(() =>
+  import("@ckeditor/ckeditor5-react").then((mod) => ({ default: mod.CKEditor }))
+);
+
+interface EmailProps {
+  onClose: () => void;
+}
+
 const Email = ({ onClose }: { onClose: () => void }) => {
   const [showCC, setShowCC] = useState(false);
   const [showBCC, setShowBCC] = useState(false);
   const [attachments, setAttachments] = useState<File[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [value, setValue] = useState("");
-  // const toolbarOptions = [
-  //   ["bold", "italic", "underline", "strike"],
-  //   ["blockquote", "code-block"],
-  //   ["link", "image", "video", "formula"],
-
-  //   [{ header: 1 }, { header: 2 }], // custom button values
-  //   [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
-  //   [{ script: "sub" }, { script: "super" }],
-  //   [{ indent: "-1" }, { indent: "+1" }],
-  //   [{ direction: "rtl" }],
-  //   [{ size: ["small", false, "large", "huge"] }],
-  //   [{ header: [1, 2, 3, 4, 5, 6, false] }],
-  //   [{ color: [] }, { background: [] }],
-  //   [{ font: [] }],
-  //   [{ align: [] }],
-  //   ["clean"],
-  // ];
-
-  // const richTextEditor = {
-  //   toolbar: toolbarOptions,
-  // };
+  const [emailBody, setEmailBody] = useState("");
 
   const toggleCC = () => setShowCC(!showCC);
   const toggleBCC = () => setShowBCC(!showBCC);
@@ -52,17 +40,12 @@ const Email = ({ onClose }: { onClose: () => void }) => {
   };
   // Calculate height based on CC and BCC visibility
   const emailBodyBoxHeight =
-    showCC && showBCC ? "45%" : showCC || showBCC ? "55%" : "62%";
+    showCC && showBCC ? "50%" : showCC || showBCC ? "55%" : "62%";
 
   const toggleExpand = () => setIsExpanded(!isExpanded);
+
   return (
     <form onSubmit={handleSubmit}>
-      {/* <div className="fixed bottom-4 right-4 bg-white shadow-lg rounded-md p-3 w-[90%] h-full  md:h-full md:w-[90%] lg:w-[750px] lg:h-[700px] xl:w-[750px] xl:h-[700px] md:bottom-0"> */}
-      {/* <div
-        className={`fixed bottom-4 right-4 bg-white shadow-sm rounded-md p-3 w-[90%] sm:h-[80%] md:w-[80%] lg:w-[800px] lg:h-[750px] xl:w-[800px] xl:h-[750px] ${
-          showCC || showBCC ? "h-[90%]" : "h-[100%]"
-        }`}
-      > */}
       <div
         className={`fixed bottom-4 right-4 bg-white shadow-sm rounded-md p-3 w-[90%] ${
           isExpanded
@@ -183,20 +166,21 @@ const Email = ({ onClose }: { onClose: () => void }) => {
 
         {/* Email Body Box */}
         <div
-          className="flex flex-col border border-gray-300 mb-2 overflow-hidden"
+          className="flex flex-col border border-gray-300 mb-2 overflow-y-auto h-full"
           style={{ height: emailBodyBoxHeight }}
         >
-          {/* <ReactQuill
-            modules={richTextEditor}
-            theme="snow"
-            value={value}
-            onChange={setValue}
-            className="flex-1 overflow-y-auto"
-            // className="flex-1 w-full h-fit border-none outline-none text-gray-700 resize-none"
-            // className="flex-1 w-full h-full border-none outline-none text-gray-700 p-2 resize-none overflow-y-auto"
-          /> */}
-          {/* <textarea className="flex-1 w-full h-full border-none outline-none text-gray-700 p-2 resize-none overflow-y-auto" /> */}
+          <Suspense fallback={<div>Loading Editor...</div>}>
+            <CKEditor
+              editor={ClassicEditor as any} // Cast as any to avoid type issues
+              data={emailBody}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setEmailBody(data);
+              }}
+            />
+          </Suspense>
         </div>
+
         <div className="flex justify-between items-center pb-2">
           <div>
             <div {...getRootProps()} className="cursor-pointer">
