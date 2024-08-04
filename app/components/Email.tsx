@@ -7,16 +7,16 @@ import { useDropzone } from "react-dropzone";
 import { RiAttachment2 } from "react-icons/ri";
 import { FillButton } from "./libs/buttons";
 import { IoSendSharp } from "react-icons/io5";
-import { CKEditor as CKEditorType } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+// import { CKEditor as CKEditorType } from "@ckeditor/ckeditor5-react";
+// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-const CKEditor = React.lazy(() =>
-  import("@ckeditor/ckeditor5-react").then((mod) => ({ default: mod.CKEditor }))
-);
+// const CKEditor = React.lazy(() =>
+//   import("@ckeditor/ckeditor5-react").then((mod) => ({ default: mod.CKEditor }))
+// );
 
-interface EmailProps {
-  onClose: () => void;
-}
+// interface EmailProps {
+//   onClose: () => void;
+// }
 
 const Email = ({ onClose }: { onClose: () => void }) => {
   const [showCC, setShowCC] = useState(false);
@@ -169,7 +169,7 @@ const Email = ({ onClose }: { onClose: () => void }) => {
           className="flex flex-col border border-gray-300 mb-2 overflow-y-auto h-full"
           style={{ height: emailBodyBoxHeight }}
         >
-          <Suspense fallback={<div>Loading Editor...</div>}>
+          {/* <Suspense fallback={<div>Loading Editor...</div>}>
             <CKEditor
               editor={ClassicEditor as any} // Cast as any to avoid type issues
               data={emailBody}
@@ -178,7 +178,7 @@ const Email = ({ onClose }: { onClose: () => void }) => {
                 setEmailBody(data);
               }}
             />
-          </Suspense>
+          </Suspense> */}
         </div>
 
         <div className="flex justify-between items-center pb-2">
