@@ -6,6 +6,10 @@ import Image from "next/image";
 import { CiUser, CiSettings, CiLogout } from "react-icons/ci";
 import SearchBar from "./SearchBar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { CgProfile } from "react-icons/cg";
+import { RiLogoutBoxLine } from "react-icons/ri";
+import { IoMdSettings } from "react-icons/io";
+import { FaRegBell } from "react-icons/fa";
 
 const Header = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -52,25 +56,25 @@ const Header = () => {
           {dropdownVisible && (
             <div className="absolute top-16 right-12 bg-white border border-gray-200 rounded-lg shadow-lg w-40">
               <ul className="flex flex-col text-left p-2">
-                <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm flex items-center">
-                  <CiUser size={16} />
-                  &nbsp; Profile
+                <li className="p-2 gap-3 hover:bg-gray-100 cursor-pointer text-sm flex items-center">
+                  <CgProfile size={20} />
+                  Profile
                 </li>
-                <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm flex items-center md:hidden">
-                  <VscBell size={16} />
-                  &nbsp; Notifications
+                <li className="p-2 gap-3 hover:bg-gray-100 cursor-pointer text-sm flex items-center md:hidden">
+                  <FaRegBell size={16} />
+                  Notifications
                 </li>
                 <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm flex items-center md:hidden">
                   <IoHelpCircleOutline size={16} />
                   &nbsp; Help Center
                 </li>
-                <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm flex items-center">
-                  <CiSettings size={16} />
-                  &nbsp; Settings
+                <li className="p-2 gap-3 hover:bg-gray-100 cursor-pointer text-sm flex items-center">
+                  <IoMdSettings size={20} />
+                  Settings
                 </li>
-                <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm flex items-center">
-                  <CiLogout size={16} />
-                  &nbsp; Logout
+                <li className="p-2 gap-3 hover:bg-gray-100 cursor-pointer text-sm flex items-center">
+                  <RiLogoutBoxLine size={20} />
+                  Logout
                 </li>
               </ul>
             </div>
