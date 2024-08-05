@@ -27,6 +27,9 @@ import SocialIcons from "@/app/components/SocialMedia/SocialIcons";
 import Tabs from "./Tabs";
 import Activities from "./Activities";
 import { FaArrowCircleRight } from "react-icons/fa";
+import ContactStatus from "../ContactStatus/ContactStatus";
+import Stepper from "../ContactStatus/ContactStatus";
+import VerticalStepper from "../ContactStatus/ContactStatus";
 const ExtendedUserInfoPanel = () => {
   const {
     isExtendedUserInfoPanelVisible,
@@ -115,7 +118,7 @@ const ExtendedUserInfoPanel = () => {
                 </div>
               </div>
               <div className="col-span-12 md1:col-span-3 border-gray-300">
-                Content for the third column
+                <VerticalStepper />
               </div>
             </div>
             {/* </div> */}
