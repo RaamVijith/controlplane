@@ -23,7 +23,12 @@ import Switch from "react-switch";
 import ContactProperty from "../../Selector/ContactProperty";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const UserInfoPanel = () => {
-  const { isPanelVisible, panelData, setPanelVisible } = usePanel();
+  const {
+    isPanelVisible,
+    panelData,
+    setPanelVisible,
+    setExtendedUserInfoPanelVisible,
+  } = usePanel();
   const [isChecked, setIsChecked] = useState(false);
   const [reminderOpen, setReminderOpen] = useState(false);
   const [taskPriorityOpen, setTaskPriorityOpen] = useState(false);
@@ -57,6 +62,11 @@ const UserInfoPanel = () => {
     // Add your logic
   };
 
+  const handleViewFullDetails = () => {
+    setPanelVisible(false); // Hide the current panel if needed
+    setExtendedUserInfoPanelVisible(true);
+    // This might involve setting a state in a parent component or context
+  };
   return (
     <>
       {isPanelVisible && panelData && (
@@ -73,9 +83,12 @@ const UserInfoPanel = () => {
               <div className="flex justify-between py-4 px-10 border-b-[1px] border-gray-300">
                 <div className="flex gap-2 items-center justify-center text-[#1D62B4] font-[500]">
                   <LuArrowRightFromLine />
-                  <div className="cursor-default text-sm">Customer View</div>
+                  <div className="cursor-default text-sm">Contact View</div>
                 </div>
-                <div className=" flex cursor-pointer items-center justify-center text-xs font-semibold text-gray-500 px-2 rounded-sm outline outline-[1px] outline-gray-300 hover:bg-[#1D62B4] hover:text-white">
+                <div
+                  onClick={handleViewFullDetails}
+                  className=" flex cursor-pointer items-center justify-center text-xs font-semibold text-gray-500 px-2 rounded-sm outline outline-[1px] outline-gray-300 hover:bg-[#1D62B4] hover:text-white"
+                >
                   View full details
                 </div>
               </div>
@@ -175,7 +188,9 @@ const UserInfoPanel = () => {
 
                   <div className="flex">
                     <div className="flex items-center justify-center w-full flex-col border-r-[1px] border-t-0 p-4 gap-1">
-                      <div className="text-sm text-gray-500">Lead Owner</div>
+                      <div className="text-sm text-gray-500">
+                        Contact Owner{" "}
+                      </div>
                       <div className="text-sm">{panelData.name}</div>
                     </div>
                     <div className="flex items-center justify-center w-full flex-col border-r-[1px] border-t-0 p-4 gap-1">

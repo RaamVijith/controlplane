@@ -117,7 +117,7 @@ export function CommonTable<TData, TValue>({
     XLSX.writeFile(workbook, "table_data.xlsx");
   };
   return (
-    <>
+    <> 
       {/* Search Bar Filter */}
       {/* <div className="sticky top-0 z-10 bg-white pb-4"> */}
       <div className="flex justify-between items-center pb-4">
@@ -127,7 +127,7 @@ export function CommonTable<TData, TValue>({
           </p>
           <div>
             <Select>
-              <SelectTrigger className="w-[180px] text-sm p-1 h-8 border outline-none focus:ring-0">
+              <SelectTrigger className="w-[180px] text-sm p-1 pl-4 h-8 border outline-none focus:ring-0">
                 <SelectValue placeholder="Select Period" />
               </SelectTrigger>
               <SelectContent>

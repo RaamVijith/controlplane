@@ -32,6 +32,7 @@ const ExtendedUserInfoPanel = () => {
     isExtendedUserInfoPanelVisible,
     panelData,
     setExtendedUserInfoPanelVisible,
+    setPanelVisible,
   } = usePanel();
   const [isChecked, setIsChecked] = useState(false);
 
@@ -39,6 +40,15 @@ const ExtendedUserInfoPanel = () => {
     setIsChecked(checked);
     // Add your logic
   };
+  const handleViewDetails = () => {
+    setPanelVisible(true);
+    setExtendedUserInfoPanelVisible(false);
+  };
+
+  useEffect(() => {
+    // Log panelData whenever the component mounts or panelData changes
+    console.log("panelData:", panelData);
+  }, [panelData]);
 
   return (
     <>
@@ -57,7 +67,10 @@ const ExtendedUserInfoPanel = () => {
               <div className="flex gap-2 items-center justify-center font-[500]">
                 <FaArrowCircleRight size={24} className="text-[#3f76ff]" />
               </div>
-              <div className=" flex cursor-pointer items-center justify-center text-xs font-semibold text-gray-500 px-2 rounded-sm outline outline-[1px] outline-gray-300 hover:bg-[#1D62B4] hover:text-white">
+              <div
+                onClick={handleViewDetails}
+                className=" flex cursor-pointer items-center justify-center text-xs font-semibold text-gray-500 px-2 rounded-sm outline outline-[1px] outline-gray-300 hover:bg-[#1D62B4] hover:text-white"
+              >
                 View contact details
               </div>
             </div>
