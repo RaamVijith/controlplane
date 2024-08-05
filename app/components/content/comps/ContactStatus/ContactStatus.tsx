@@ -13,6 +13,10 @@ const VerticalStepper = () => {
     CompletedNode: () => ({
       backgroundColor: "#3f76ff",
     }),
+    LabelTitle: () => ({
+      fontWeight: "normal",
+      color: "#6b7280",
+    }),
   };
   const steps = [
     {
