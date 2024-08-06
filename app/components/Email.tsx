@@ -7,6 +7,7 @@ import { useDropzone } from "react-dropzone";
 import { RiAttachment2 } from "react-icons/ri";
 import { FillButton } from "./libs/buttons";
 import { IoSendSharp } from "react-icons/io5";
+// import Tiptap from "./Email/TipTap";
 // import { CKEditor as CKEditorType } from "@ckeditor/ckeditor5-react";
 // import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
@@ -53,29 +54,29 @@ const Email = ({ onClose }: { onClose: () => void }) => {
             : "h-[80%] sm:h-[80%] md:w-[80%] lg:w-[800px] lg:h-[750px] xl:w-[800px] xl:h-[750px]"
         } transition-all duration-300 ease-in-out`}
       >
-        <div className="bg-blue-600 text-white rounded-t-md py-4">
+        <div className="bg-[#f7f7f7 text-black rounded-t-md py-2">
           <div className="flex justify-between items-center px-2">
-            <div className="flex items-center justi fy-center gap-2">
+            <div className="flex items-center justify-center gap-2">
               <button
                 type="button"
                 onClick={toggleExpand}
-                className="text-white hover:text-gray-200"
+                className=" hover:text-gray-200"
               >
-                <FaExpandAlt size={14} />
+                <FaExpandAlt className="text-black" size={14} />
               </button>
-              <h6 className="text-sm font-semibold">Create new email</h6>
+              <h6 className="text-sm font-semibold cursor-default">
+                Create New Email
+              </h6>
             </div>
 
             <div className="flex items-center gap-4">
-              <button
-                onClick={onClose}
-                className="text-white hover:text-gray-200"
-              >
-                <IoIosClose size={26} />
+              <button onClick={onClose} className="hover:text-gray-200">
+                <IoIosClose className="text-black" size={26} />
               </button>
             </div>
           </div>
         </div>
+        <hr className="my-1 border-t border-gray-300" />
         <div className="p-3">
           {/* First Text Field */}
           <div className="flex items-center border-b border-gray-300 mb-2">
@@ -83,12 +84,12 @@ const Email = ({ onClose }: { onClose: () => void }) => {
               src="/users/4.jpg"
               alt="First Icon"
               className="rounded-full mr-2"
-              width={20}
-              height={20}
+              width={24}
+              height={24}
             />
             <Input
               type="text"
-              placeholder="First Text Field"
+              placeholder="Create New Email"
               className="flex-1 border-none outline-none  text-gray-700"
             />
           </div>
@@ -96,13 +97,13 @@ const Email = ({ onClose }: { onClose: () => void }) => {
           {/* Second Text Field */}
           <div className="gap-2 flex items-center justify-between border-b border-gray-300 ">
             <div className="flex w-full items-center gap-1">
-              <p className="text-sm mr-2">To</p>
+              <p className="text-xs mr-2">To</p>
               <Image
                 src="/users/2.jpg"
                 alt="Second Icon"
                 className="rounded-full mr-2"
-                width={16}
-                height={16}
+                width={24}
+                height={24}
               />
               <Input
                 type="text"
@@ -112,45 +113,45 @@ const Email = ({ onClose }: { onClose: () => void }) => {
             </div>
             <div className="text-sm flex items-center gap-1">
               <p className="text-sm cursor-pointer" onClick={toggleCC}>
-                CC
+                Cc
               </p>
               <p className="text-sm cursor-pointer" onClick={toggleBCC}>
-                BCC
+                Bcc
               </p>
             </div>
           </div>
           {/* CC Field */}
           {showCC && (
-            <div className="flex w-full items-center gap-1 mt-2">
-              <p className="text-sm mr-2">CC</p>
+            <div className="flex w-full items-center gap-1 mt-2 border-b border-gray-300">
+              <p className="text-xs mr-2">Cc</p>
               <Image
                 src="/users/2.jpg"
                 alt="Second Icon"
                 className="rounded-full mr-2"
-                width={16}
-                height={16}
+                width={24}
+                height={24}
               />
               <Input
                 type="text"
-                placeholder="CC"
+                placeholder="Cc"
                 className="flex-1 w-full border-none outline-none p-2 text-gray-700"
               />
             </div>
           )}
           {/* BCC Field */}
           {showBCC && (
-            <div className="flex w-full items-center gap-1 mt-2">
-              <p className="text-sm mr-2">BCC</p>
+            <div className="flex w-full items-center gap-1 mt-2 border-b border-gray-300">
+              <p className="text-xs mr-2">Bcc</p>
               <Image
                 src="/users/2.jpg"
                 alt="Second Icon"
                 className="rounded-full mr-2"
-                width={16}
-                height={16}
+                width={24}
+                height={24}
               />
               <Input
                 type="text"
-                placeholder="BCC"
+                placeholder="Bcc"
                 className="flex-1 w-full border-none outline-none p-2 text-gray-700"
               />
             </div>
@@ -179,6 +180,8 @@ const Email = ({ onClose }: { onClose: () => void }) => {
               }}
             />
           </Suspense> */}
+
+          {/* <Tiptap /> */}
         </div>
 
         <div className="flex justify-between items-center pb-2">
