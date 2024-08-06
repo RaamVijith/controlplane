@@ -1,34 +1,47 @@
 import { VscBell } from "react-icons/vsc";
 import ActionItem from "./ActionItem";
 import { IoChevronDownSharp, IoHelpCircleOutline } from "react-icons/io5";
-import { useState } from "react";
-import Image from "next/image";
-import { CiUser, CiSettings, CiLogout } from "react-icons/ci";
+import { useState, useRef, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
 import { FaRegBell } from "react-icons/fa";
-
+import { MdHelpOutline } from "react-icons/md";
 const Header = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
+
+  const handleClickOutside = (event: any) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="flex px-10 py-3 justify-between items-center border-b-2">
       <SearchBar />
       <div className="flex gap-2">
         <ActionItem
           title="Notifications"
-          Icon={<VscBell size={24} />}
+          Icon={<FaRegBell size={20} />}
           className="hidden md:flex"
         />
         <ActionItem
           title="Help Center"
-          Icon={<IoHelpCircleOutline size={24} />}
+          Icon={<MdHelpOutline size={20} />}
           className="hidden md:flex"
         />
         {/* Profile Menu */}
@@ -54,18 +67,21 @@ const Header = () => {
             <IoChevronDownSharp />
           </div>
           {dropdownVisible && (
-            <div className="absolute top-16 right-12 bg-white border border-gray-200 rounded-lg shadow-lg w-40">
+            <div
+              ref={dropdownRef}
+              className="absolute top-16 right-12 bg-white border border-gray-200 rounded-lg shadow-lg w-40"
+            >
               <ul className="flex flex-col text-left p-2">
                 <li className="p-2 gap-3 hover:bg-gray-100 cursor-pointer text-sm flex items-center">
                   <CgProfile size={20} />
                   Profile
                 </li>
                 <li className="p-2 gap-3 hover:bg-gray-100 cursor-pointer text-sm flex items-center md:hidden">
-                  <FaRegBell size={16} />
+                  <FaRegBell size={20} />
                   Notifications
                 </li>
                 <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm flex items-center md:hidden">
-                  <IoHelpCircleOutline size={16} />
+                  <MdHelpOutline size={20} />
                   &nbsp; Help Center
                 </li>
                 <li className="p-2 gap-3 hover:bg-gray-100 cursor-pointer text-sm flex items-center">

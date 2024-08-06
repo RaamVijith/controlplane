@@ -119,7 +119,10 @@ const DataCard = ({ user }: UserCardProps) => {
                   {user.name}
                 </CardTitle>
                 <div className="flex items-center gap-1 text-gray-500 text-sm">
-                  <SlLocationPin /> <p>{user.location}</p>
+                  <SlLocationPin />
+                  <p>
+                    {user.location}, {user.country}
+                  </p>
                 </div>
               </div>
             </div>

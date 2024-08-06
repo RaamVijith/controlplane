@@ -48,10 +48,10 @@ const ExtendedUserInfoPanel = () => {
     setExtendedUserInfoPanelVisible(false);
   };
 
-  useEffect(() => {
-    // Log panelData whenever the component mounts or panelData changes
-    console.log("panelData:", panelData);
-  }, [panelData]);
+  // useEffect(() => {
+  //   // Log panelData whenever the component mounts or panelData changes
+  //   console.log("panelData:", panelData);
+  // }, [panelData]);
 
   return (
     <>
@@ -68,7 +68,11 @@ const ExtendedUserInfoPanel = () => {
             {/* Top header */}
             <div className="flex justify-between py-6 px-10 border-b-[1px] border-gray-300">
               <div className="flex gap-2 items-center justify-center font-[500]">
-                <FaArrowCircleRight size={24} className="text-[#3f76ff]" />
+                <FaArrowCircleRight
+                  size={24}
+                  className="text-[#3f76ff]"
+                  onClick={() => setExtendedUserInfoPanelVisible(false)}
+                />
               </div>
               <div
                 onClick={handleViewDetails}
@@ -102,7 +106,7 @@ const ExtendedUserInfoPanel = () => {
         </Badge> */}
                   <div className="flex gap-2 items-center justify-center bg-[#eee] px-4 mb-5 rounded-full text-gray-500">
                     <div className="bg-[#5A925F] h-[8px] w-[8px] rounded-full"></div>
-                    <div className="flex">
+                    <div className="flex text-xs">
                       {"Last Activity: " + "2 days ago"}
                     </div>
                   </div>
