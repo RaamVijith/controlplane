@@ -8,6 +8,7 @@ import {
 import Image from "next/image";
 import React from "react";
 import { FillButton } from "./libs/buttons";
+import { Input } from "@/components/ui/input";
 interface DeleteDialogProps {
   trigger: React.ReactNode;
 }
@@ -23,20 +24,22 @@ const Delete: React.FC<DeleteDialogProps> = ({ trigger }) => {
               <div className="flex justify-center p-4">
                 <Image src="/warning.png" alt="delete" width={60} height={60} />
               </div>
-              <p className="text-bold text-2xl mb-3 text-black text-center">
+              <p className="text-bold text-lg mb-3 text-black text-center">
                 Are you sure ?
               </p>
-              <p className="text-lg text-center mb-4">
+              <p className="text-md text-center mb-4">
                 This action cannot be undone, All values <br /> associated with
                 this field will be lost.
               </p>
-
-              <FillButton className="p-4 bg-slate-300 my-2 hover:bg-slate-400">
-                No, Keep it.
-              </FillButton>
-              <FillButton className="p-4 bg-red-600 hover:bg-red-400">
-                Yes, Delete!
-              </FillButton>
+              <Input type="text" placeholder="Enter the Reason" />
+              <div className="flex flex-col md:flex-row gap-1 mt-3">
+                <FillButton className="rounded-sm w-full md:w-1/2 p-4 bg-slate-300 hover:bg-slate-400">
+                  No, Keep it.
+                </FillButton>
+                <FillButton className="rounded-sm w-full md:w-1/2 p-4 bg-red-600 hover:bg-red-400">
+                  Yes, Delete!
+                </FillButton>
+              </div>
             </div>
           </DialogDescription>
         </DialogContent>
