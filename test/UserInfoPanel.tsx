@@ -9,7 +9,7 @@ import { RiCalendarScheduleLine, RiDeleteBin5Line } from "react-icons/ri";
 import { RxDotsHorizontal } from "react-icons/rx";
 import { TfiEmail } from "react-icons/tfi";
 import { VscBell, VscSend } from "react-icons/vsc";
-import { usePanel } from "./UserPanelContext";
+// import { usePanel } from "./UserPanelContext";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import {
@@ -20,12 +20,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { CiEdit } from "react-icons/ci";
 import Switch from "react-switch";
-import ContactProperty from "../../Selector/ContactProperty";
+// import ContactProperty from "../../Selector/ContactProperty";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import AddContactDialog from "./AddContact";
+// import AddContactDialog from "./AddContact";
 import { BiSolidEdit } from "react-icons/bi";
 import Delete from "@/app/components/Delete";
 import Email from "@/app/components/Email";
+import { usePanel } from "@/app/components/content/comps/UserInfoPanel/UserPanelContext";
+import AddContactDialog from "@/app/components/content/comps/UserInfoPanel/AddContact";
+import ContactProperty from "@/app/components/content/Selector/ContactProperty";
 const UserInfoPanel = () => {
   const {
     isPanelVisible,

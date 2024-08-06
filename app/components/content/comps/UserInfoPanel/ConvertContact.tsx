@@ -28,9 +28,11 @@ import { IoAdd } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 const ConvertContact: React.FC<ConvertContactProps> = ({ trigger }) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isConvertDialogOpen, setIsConvertDialogOpen] = useState(false);
 
   return (
     <>
+      {/* <Dialog open={isConvertDialogOpen} onOpenChange={setIsConvertDialogOpen}> */}
       <Dialog>
         <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent className="fixed bg-white py-2 px-4 rounded-md shadow-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[650px]">
@@ -73,9 +75,10 @@ const ConvertContact: React.FC<ConvertContactProps> = ({ trigger }) => {
                   <SelectContent>
                     <SelectGroup>
                       <SelectLabel>Category</SelectLabel>
-                      <SelectItem value="employee">Employee</SelectItem>
-                      <SelectItem value="customers">Customers</SelectItem>
-                      <SelectItem value="partners">Partners</SelectItem>
+                      <SelectItem value="contacts">Contacts</SelectItem>
+                      <SelectItem value="leads">Leads</SelectItem>
+                      <SelectItem value="opportunity">Opportunity</SelectItem>
+                      <SelectItem value="customer">Customer</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -88,7 +91,7 @@ const ConvertContact: React.FC<ConvertContactProps> = ({ trigger }) => {
                 >
                   Create new Contact
                 </label>
-                <input
+                <Input
                   type="text"
                   id="newContact"
                   placeholder="Enter name here"
@@ -103,9 +106,9 @@ const ConvertContact: React.FC<ConvertContactProps> = ({ trigger }) => {
 
           <div className="mt-4 flex flex-col md:flex-row justify-end md:space-x-2">
             <DialogClose asChild>
-              <button className="px-4 py-2 bg-gray-200 text-black rounded-md w-full md:w-1/2">
+              <Button className="px-4 py-2 bg-gray-200 text-black rounded-md w-full md:w-1/2">
                 Cancel
-              </button>
+              </Button>
             </DialogClose>
 
             {selectedCategory ? (

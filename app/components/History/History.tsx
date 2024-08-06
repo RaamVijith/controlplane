@@ -19,7 +19,7 @@ interface AddHistoryDialogProps {
 
 const History: React.FC<AddHistoryDialogProps> = ({ trigger }) => {
   const [data, setData] = useState<any[]>([]);
-
+  const [dataLength, setDataLength] = useState<number>(0);
   useEffect(() => {
     // Fetch data from the URL
     axios
@@ -27,7 +27,8 @@ const History: React.FC<AddHistoryDialogProps> = ({ trigger }) => {
       .then((response) => {
         // Set the data to state and log it
         setData(response.data);
-        console.log(response.data);
+        setDataLength(response.data.length);
+        // console.log(response.data);
       })
       .catch((error) => {
         // Handle any errors
@@ -40,7 +41,12 @@ const History: React.FC<AddHistoryDialogProps> = ({ trigger }) => {
       <Dialog>
         <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent className="fixed bg-white p-4 rounded-md shadow-lg left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[1200px] max-h-[800px]">
-          <DialogTitle className="text-lg font-semibold">History</DialogTitle>
+          <DialogTitle className="text-lg font-semibold">
+            History
+            <span className="bg-[#1D62B450] p-1 ml-2 rounded-md cursor-default">
+              {dataLength}
+            </span>
+          </DialogTitle>
           <hr className="my-1" />
           {/* <DialogDescription className="p-0 text-sm text-gray-500"> */}
           <div className="w-full h-[670px] overflow-auto">

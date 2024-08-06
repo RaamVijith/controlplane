@@ -70,8 +70,8 @@ const Tabs = () => {
         ) : (
           <div className="flex items-center gap-4">
             {/* Address Info content goes here */}
-            <SlLocationPin size={20} className="text-gray-500 font-semibold" />
-            <p className="text-gray-500 text-md font-semibold">
+            <SlLocationPin size={20} className="text-gray-500" />
+            <p className="text-gray-500 text-md ">
               12005 Main St <br /> Suite# 100 <br /> Frisco. Texas 75085 USA{" "}
             </p>
           </div>
