@@ -547,7 +547,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="cursor-pointer"
-                    onClick={handleAddCategoryClick}
+                    onClick={handleAddEmailClick}
                   >
                     <span className="pl-2 gap-3 flex items-center justify-center">
                       <HiOutlineMailOpen size={20} /> Mail
@@ -556,7 +556,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            {isCardOpen && <Email onClose={handleCloseCard} />}
+            {isCardOpen && <Email onClose={handleEmailCloseCard} />}
           </>
         );
       },
@@ -608,11 +608,11 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
     );
   }
 
-  const handleAddCategoryClick = () => {
+  const handleAddEmailClick = () => {
     setIsCardOpen(true);
   };
 
-  const handleCloseCard = () => {
+  const handleEmailCloseCard = () => {
     setIsCardOpen(false);
   };
   return (

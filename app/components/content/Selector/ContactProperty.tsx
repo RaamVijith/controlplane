@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { MdOutlineCheck } from "react-icons/md"; // Import your icons here
+import React, { useEffect, useRef, useState } from "react";
+import { MdOutlineCheck } from "react-icons/md";
 import { IoChevronDownSharp } from "react-icons/io5";
 import { FaXmark } from "react-icons/fa6";
 const ContactProperty = () => {
@@ -26,19 +26,23 @@ const ContactProperty = () => {
   // State for managing dropdown visibility and selected option
   const [dropdown1Open, setDropdown1Open] = useState(false);
   const [dropdown1SelectedOption, setDropdown1SelectedOption] = useState("");
+  const dropdown1Ref = useRef<HTMLDivElement>(null);
 
   const [dropdown2Open, setDropdown2Open] = useState(false);
   const [dropdown2SelectedOption, setDropdown2SelectedOption] = useState("");
+  const dropdown2Ref = useRef<HTMLDivElement>(null);
 
   const [dropdown3Open, setDropdown3Open] = useState(false);
   const [dropdown3SelectedOption, setDropdown3SelectedOption] = useState("");
+  const dropdown3Ref = useRef<HTMLDivElement>(null);
 
   const [dropdown4Open, setDropdown4Open] = useState(false);
   const [dropdown4SelectedOption, setDropdown4SelectedOption] = useState("");
+  const dropdown4Ref = useRef<HTMLDivElement>(null);
 
   const [dropdown5Open, setDropdown5Open] = useState(false);
   const [dropdown5SelectedOption, setDropdown5SelectedOption] = useState("");
-
+  const dropdown5Ref = useRef<HTMLDivElement>(null);
   // Toggle dropdown visibility for each box
   const toggleDropdown1 = () => setDropdown1Open(!dropdown1Open);
   const toggleDropdown2 = () => setDropdown2Open(!dropdown2Open);
@@ -71,6 +75,48 @@ const ContactProperty = () => {
     setDropdown5SelectedOption(option);
     setDropdown5Open(false);
   };
+
+  // Handle clicks outside of dropdown to close them
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdown1Ref.current &&
+        !dropdown1Ref.current.contains(event.target as Node)
+      ) {
+        setDropdown1Open(false);
+      }
+      if (
+        dropdown2Ref.current &&
+        !dropdown2Ref.current.contains(event.target as Node)
+      ) {
+        setDropdown2Open(false);
+      }
+      if (
+        dropdown3Ref.current &&
+        !dropdown3Ref.current.contains(event.target as Node)
+      ) {
+        setDropdown3Open(false);
+      }
+      if (
+        dropdown4Ref.current &&
+        !dropdown4Ref.current.contains(event.target as Node)
+      ) {
+        setDropdown4Open(false);
+      }
+      if (
+        dropdown5Ref.current &&
+        !dropdown5Ref.current.contains(event.target as Node)
+      ) {
+        setDropdown5Open(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const renderDropdown = (
     open: boolean,
     options: Array<{ label: string; value: string }>,
@@ -91,12 +137,12 @@ const ContactProperty = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:w-full sm:w-full lg:grid-cols-5">
       {/* Box 1 */}
-      <div className="relative flex-grow">
+      <div ref={dropdown1Ref} className="relative flex-grow">
         <div
-          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full text-sm ${
+          className={`flex p-4 border-l border-t border-b items-center justify-center gap-2 w-full text-sm cursor-pointer ${
             dropdown1SelectedOption === "Existing"
-              ? "bg-[#ffccd5] text-[#e03f44]"
-              : "bg-[#1D62B440] text-[#1D62B4]"
+              ? "bg-[#ffccd5] text-[#e03f44] border-[#e03f44]"
+              : "bg-[#1D62B440] text-[#1D62B4] border-[#1D62B4]"
           }`}
           onClick={toggleDropdown1}
         >
@@ -120,7 +166,7 @@ const ContactProperty = () => {
       </div>
 
       {/* Box 2 */}
-      <div className="relative flex-grow">
+      <div ref={dropdown2Ref} className="relative flex-grow">
         {/* <div
           className="flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
           onClick={toggleDropdown2}
@@ -130,10 +176,10 @@ const ContactProperty = () => {
           <IoChevronDownSharp />
         </div> */}
         <div
-          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full text-sm ${
+          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full text-sm cursor-pointer ${
             dropdown2SelectedOption === "Not Contacted"
-              ? "bg-[#ffccd5] text-[#e03f44]"
-              : "bg-[#1D62B440] text-[#1D62B4]"
+              ? "bg-[#ffccd5] text-[#e03f44] border-[#e03f44]"
+              : "bg-[#1D62B440] text-[#1D62B4] border-[#1D62B4]"
           }`}
           onClick={toggleDropdown2}
         >
@@ -161,7 +207,7 @@ const ContactProperty = () => {
       </div>
 
       {/* Box 3 */}
-      <div className="relative flex-grow">
+      <div ref={dropdown3Ref} className="relative flex-grow">
         {/* <div
           className="flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
           onClick={toggleDropdown3}
@@ -171,10 +217,10 @@ const ContactProperty = () => {
           <IoChevronDownSharp />
         </div> */}
         <div
-          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full text-sm ${
+          className={`flex p-4 border-t border-b border-[#1D62B4] items-center justify-center gap-2 w-full text-sm cursor-pointer ${
             dropdown3SelectedOption === "Not Qualified"
-              ? "bg-[#ffccd5] text-[#e03f44]"
-              : "bg-[#1D62B440] text-[#1D62B4]"
+              ? "bg-[#ffccd5] text-[#e03f44] border-[#e03f44]"
+              : "bg-[#1D62B440] text-[#1D62B4] border-[#1D62B4]"
           }`}
           onClick={toggleDropdown3}
         >
@@ -202,7 +248,7 @@ const ContactProperty = () => {
       </div>
 
       {/* Box 4 */}
-      <div className="relative flex-grow">
+      <div ref={dropdown4Ref} className="relative flex-grow">
         {/* <div
           className="flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4]"
           onClick={toggleDropdown4}
@@ -212,10 +258,10 @@ const ContactProperty = () => {
           <IoChevronDownSharp />
         </div> */}
         <div
-          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full text-sm ${
+          className={`flex p-4 border border-[#1D62B4] items-center justify-center gap-2 w-full text-sm cursor-pointer ${
             dropdown4SelectedOption === "Not Started"
-              ? "bg-[#ffccd5] text-[#e03f44]"
-              : "bg-[#1D62B440] text-[#1D62B4]"
+              ? "bg-[#ffccd5] text-[#e03f44] border-[#e03f44]"
+              : "bg-[#1D62B440] text-[#1D62B4] border-[#1D62B4]"
           }`}
           onClick={toggleDropdown4}
         >
@@ -243,9 +289,9 @@ const ContactProperty = () => {
       </div>
 
       {/* Box 5 */}
-      <div className="relative flex-grow">
+      <div ref={dropdown5Ref} className="relative flex-grow">
         <div
-          className="flex p-4 items-center border border-[#1D62B4] justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4] text-sm "
+          className="flex p-4 items-center border-t border-b border-r border-[#1D62B4] justify-center gap-2 w-full bg-[#1D62B440] text-[#1D62B4] text-sm cursor-pointer"
           onClick={toggleDropdown5}
         >
           <MdOutlineCheck />

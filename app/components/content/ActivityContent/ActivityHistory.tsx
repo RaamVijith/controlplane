@@ -65,6 +65,9 @@ const ActivityHistory = () => {
           <div className="cursor-default text-md font-semibold">
             Activity History
           </div>
+          <div className="bg-[#1D62B450] px-2 rounded-md cursor-default">
+            20
+          </div>
         </div>
         <div>
           <div

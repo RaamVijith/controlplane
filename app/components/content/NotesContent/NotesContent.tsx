@@ -60,10 +60,13 @@ const NotesContent = () => {
   return (
     <>
       <div className="border-gray-300 border-b-[1px] pb-10">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mr-2">
           <div className="flex gap-2 py-2 px-2 items-center text-[#1D62B4] font-[500]">
             <FaRegStickyNote size={18} />
             <div className="cursor-default text-md font-semibold">Notes</div>
+            <div className="bg-[#1D62B450] px-2 rounded-md cursor-default">
+              20
+            </div>
           </div>
           <div>
             <div className="flex cursor-pointer items-center justify-center text-sm text-gray-500 p-1 rounded-sm outline outline-[1px] outline-gray-200 hover:bg-slate-300 hover:text-black">

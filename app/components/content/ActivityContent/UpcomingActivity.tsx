@@ -63,6 +63,9 @@ const UpcomingActivity = () => {
           <div className="cursor-default text-md font-semibold">
             Upcoming Activities
           </div>
+          <div className="bg-[#1D62B450] px-2 rounded-md cursor-default">
+            20
+          </div>
         </div>
         <div>
           <div
@@ -176,7 +179,7 @@ const UpcomingActivity = () => {
                 </div>
 
                 <div className="flex flex-col p-4 w-full border-[1px] md:border-[1px] border-gray-300 gap-2">
-                  <div className="text-sm font-[500] text-gray-600">
+                  <div className="text-md font-[500] text-blue-600">
                     Task Priority
                   </div>
 
