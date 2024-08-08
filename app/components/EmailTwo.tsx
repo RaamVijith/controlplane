@@ -11,14 +11,6 @@ import { IoSendSharp } from "react-icons/io5";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-// const CKEditor = React.lazy(() =>
-//   import("@ckeditor/ckeditor5-react").then((mod) => ({ default: mod.CKEditor }))
-// );
-
-// interface EmailProps {
-//   onClose: () => void;
-// }
-
 const EmailTwo = ({ onClose }: { onClose: () => void }) => {
   const [content, setContent] = useState<string>("");
   const [showCC, setShowCC] = useState(false);
