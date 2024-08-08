@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, Suspense } from "react";
 import { IoIosClose } from "react-icons/io";
 import { FaExpandAlt } from "react-icons/fa";
@@ -12,16 +13,12 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const EmailTwo = ({ onClose }: { onClose: () => void }) => {
-  const [content, setContent] = useState<string>("");
   const [showCC, setShowCC] = useState(false);
   const [showBCC, setShowBCC] = useState(false);
   const [attachments, setAttachments] = useState<File[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [emailBody, setEmailBody] = useState("");
 
-  const handleContentChange = (reason: any) => {
-    setContent(reason);
-  };
   const toggleCC = () => setShowCC(!showCC);
   const toggleBCC = () => setShowBCC(!showBCC);
   const onDrop = (acceptedFiles: File[]) => {

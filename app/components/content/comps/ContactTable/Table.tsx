@@ -66,7 +66,12 @@ import { FiPhone } from "react-icons/fi";
 import { FaEdit } from "react-icons/fa";
 import { HiOutlineMail, HiOutlineMailOpen } from "react-icons/hi";
 import { BiSolidEdit } from "react-icons/bi";
-import EmailTwo from "@/app/components/EmailTwo";
+// import EmailTwo from "@/app/components/EmailTwo";
+import dynamic from "next/dynamic";
+
+const EmailTwo = dynamic(() => import("@/app/components/EmailTwo"), {
+  ssr: false,
+});
 const data: Users[] = UsersData;
 
 export type Users = {
