@@ -704,7 +704,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
               </DropdownMenu>
               <div className="text-gray-800">{"Row"}</div>
             </div>
-            <div className="flex gap-2 items-center justify-center space-x-2">
+            <div className="flex-grow flex items-center justify-center gap-2">
               <Button
                 className={clsx(
                   "bg-gray-100",
