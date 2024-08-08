@@ -9,6 +9,7 @@ import SearchBar from "../comps/SearchBar";
 import Email from "../../Email";
 import { FaSearch } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
+import AddCategoryDialog from "../comps/UserInfoPanel/AddCategory";
 
 // const users: Users[] = UsersData;
 type Activity = {
@@ -123,7 +124,7 @@ const ListFragment = () => {
               )}
               onClick={() => handleNavClick(item.id)}
             >
-              {item.title}
+              {item.title} (40)
             </div>
           ))}
         </div>
@@ -140,13 +141,14 @@ const ListFragment = () => {
               className="pl-10"
             />
           </div>
-          {/* <InverseFillButton> */}
-          <FillButton>
-            <IoAdd size={16} />
-            <div className="text-sm">Add Categories</div>
-          </FillButton>
-
-          {/* </InverseFillButton> */}
+          <AddCategoryDialog
+            trigger={
+              <InverseFillButton>
+                <IoAdd size={16} />
+                <div className="text-sm">Add Categories</div>
+              </InverseFillButton>
+            }
+          />
         </div>
       </div>
       <div>

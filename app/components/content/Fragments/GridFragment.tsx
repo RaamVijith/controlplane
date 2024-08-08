@@ -89,7 +89,7 @@ const GridFragment = () => {
                   : "hover:text-gray-800"
               )}
             >
-              {item.title}
+              {item.title} (40)
             </div>
           ))}
         </div>
