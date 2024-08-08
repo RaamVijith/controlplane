@@ -6,7 +6,6 @@ import UsersData from "@/public/data/users";
 import UserInfoPanel from "../comps/UserInfoPanel/UserInfoPanel";
 import DataTable from "../comps/ContactTable/Table";
 import SearchBar from "../comps/SearchBar";
-import Email from "../../Email";
 import { FaSearch } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import AddCategoryDialog from "../comps/UserInfoPanel/AddCategory";

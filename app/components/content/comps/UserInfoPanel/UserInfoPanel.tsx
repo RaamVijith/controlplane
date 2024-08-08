@@ -25,9 +25,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import AddContactDialog from "./AddContact";
 import { BiSolidEdit } from "react-icons/bi";
 import Delete from "@/app/components/Delete";
-import Email from "@/app/components/Email";
 import UpcomingActivity from "../../ActivityContent/UpcomingActivity";
 import NotesContent from "../../NotesContent/NotesContent";
+import dynamic from "next/dynamic";
+
+const EmailDialog = dynamic(() => import("../../EmailContent/Email"), {
+  ssr: false,
+});
 const UserInfoPanel = () => {
   const {
     isPanelVisible,
@@ -289,7 +293,7 @@ const UserInfoPanel = () => {
                 </div> */}
                 <ContactProperty />
               </div>
-              {isCardOpen && <Email onClose={handleEmailCloseCard} />}
+              {isCardOpen && <EmailDialog onClose={handleEmailCloseCard} />}
               <div className="py-4 px-10">
                 <UpcomingActivity />
               </div>

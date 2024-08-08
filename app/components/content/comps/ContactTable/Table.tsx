@@ -58,7 +58,6 @@ import { MdDeleteOutline, MdOutlineHistory } from "react-icons/md";
 import { GrContactInfo } from "react-icons/gr";
 import { BiTransfer } from "react-icons/bi";
 import ConvertContact from "../UserInfoPanel/ConvertContact";
-import Email from "@/app/components/Email";
 import History from "@/app/components/History/History";
 import Delete from "@/app/components/Delete";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -66,12 +65,12 @@ import { FiPhone } from "react-icons/fi";
 import { FaEdit } from "react-icons/fa";
 import { HiOutlineMail, HiOutlineMailOpen } from "react-icons/hi";
 import { BiSolidEdit } from "react-icons/bi";
-// import EmailTwo from "@/app/components/EmailTwo";
 import dynamic from "next/dynamic";
 
-const EmailTwo = dynamic(() => import("@/app/components/EmailTwo"), {
+const EmailDialog = dynamic(() => import("../../EmailContent/Email"), {
   ssr: false,
 });
+
 const data: Users[] = UsersData;
 
 export type Users = {
@@ -567,7 +566,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            {isCardOpen && <EmailTwo onClose={handleEmailCloseCard} />}
+            {isCardOpen && <EmailDialog onClose={handleEmailCloseCard} />}
           </>
         );
       },

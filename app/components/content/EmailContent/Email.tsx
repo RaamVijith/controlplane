@@ -1,25 +1,17 @@
+"use client";
 import React, { useState, Suspense } from "react";
 import { IoIosClose } from "react-icons/io";
-import { FaExpandAlt } from "react-icons/fa";
+import { FaExpand, FaExpandAlt } from "react-icons/fa";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { useDropzone } from "react-dropzone";
-import { RiAttachment2 } from "react-icons/ri";
-import { FillButton } from "./libs/buttons";
+import { FillButton } from "../../libs/buttons";
 import { IoSendSharp } from "react-icons/io5";
-// import Tiptap from "./Email/TipTap";
-// import { CKEditor as CKEditorType } from "@ckeditor/ckeditor5-react";
-// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { RiAttachment2 } from "react-icons/ri";
 
-// const CKEditor = React.lazy(() =>
-//   import("@ckeditor/ckeditor5-react").then((mod) => ({ default: mod.CKEditor }))
-// );
-
-// interface EmailProps {
-//   onClose: () => void;
-// }
-
-const Email = ({ onClose }: { onClose: () => void }) => {
+const EmailDialog = ({ onClose }: { onClose: () => void }) => {
   const [showCC, setShowCC] = useState(false);
   const [showBCC, setShowBCC] = useState(false);
   const [attachments, setAttachments] = useState<File[]>([]);
@@ -41,28 +33,31 @@ const Email = ({ onClose }: { onClose: () => void }) => {
   };
   // Calculate height based on CC and BCC visibility
   const emailBodyBoxHeight =
-    showCC && showBCC ? "50%" : showCC || showBCC ? "55%" : "62%";
+    showCC && showBCC ? "55%" : showCC || showBCC ? "60%" : "70%";
 
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
   return (
     <form onSubmit={handleSubmit}>
       <div
-        className={` fixed bottom-4 right-4 bg-white shadow-sm rounded-md p-3 w-[90%] ${
+        className={`fixed bottom-4 right-4 bg-white shadow-sm rounded-md z-[9999] ${
           isExpanded
-            ? "h-[95%] w-[95%]"
-            : "h-[80%] sm:h-[80%] md:w-[80%] lg:w-[800px] lg:h-[750px] xl:w-[800px] xl:h-[750px]"
-        } transition-all duration-300 ease-in-out`}
+            ? "h-[90%] w-[70%]"
+            : "h-[80%] sm:h-[80%] md:w-[80%] lg:w-[55%] lg:h-[70%] xl:w-[50%] xl:h-[85%]"
+        } transition-all duration-300 ease-in-out flex flex-col`}
       >
-        <div className="bg-[#f7f7f7 text-black rounded-t-md py-2">
+        <div className="bg-[#f7f7f7] text-black rounded-t-md py-4">
           <div className="flex justify-between items-center px-2">
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={toggleExpand}
-                className=" hover:text-gray-200"
+                className="hover:text-gray-200 transition-transform duration-300"
               >
-                <FaExpandAlt className="text-black" size={14} />
+                <FaExpand
+                  className="text-black transform hover:scale-110"
+                  size={14}
+                />
               </button>
               <h6 className="text-sm font-semibold cursor-default">
                 Create New Email
@@ -77,7 +72,7 @@ const Email = ({ onClose }: { onClose: () => void }) => {
           </div>
         </div>
         <hr className="my-1 border-t border-gray-300" />
-        <div className="p-3">
+        <div className="p-3 flex-1 overflow-y-auto">
           {/* First Text Field */}
           <div className="flex items-center border-b border-gray-300 mb-2">
             <Image
@@ -90,20 +85,20 @@ const Email = ({ onClose }: { onClose: () => void }) => {
             <Input
               type="text"
               placeholder="Create New Email"
-              className="flex-1 border-none outline-none  text-gray-700"
+              className="flex-1 border-none outline-none text-gray-700"
             />
           </div>
 
           {/* Second Text Field */}
-          <div className="gap-2 flex items-center justify-between border-b border-gray-300 ">
+          <div className="gap-2 flex items-center justify-between border-b border-gray-300">
             <div className="flex w-full items-center gap-1">
               <p className="text-xs mr-2">To</p>
               <Image
                 src="/users/2.jpg"
                 alt="Second Icon"
                 className="rounded-full mr-2"
-                width={24}
-                height={24}
+                width={16}
+                height={16}
               />
               <Input
                 type="text"
@@ -128,8 +123,8 @@ const Email = ({ onClose }: { onClose: () => void }) => {
                 src="/users/2.jpg"
                 alt="Second Icon"
                 className="rounded-full mr-2"
-                width={24}
-                height={24}
+                width={16}
+                height={16}
               />
               <Input
                 type="text"
@@ -146,8 +141,8 @@ const Email = ({ onClose }: { onClose: () => void }) => {
                 src="/users/2.jpg"
                 alt="Second Icon"
                 className="rounded-full mr-2"
-                width={24}
-                height={24}
+                width={16}
+                height={16}
               />
               <Input
                 type="text"
@@ -156,45 +151,83 @@ const Email = ({ onClose }: { onClose: () => void }) => {
               />
             </div>
           )}
-        </div>
-        <div className="gap-2 flex items-center justify-between border-b border-gray-300 mb-2">
-          <Input
-            type="text"
-            placeholder="Subject"
-            className="flex-1 w-full border-none outline-none text-gray-700"
-          />
-        </div>
+          <div className="gap-2 flex items-center justify-between border-b border-gray-300 mb-2 px-3">
+            <Input
+              type="text"
+              placeholder="Subject"
+              className="flex-1 w-full border-none outline-none text-gray-700"
+            />
+          </div>
 
-        {/* Email Body Box */}
-        <div
-          className="flex flex-col border border-gray-300 mb-2 overflow-y-auto h-full"
-          style={{ height: emailBodyBoxHeight }}
-        >
-          {/* <Suspense fallback={<div>Loading Editor...</div>}>
+          {/* Email Body Box */}
+          <div
+            className="flex flex-col border-b-1 border-gray-300 overflow-y-auto"
+            style={{ height: emailBodyBoxHeight }}
+          >
             <CKEditor
-              editor={ClassicEditor as any} // Cast as any to avoid type issues
+              editor={ClassicEditor}
               data={emailBody}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setEmailBody(data);
               }}
+              config={{
+                toolbar: [
+                  "heading",
+                  "|",
+                  "bold",
+                  "italic",
+                  "link",
+                  "bulletedList",
+                  "numberedList",
+                  "blockQuote",
+                  "insertTable",
+                  "tableColumn",
+                  "tableRow",
+                  "mergeTableCells",
+                  "undo",
+                  "redo",
+                  "alignment",
+                  "fontSize",
+                  "fontColor",
+                  "fontBackgroundColor",
+                  "highlight",
+                  "codeBlock",
+                  "imageUpload",
+                  "mediaEmbed",
+                  "removeFormat",
+                  "horizontalLine",
+                  "strikethrough",
+                  "subscript",
+                  "superscript",
+                  "underline",
+                  "code",
+                ],
+                extraPlugins: [
+                  // Add plugins here if needed
+                ],
+              }}
             />
-          </Suspense> */}
+          </div>
 
-          {/* <Tiptap /> */}
+          <div className="relative">
+            <ul className="absolute top-5 left-0 right-0 flex gap-2 text-sm mb-2">
+              {attachments.map((file, index) => (
+                <li key={index} className="flex items-center gap-2">
+                  <span>{file.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="flex justify-between items-center pb-2">
-          <div>
+        {/* Footer Section */}
+        <div className="flex justify-between items-center pb-2 px-2 bg-[#f7f7f7] border-t border-gray-300">
+          <div className="flex items-center gap-2">
             <div {...getRootProps()} className="cursor-pointer">
               <input {...getInputProps()} />
               <RiAttachment2 size={20} />
             </div>
-            <ul className="flex gap-2 mt-2 text-sm">
-              {attachments.map((file, index) => (
-                <li key={index}>{file.name}</li>
-              ))}
-            </ul>
           </div>
           {/* Send Button */}
           <div>
@@ -210,5 +243,5 @@ const Email = ({ onClose }: { onClose: () => void }) => {
     </form>
   );
 };
-
-export default Email;
+//hello
+export default EmailDialog;

@@ -35,11 +35,15 @@ import ConvertContact from "../UserInfoPanel/ConvertContact";
 import History from "@/app/components/History/History";
 import Delete from "@/app/components/Delete";
 import { useState } from "react";
-import Email from "@/app/components/Email";
+
 import { FiPhone } from "react-icons/fi";
 import { HiOutlineMailOpen } from "react-icons/hi";
 // import { User } from "@/public/data/users";
+import dynamic from "next/dynamic";
 
+const EmailDialog = dynamic(() => import("../../EmailContent/Email"), {
+  ssr: false,
+});
 type Activity = {
   id: number;
   remainder: string;
@@ -245,7 +249,7 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-                {isCardOpen && <Email onClose={handleCloseCard} />}
+                {isCardOpen && <EmailDialog onClose={handleCloseCard} />}
                 <div className="flex items-center">
                   <p
                     className={clsx(

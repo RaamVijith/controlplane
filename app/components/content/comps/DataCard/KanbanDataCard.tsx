@@ -33,9 +33,14 @@ import ConvertContact from "../UserInfoPanel/ConvertContact";
 import History from "@/app/components/History/History";
 import Delete from "@/app/components/Delete";
 import { useState } from "react";
-import Email from "@/app/components/Email";
+// import Email from "@/app/components/Email";
 import { FiPhone } from "react-icons/fi";
 import { HiOutlineMailOpen } from "react-icons/hi";
+import dynamic from "next/dynamic";
+
+const EmailDialog = dynamic(() => import("../../EmailContent/Email"), {
+  ssr: false,
+});
 type Activity = {
   id: number;
   remainder: string;
@@ -234,7 +239,7 @@ const DataCard = ({ user }: UserCardProps) => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          {isCardOpen && <Email onClose={handleCloseCard} />}
+          {isCardOpen && <EmailDialog onClose={handleCloseCard} />}
           <div className="flex items-center gap-2 text-gray-500 text-sm">
             <TfiEmail className="mt-1" /> <p className="mt-1"> {user.email}</p>
           </div>
