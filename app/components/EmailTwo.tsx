@@ -7,7 +7,7 @@ import { useDropzone } from "react-dropzone";
 import { RiAttachment2 } from "react-icons/ri";
 import { FillButton } from "./libs/buttons";
 import { IoSendSharp } from "react-icons/io5";
-import Tiptap from "./Email/TipTap";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
