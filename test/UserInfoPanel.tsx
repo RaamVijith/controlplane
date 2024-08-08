@@ -25,7 +25,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 // import AddContactDialog from "./AddContact";
 import { BiSolidEdit } from "react-icons/bi";
 import Delete from "@/app/components/Delete";
-import Email from "@/app/components/Email";
+// import Email from "@/app/components/Email";
 import { usePanel } from "@/app/components/content/comps/UserInfoPanel/UserPanelContext";
 import AddContactDialog from "@/app/components/content/comps/UserInfoPanel/AddContact";
 import ContactProperty from "@/app/components/content/Selector/ContactProperty";
@@ -290,7 +290,7 @@ const UserInfoPanel = () => {
                 </div> */}
                 <ContactProperty />
               </div>
-              {isCardOpen && <Email onClose={handleEmailCloseCard} />}
+              {/* {isCardOpen && <Email onClose={handleEmailCloseCard} />} */}
               {/* <div className="py-4 px-10">
                 <UpcomingActivity />
               </div> */}

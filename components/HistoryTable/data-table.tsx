@@ -40,6 +40,7 @@ import {
 import { AiOutlineExpandAlt } from "react-icons/ai";
 import { MdDownload } from "react-icons/md";
 import * as XLSX from "xlsx";
+import Image from "next/image";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -117,12 +118,12 @@ export function CommonTable<TData, TValue>({
     XLSX.writeFile(workbook, "table_data.xlsx");
   };
   return (
-    <> 
+    <>
       {/* Search Bar Filter */}
       {/* <div className="sticky top-0 z-10 bg-white pb-4"> */}
       <div className="flex justify-between items-center pb-4">
         <div className="flex items-center gap-3">
-          <p className="text-sm">
+          <p className="text-md">
             <strong>Period</strong>
           </p>
           <div>
@@ -145,9 +146,15 @@ export function CommonTable<TData, TValue>({
             </Select>
           </div>
           {/* <FaFilter /> */}
-          <AiOutlineExpandAlt />
-
-          <MdDownload onClick={handleDownload} size={20} />
+          {/* <AiOutlineExpandAlt /> */}
+          <Image
+            src="/icons/Vector.png"
+            alt="Vector.png"
+            width={15}
+            height={15}
+            onClick={handleDownload}
+          />
+          {/* <MdDownload onClick={handleDownload} size={20} /> */}
         </div>
 
         <div className="relative max-w-sm mt-4">

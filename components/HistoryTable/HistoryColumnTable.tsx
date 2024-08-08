@@ -78,17 +78,27 @@ export const columns: ColumnDef<HistoryTable>[] = [
     },
     cell: ({ row }) => {
       const date = new Date(row.getValue("createdAt"));
-      const formattedDate = date.toLocaleDateString("en-GB"); // format as dd/mm/yyyy
-      const formattedTime = date.toLocaleTimeString("en-GB", {
-        hour12: false,
+
+      // Format the date
+      const dateFormatter = new Intl.DateTimeFormat("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+      const formattedDate = dateFormatter.format(date);
+
+      // Format the time
+      const timeFormatter = new Intl.DateTimeFormat("en-GB", {
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
+        hour12: true,
       });
-
+      const formattedTime = timeFormatter.format(date);
+      const formattedDateTime = `${formattedDate} ${formattedTime}`;
       return (
         <div className="font-medium">
-          {formattedDate.split("/").join("-")} {formattedTime}
+          <span>{formattedDateTime}</span>
         </div>
       );
     },
