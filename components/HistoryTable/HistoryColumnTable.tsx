@@ -7,7 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { RiExpandUpDownLine } from "react-icons/ri";
+import { RiDeleteBin5Line, RiExpandUpDownLine } from "react-icons/ri";
 import { MoreHorizontal } from "lucide-react";
 import { MdOutlineHistory } from "react-icons/md";
 
@@ -132,7 +132,7 @@ export const columns: ColumnDef<HistoryTable>[] = [
             </DropdownMenuItem>
             <DropdownMenuItem>
               <span className="pl-2 gap-1 flex items-center justify-center">
-                <MdOutlineHistory className="mr-2" size={20} /> Audit Logs
+                <RiDeleteBin5Line className="mr-2" size={20} /> Audit Logs
               </span>
             </DropdownMenuItem>
           </DropdownMenuContent>

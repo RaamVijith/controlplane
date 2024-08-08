@@ -9,6 +9,7 @@ import Image from "next/image";
 import React from "react";
 import { FillButton } from "./libs/buttons";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 interface DeleteDialogProps {
   trigger: React.ReactNode;
 }
@@ -31,7 +32,7 @@ const Delete: React.FC<DeleteDialogProps> = ({ trigger }) => {
                 This action cannot be undone, All values <br /> associated with
                 this field will be lost.
               </p>
-              <Input type="text" placeholder="Enter the Reason" />
+              <Textarea placeholder="Enter the Reason" />
               <div className="flex flex-col md:flex-row gap-1 mt-3">
                 <FillButton className="rounded-sm w-full md:w-1/2 p-4 bg-slate-300 hover:bg-slate-400">
                   No, Keep it.

@@ -1,12 +1,16 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CiCalendarDate } from "react-icons/ci";
 import { FaTasks } from "react-icons/fa";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { RiCalendarScheduleLine, RiDeleteBin5Line } from "react-icons/ri";
 import UpcomingActivityCard from "../comps/DataCard/UpcomingCard";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import {
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp,
+  MdOutlineKeyboardArrowUp,
+} from "react-icons/md";
 import { upcomingData } from "@/public/data/users";
 import clsx from "clsx";
 import { Textarea } from "@/components/ui/textarea";
@@ -34,7 +38,7 @@ import {
 
 // import upcomingData
 const ActivityHistory = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [reminderOpen, setReminderOpen] = useState(false);
   const [taskPriorityOpen, setTaskPriorityOpen] = useState(false);
   const [assignedToOpen, setAssignedToOpen] = useState(false);
@@ -42,6 +46,10 @@ const ActivityHistory = () => {
   const [reminder, setReminder] = useState("reminder");
   const [taskPriority, setTaskPriority] = useState("High");
   const [assignedTo, setAssignedTo] = useState("User");
+
+  const reminderRef = useRef<HTMLDivElement>(null);
+  const taskPriorityRef = useRef<HTMLDivElement>(null);
+  const assignedToRef = useRef<HTMLDivElement>(null);
 
   const toggleReminderDropdown = () => setReminderOpen(!reminderOpen);
   const toggleTaskPriorityDropdown = () =>
@@ -70,6 +78,41 @@ const ActivityHistory = () => {
     event.stopPropagation();
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    // Ensure the event target is an element
+    if (!(event.target instanceof HTMLElement)) {
+      return;
+    }
+
+    // Close Reminder dropdown if clicked outside
+    if (reminderRef.current && !reminderRef.current.contains(event.target)) {
+      setReminderOpen(false);
+    }
+
+    // Close Task Priority dropdown if clicked outside
+    if (
+      taskPriorityRef.current &&
+      !taskPriorityRef.current.contains(event.target)
+    ) {
+      setTaskPriorityOpen(false);
+    }
+
+    // Close Assigned To dropdown if clicked outside
+    if (
+      assignedToRef.current &&
+      !assignedToRef.current.contains(event.target)
+    ) {
+      setAssignedToOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <div className="flex gap-2 py-2 px-2 items-center text-[#1D62B4] font-[500] mt-7">
@@ -95,9 +138,9 @@ const ActivityHistory = () => {
                   >
                     <div className="flex items-center gap-2">
                       {isOpen ? (
-                        <GoTriangleUp size={16} />
+                        <MdOutlineKeyboardArrowUp size={16} />
                       ) : (
-                        <GoTriangleDown size={16} />
+                        <MdKeyboardArrowDown size={16} />
                       )}
                       <p className="text-gray-600 font-semibold">
                         20 June 2024
@@ -134,7 +177,10 @@ const ActivityHistory = () => {
                         </div>
                       </div>
                       <div className="flex m-4">
-                        <div className="flex flex-col p-4 w-full border-[1px] border-gray-300 gap-2">
+                        <div
+                          ref={reminderRef}
+                          className="flex flex-col p-4 w-full border-[1px] border-gray-300 gap-2"
+                        >
                           <div className="text-sm font-[500] text-gray-600">
                             Reminder
                           </div>
@@ -166,7 +212,10 @@ const ActivityHistory = () => {
                           )}
                         </div>
 
-                        <div className="flex flex-col p-4 w-full border-[1px] md:border-[1px] border-gray-300 gap-2">
+                        <div
+                          ref={taskPriorityRef}
+                          className="flex flex-col p-4 w-full border-[1px] md:border-[1px] border-gray-300 gap-2"
+                        >
                           <div className="text-sm font-[500] text-gray-600">
                             Task Priority
                           </div>
@@ -216,7 +265,10 @@ const ActivityHistory = () => {
                           )}
                         </div>
 
-                        <div className="flex flex-col p-4 w-full gap-2 border-[1px] border-gray-300">
+                        <div
+                          ref={assignedToRef}
+                          className="flex flex-col p-4 w-full gap-2 border-[1px] border-gray-300"
+                        >
                           <div className="text-sm font-[500] text-gray-600">
                             Assigned to
                           </div>
