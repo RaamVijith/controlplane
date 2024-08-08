@@ -46,16 +46,11 @@ const VerticalStepper = () => {
   ];
   return (
     <div className="p-3">
-      <div className=" w-[50%] ">
-        <AddContactDialog
-          mode="add"
-          trigger={
-            <FillButton>
-              <IoAdd />
-              <div className="text-sm">Add Contact</div>
-            </FillButton>
-          }
-        />
+      <div className=" w-[30%] ">
+        <FillButton>
+          <IoAdd />
+          <div className="text-sm">Convert</div>
+        </FillButton>
       </div>
 
       <Stepper

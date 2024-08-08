@@ -48,7 +48,7 @@ const Email = ({ onClose }: { onClose: () => void }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div
-        className={`fixed bottom-4 right-4 bg-white shadow-sm rounded-md p-3 w-[90%] ${
+        className={` fixed bottom-4 right-4 bg-white shadow-sm rounded-md p-3 w-[90%] ${
           isExpanded
             ? "h-[95%] w-[95%]"
             : "h-[80%] sm:h-[80%] md:w-[80%] lg:w-[800px] lg:h-[750px] xl:w-[800px] xl:h-[750px]"

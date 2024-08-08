@@ -34,11 +34,16 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { RiExpandUpDownLine, RiDeleteBin5Line } from "react-icons/ri";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward, IoMdMale } from "react-icons/io";
 import { PiPhoneLight } from "react-icons/pi";
 import { SlLocationPin } from "react-icons/sl";
 import { BsGenderFemale, BsGenderMale, BsThreeDots } from "react-icons/bs";
-import { IoAdd, IoMailOpenOutline } from "react-icons/io5";
+import {
+  IoAdd,
+  IoFemale,
+  IoLocationOutline,
+  IoMailOpenOutline,
+} from "react-icons/io5";
 import { TfiEmail } from "react-icons/tfi";
 import Image from "next/image";
 import clsx from "clsx";
@@ -59,7 +64,7 @@ import Delete from "@/app/components/Delete";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FiPhone } from "react-icons/fi";
 import { FaEdit } from "react-icons/fa";
-import { HiOutlineMailOpen } from "react-icons/hi";
+import { HiOutlineMail, HiOutlineMailOpen } from "react-icons/hi";
 import { BiSolidEdit } from "react-icons/bi";
 const data: Users[] = UsersData;
 
@@ -194,8 +199,8 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
         );
       },
       cell: ({ row }) => (
-        <div className="cursor-pointer lowercase flex gap-2 items-center">
-          <TfiEmail />
+        <div className="cursor-pointer lowercase flex gap-2 text-gray-500 items-center">
+          <HiOutlineMail size={20} />
           <div>{row.getValue("email")}</div>
         </div>
       ),
@@ -237,7 +242,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
       //   },
       cell: ({ row }) => (
         <div className="flex gap-2 items-center text-gray-500">
-          <PiPhoneLight className="text-[16px] lg:text-[20px]" />
+          <FiPhone className="text-[16px] lg:text-[20px]" />
           <div className="lowercase">{row.getValue("contact")}</div>
         </div>
       ),
@@ -379,7 +384,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
       },
       cell: ({ row }) => (
         <div className="flex gap-2 items-center text-gray-500">
-          <SlLocationPin className="text-[16px] lg:text-[20px]" />
+          <IoLocationOutline className="text-[16px] lg:text-[20px]" />
           <div className="capitalize">{row.getValue("location")}</div>
         </div>
       ),
@@ -408,9 +413,9 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
       cell: ({ row }) => (
         <div className="flex gap-2 items-center text-gray-500">
           {row.getValue("gender") === "Male" ? (
-            <BsGenderMale className="text-[16px] lg:text-[20px]" />
+            <IoMdMale className="text-[16px] lg:text-[20px]" />
           ) : (
-            <BsGenderFemale className="text-[16px] lg:text-[20px]" />
+            <IoFemale className="text-[16px] lg:text-[20px]" />
           )}
           <div className="capitalize">{row.getValue("gender")}</div>
         </div>

@@ -6,6 +6,7 @@ const Activity = () => {
   return (
     <div>
       <UpcomingActivity />
+
       <ActivityHistory />
     </div>
   );

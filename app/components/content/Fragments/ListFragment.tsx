@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useContext, useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
-import { InverseFillButton } from "../../libs/buttons";
+import { FillButton, InverseFillButton } from "../../libs/buttons";
 import UsersData from "@/public/data/users";
 import UserInfoPanel from "../comps/UserInfoPanel/UserInfoPanel";
 import DataTable from "../comps/ContactTable/Table";
@@ -140,10 +140,13 @@ const ListFragment = () => {
               className="pl-10"
             />
           </div>
-          <InverseFillButton>
+          {/* <InverseFillButton> */}
+          <FillButton>
             <IoAdd size={16} />
             <div className="text-sm">Add Categories</div>
-          </InverseFillButton>
+          </FillButton>
+
+          {/* </InverseFillButton> */}
         </div>
       </div>
       <div>
