@@ -128,7 +128,7 @@ const ListFragment = () => {
             </div>
           ))}
         </div>
-        <div className="flex items-center justify-center gap-1">
+        <div className="flex items-center justify-center gap-3">
           {/* SearchBar */}
           <div className="relative max-w-sm">
             {/* Search Icon */}

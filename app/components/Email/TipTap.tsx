@@ -2,15 +2,16 @@
 
 // import { useEditor, EditorContent } from "@tiptap/react";
 // import StarterKit from "@tiptap/starter-kit";
+// // import Toolbar from "./Toolbar";
+// // import Underline from "@tiptap/extension-underline";
 // import Toolbar from "./Toolbar";
-// import Underline from "@tiptap/extension-underline";
 
 // const Tiptap = ({ onChange, content }: any) => {
 //   const handleChange = (newContent: string) => {
 //     onChange(newContent);
 //   };
 //   const editor = useEditor({
-//     extensions: [StarterKit, Underline],
+//     extensions: [StarterKit,],
 //     editorProps: {
 //       attributes: {
 //         class:

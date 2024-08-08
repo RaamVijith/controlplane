@@ -3,6 +3,7 @@ import { IoCallOutline, IoEllipsisHorizontal } from "react-icons/io5";
 import { AiTwotoneMail } from "react-icons/ai";
 import { GoPlus } from "react-icons/go";
 import Email from "../Email";
+import EmailTwo from "../EmailTwo";
 
 const SocialIcons = () => {
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
@@ -34,7 +35,7 @@ const SocialIcons = () => {
           </div>
         ))}
       </div>
-      {isCardOpen && <Email onClose={handleEmailCloseCard} />}
+      {isCardOpen && <EmailTwo onClose={handleEmailCloseCard} />}
     </>
   );
 };

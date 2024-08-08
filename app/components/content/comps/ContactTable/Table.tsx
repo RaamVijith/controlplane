@@ -66,6 +66,7 @@ import { FiPhone } from "react-icons/fi";
 import { FaEdit } from "react-icons/fa";
 import { HiOutlineMail, HiOutlineMailOpen } from "react-icons/hi";
 import { BiSolidEdit } from "react-icons/bi";
+import EmailTwo from "@/app/components/EmailTwo";
 const data: Users[] = UsersData;
 
 export type Users = {
@@ -561,7 +562,7 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            {isCardOpen && <Email onClose={handleEmailCloseCard} />}
+            {isCardOpen && <EmailTwo onClose={handleEmailCloseCard} />}
           </>
         );
       },
