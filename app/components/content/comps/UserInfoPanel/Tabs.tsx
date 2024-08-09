@@ -66,6 +66,13 @@ const Tabs = () => {
               Annual Revenue
             </label>
             <p className="text-sm mb-3">400,000 USD</p>
+            <label
+              htmlFor="createdOn"
+              className="block text-sm font-medium text-slate-400 mb-1"
+            >
+              Created On
+            </label>
+            <p className="text-sm mb-3">Aug 8th 2024</p>
           </div>
         ) : (
           <div className="flex items-center gap-4">

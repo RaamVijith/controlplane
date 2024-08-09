@@ -10,7 +10,13 @@ import { IoSendSharp } from "react-icons/io5";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { RiAttachment2 } from "react-icons/ri";
-
+import { Button } from "@/components/ui/button";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { MdOutlineFileDownload } from "react-icons/md";
 const EmailDialog = ({ onClose }: { onClose: () => void }) => {
   const [showCC, setShowCC] = useState(false);
   const [showBCC, setShowBCC] = useState(false);
@@ -37,13 +43,29 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
 
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
+  const handleDeleteAttachment = (index: number) => {
+    setAttachments((prevAttachments) =>
+      prevAttachments.filter((_, i) => i !== index)
+    );
+  };
+
+  const handleDownloadAttachment = (file: File) => {
+    const url = URL.createObjectURL(file);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = file.name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <div
-        className={`fixed bottom-4 right-4 bg-white shadow-sm rounded-md z-[9999] ${
+        className={`fixed bottom-0 right-9 shadow-md bg-white rounded-md z-[9999] ${
           isExpanded
-            ? "h-[90%] w-[70%]"
-            : "h-[80%] sm:h-[80%] md:w-[80%] lg:w-[55%] lg:h-[70%] xl:w-[50%] xl:h-[85%]"
+            ? "h-auto w-[70%]"
+            : "h-[80%] sm:h-[80%] md:w-[80%] lg:w-[55%] lg:h-auto xl:w-[50%] xl:h-auto "
         } transition-all duration-300 ease-in-out flex flex-col`}
       >
         <div className="bg-[#f7f7f7] text-black rounded-t-md py-4">
@@ -72,101 +94,112 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
           </div>
         </div>
         <hr className="my-1 border-t border-gray-300" />
-        <div className="p-3 flex-1 overflow-y-auto">
-          {/* First Text Field */}
-          <div className="flex items-center border-b border-gray-300 mb-2">
-            <Image
-              src="/users/4.jpg"
-              alt="First Icon"
-              className="rounded-full mr-2"
-              width={24}
-              height={24}
-            />
-            <Input
-              type="text"
-              placeholder="Create New Email"
-              className="flex-1 border-none outline-none text-gray-700"
-            />
-          </div>
-
-          {/* Second Text Field */}
-          <div className="gap-2 flex items-center justify-between border-b border-gray-300">
-            <div className="flex w-full items-center gap-1">
-              <p className="text-xs mr-2">To</p>
+        <div className=" flex-1 overflow-y-auto">
+          <div className="sticky top-0 bg-white z-10 ">
+            {/* First Text Field */}
+            <div className="flex items-center border-b border-gray-300 mb-2 px-3">
               <Image
-                src="/users/2.jpg"
-                alt="Second Icon"
+                src="/users/4.jpg"
+                alt="First Icon"
                 className="rounded-full mr-2"
-                width={16}
-                height={16}
+                width={24}
+                height={24}
               />
               <Input
                 type="text"
-                placeholder="Second Text Field"
-                className="flex-1 w-full border-none outline-none p-2 text-gray-700"
+                placeholder="Create New Email"
+                className="flex-1 border-none outline-none text-gray-700"
               />
             </div>
-            <div className="text-sm flex items-center gap-1">
-              <p className="text-sm cursor-pointer" onClick={toggleCC}>
-                Cc
-              </p>
-              <p className="text-sm cursor-pointer" onClick={toggleBCC}>
-                Bcc
-              </p>
+            {/* Second Text Field */}
+            <div className="gap-2 flex items-center justify-between border-b border-gray-300 px-3">
+              <div className="flex w-full items-center gap-1">
+                <p className="text-xs mr-2">To</p>
+                <Image
+                  src="/users/2.jpg"
+                  alt="Second Icon"
+                  className="rounded-full mr-2"
+                  width={16}
+                  height={16}
+                />
+                <Input
+                  type="text"
+                  placeholder="Second Text Field"
+                  className="flex-1 w-full border-none outline-none p-2 text-gray-700"
+                />
+              </div>
+              <div className="text-sm flex items-center gap-1">
+                <p className="text-sm cursor-pointer" onClick={toggleCC}>
+                  Cc
+                </p>
+                <p className="text-sm cursor-pointer" onClick={toggleBCC}>
+                  Bcc
+                </p>
+              </div>
             </div>
-          </div>
-          {/* CC Field */}
-          {showCC && (
-            <div className="flex w-full items-center gap-1 mt-2 border-b border-gray-300">
-              <p className="text-xs mr-2">Cc</p>
-              <Image
-                src="/users/2.jpg"
-                alt="Second Icon"
-                className="rounded-full mr-2"
-                width={16}
-                height={16}
-              />
+            {/* CC Field */}
+            {showCC && (
+              <div className="flex w-full items-center gap-1 mt-2 border-b border-gray-300 px-3">
+                <p className="text-xs mr-2">Cc</p>
+                <Image
+                  src="/users/2.jpg"
+                  alt="Second Icon"
+                  className="rounded-full mr-2"
+                  width={16}
+                  height={16}
+                />
+                <Input
+                  type="text"
+                  placeholder="Cc"
+                  className="flex-1 w-full border-none outline-none p-2 text-gray-700"
+                />
+              </div>
+            )}
+            {/* BCC Field */}
+            {showBCC && (
+              <div className="flex w-full items-center gap-1 mt-2 border-b border-gray-300 px-3">
+                <p className="text-xs mr-2">Bcc</p>
+                <Image
+                  src="/users/2.jpg"
+                  alt="Second Icon"
+                  className="rounded-full mr-2"
+                  width={16}
+                  height={16}
+                />
+                <Input
+                  type="text"
+                  placeholder="Bcc"
+                  className="flex-1 w-full border-none outline-none p-2 text-gray-700"
+                />
+              </div>
+            )}
+            <div className="gap-2 flex items-center justify-between border-b border-gray-300 mb-2 px-3">
               <Input
                 type="text"
-                placeholder="Cc"
-                className="flex-1 w-full border-none outline-none p-2 text-gray-700"
+                placeholder="Subject"
+                className="flex-1 w-full border-none outline-none text-gray-700"
               />
             </div>
-          )}
-          {/* BCC Field */}
-          {showBCC && (
-            <div className="flex w-full items-center gap-1 mt-2 border-b border-gray-300">
-              <p className="text-xs mr-2">Bcc</p>
-              <Image
-                src="/users/2.jpg"
-                alt="Second Icon"
-                className="rounded-full mr-2"
-                width={16}
-                height={16}
-              />
-              <Input
-                type="text"
-                placeholder="Bcc"
-                className="flex-1 w-full border-none outline-none p-2 text-gray-700"
-              />
-            </div>
-          )}
-          <div className="gap-2 flex items-center justify-between border-b border-gray-300 mb-2 px-3">
-            <Input
-              type="text"
-              placeholder="Subject"
-              className="flex-1 w-full border-none outline-none text-gray-700"
-            />
           </div>
 
           {/* Email Body Box */}
           <div
-            className="flex flex-col border-b-1 border-gray-300 overflow-y-auto"
+            className="px-3 pt-2 sticky"
             style={{ height: emailBodyBoxHeight }}
           >
             <CKEditor
               editor={ClassicEditor}
               data={emailBody}
+              onReady={(editor) => {
+                // You can store the "editor" and use when it is needed.
+                // console.log("Editor is ready to use!", editor);
+                const rootElement = editor.editing.view.document.getRoot();
+                if (rootElement) {
+                  editor.editing.view.change((writer) => {
+                    writer.setStyle("height", "27rem", rootElement);
+                  });
+                }
+              }}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setEmailBody(data);
@@ -177,6 +210,7 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
                   "|",
                   "bold",
                   "italic",
+                  "underline",
                   "link",
                   "bulletedList",
                   "numberedList",
@@ -210,11 +244,36 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
             />
           </div>
 
-          <div className="relative">
-            <ul className="absolute top-5 left-0 right-0 flex gap-2 text-sm mb-2">
+          <div className="p-3 overflow-x-auto">
+            <ul
+              className="top-5 left-0 right-0 flex flex-wrap gap-2 text-sm mb-2 h-full"
+              style={{ maxHeight: "25px" }}
+            >
               {attachments.map((file, index) => (
                 <li key={index} className="flex items-center gap-2">
-                  <span>{file.name}</span>
+                  <HoverCard>
+                    <HoverCardTrigger asChild>
+                      <Button variant="outline">{file.name}</Button>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-full">
+                      <div className="flex justify-center space-x-4">
+                        <button
+                          type="button"
+                          className="text-blue-600 hover:text-blue-800"
+                          onClick={() => handleDownloadAttachment(file)}
+                        >
+                          <MdOutlineFileDownload size={20} />
+                        </button>
+                        <button
+                          type="button"
+                          className="text-red-600 hover:text-red-800"
+                          onClick={() => handleDeleteAttachment(index)}
+                        >
+                          <IoIosClose size={20} />
+                        </button>
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
                 </li>
               ))}
             </ul>
@@ -243,5 +302,5 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
     </form>
   );
 };
-//hello
+
 export default EmailDialog;

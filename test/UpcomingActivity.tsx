@@ -5,12 +5,8 @@ import { CiCalendarDate } from "react-icons/ci";
 import { FaTasks } from "react-icons/fa";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { RiCalendarScheduleLine, RiDeleteBin5Line } from "react-icons/ri";
-import UpcomingActivityCard from "../comps/DataCard/UpcomingCard";
-import {
-  MdKeyboardArrowDown,
-  MdKeyboardArrowUp,
-  MdOutlineKeyboardArrowUp,
-} from "react-icons/md";
+// import UpcomingActivityCard from "../comps/DataCard/UpcomingCard";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { upcomingData } from "@/public/data/users";
 import clsx from "clsx";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,21 +17,37 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Delete from "../../Delete";
+// import Delete from "../../Delete";
 import { IoMdSend } from "react-icons/io";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 const UpcomingActivity = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [reminderOpen, setReminderOpen] = useState(false);
+  const [taskPriorityOpen, setTaskPriorityOpen] = useState(false);
+  const [assignedToOpen, setAssignedToOpen] = useState(false);
 
+  const [reminder, setReminder] = useState("reminder");
+  const [taskPriority, setTaskPriority] = useState("High");
+  const [assignedTo, setAssignedTo] = useState("User");
+
+  const toggleReminderDropdown = () => setReminderOpen(!reminderOpen);
+  const toggleTaskPriorityDropdown = () =>
+    setTaskPriorityOpen(!taskPriorityOpen);
+  const toggleAssignedToDropdown = () => setAssignedToOpen(!assignedToOpen);
+
+  const handleReminderSelect = (option: string) => {
+    setReminder(option);
+    setReminderOpen(false);
+  };
+
+  const handleTaskPrioritySelect = (option: string) => {
+    setTaskPriority(option);
+    setTaskPriorityOpen(false);
+  };
+
+  const handleAssignedToSelect = (option: string) => {
+    setAssignedTo(option);
+    setAssignedToOpen(false);
+  };
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
@@ -47,7 +59,7 @@ const UpcomingActivity = () => {
     <>
       <div className="border-gray-300 border-b-[1px] pb-10">
         <div className="flex gap-2 py-2 px-2 items-center text-[#1D62B4] font-[500]">
-          <RiCalendarScheduleLine size={21} />
+          <RiCalendarScheduleLine size={18} />
           <div className="cursor-default text-md font-semibold">
             Upcoming Activities
           </div>
@@ -62,9 +74,9 @@ const UpcomingActivity = () => {
           >
             <div className="flex items-center gap-2">
               {isOpen ? (
-                <MdOutlineKeyboardArrowUp size={16} />
+                <GoTriangleUp size={16} />
               ) : (
-                <MdKeyboardArrowDown size={16} />
+                <GoTriangleDown size={16} />
               )}
 
               <span className="flex items-center gap-2 text-sm text-gray-600">
@@ -92,7 +104,7 @@ const UpcomingActivity = () => {
                       className="cursor-pointer"
                       onClick={handleMenuItemClick}
                     >
-                      <Delete
+                      {/* <Delete
                         trigger={
                           <span className="pl-2 gap-1 flex items-center justify-center">
                             <RiDeleteBin5Line
@@ -102,7 +114,7 @@ const UpcomingActivity = () => {
                             Delete
                           </span>
                         }
-                      />
+                      /> */}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -137,70 +149,113 @@ const UpcomingActivity = () => {
               </div>
               <div className="flex mt-4 mx-4">
                 <div className="flex flex-col p-4 w-full border-[1px] border-gray-300 gap-2">
-                  <label className="block text-sm font-medium text-gray-600">
+                  <div className="text-sm font-[500] text-gray-600">
                     Reminder
-                  </label>
-                  <Select defaultValue="reminder">
-                    <SelectTrigger className="w-full border-none outline-none flex items-center justify-start gap-1 p-0">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {/* <SelectLabel>Fruits</SelectLabel> */}
-                        <SelectItem value="reminder">Reminder</SelectItem>
-                        <SelectItem value="noreminder">No Reminder</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  </div>
+
+                  <div
+                    className="flex text-center gap-2 items-center text-sm cursor-pointer"
+                    onClick={toggleReminderDropdown}
+                  >
+                    <div>{reminder}</div>
+                    <GoTriangleDown size={12} />
+                  </div>
+                  {reminderOpen && (
+                    <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                      <div
+                        className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                        onClick={() => handleReminderSelect("Reminder")}
+                      >
+                        Reminder
+                      </div>
+                      <div
+                        className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                        onClick={() => handleReminderSelect("No Reminder")}
+                      >
+                        No Reminder
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col p-4 w-full border-[1px] md:border-[1px] border-gray-300 gap-2">
-                  <label className="block text-sm font-medium text-gray-600">
+                  <div className="text-md font-[500] text-blue-600">
                     Task Priority
-                  </label>
-                  <Select defaultValue="high">
-                    <SelectTrigger className="w-full border-none outline-none flex items-center justify-start gap-1 p-0">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {/* <SelectLabel>Fruits</SelectLabel> */}
-                        <SelectItem value="high">
-                          <div className="flex items-center">
-                            <span className="inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
-                            High
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="low">
-                          <div className="flex items-center">
-                            <span className="inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
-                            Low
-                          </div>
-                        </SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  </div>
+
+                  <div
+                    className="flex gap-2 items-center text-sm cursor-pointer"
+                    onClick={toggleTaskPriorityDropdown}
+                  >
+                    {/* <div>{taskPriority}</div> */}
+                    {taskPriority === "High" ? (
+                      <div className="flex items-center">
+                        <span className="inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
+                        High
+                      </div>
+                    ) : taskPriority === "Low" ? (
+                      <div className="flex items-center">
+                        <span className="inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
+                        Low
+                      </div>
+                    ) : (
+                      <div>{taskPriority}</div>
+                    )}
+                    <GoTriangleDown size={12} />
+                  </div>
+                  {taskPriorityOpen && (
+                    <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                      <div
+                        className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                        onClick={() => handleTaskPrioritySelect("High")}
+                      >
+                        <span className=" flex items-center">
+                          <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-green-400 mr-2" />
+                          High
+                        </span>
+                      </div>
+
+                      <div
+                        className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                        onClick={() => handleTaskPrioritySelect("Low")}
+                      >
+                        <span className=" flex items-center">
+                          <span className=" left-0 inline-flex h-4 w-4 rounded-full bg-red-400 mr-2" />
+                          Low
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col p-4 w-full gap-2 border-[1px] border-gray-300">
-                  <label
-                    // htmlFor="firstName"
-                    className="block text-sm font-medium text-gray-600"
-                  >
+                  <div className="text-sm font-[500] text-gray-600">
                     Assigned to
-                  </label>
-                  <Select defaultValue="lucy">
-                    <SelectTrigger className="w-full border-none outline-none flex items-center justify-start gap-1 p-0">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {/* <SelectLabel>Fruits</SelectLabel> */}
-                        <SelectItem value="admin">Admin</SelectItem>
-                        <SelectItem value="lucy">Lucy Anderson</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  </div>
+
+                  <div
+                    className="flex gap-2 items-center text-sm cursor-pointer"
+                    onClick={toggleAssignedToDropdown}
+                  >
+                    <div>{assignedTo}</div>
+                    <GoTriangleDown size={12} />
+                  </div>
+                  {assignedToOpen && (
+                    <div className="bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                      <div
+                        className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                        onClick={() => handleAssignedToSelect("lucy")}
+                      >
+                        Lucy Headwood
+                      </div>
+                      <div
+                        className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                        onClick={() => handleAssignedToSelect("Admin")}
+                      >
+                        Admin
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="mx-4">
