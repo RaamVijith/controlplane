@@ -106,7 +106,10 @@ const ConvertContact: React.FC<ConvertContactProps> = ({ trigger }) => {
 
           <div className="mt-4 flex flex-col md:flex-row justify-end md:space-x-2">
             <DialogClose asChild>
-              <Button className="px-4 py-2 bg-gray-200 text-black rounded-md w-full md:w-1/2">
+              <Button
+                variant="secondary"
+                className="px-4 py-2 bg-gray-200 text-black rounded-md w-full md:w-1/2"
+              >
                 Cancel
               </Button>
             </DialogClose>

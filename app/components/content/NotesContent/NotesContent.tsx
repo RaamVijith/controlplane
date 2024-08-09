@@ -20,6 +20,8 @@ import {
 import Delete from "../../Delete";
 import { IoMdSend } from "react-icons/io";
 import { GoHistory } from "react-icons/go";
+import { Button } from "@/components/ui/button";
+import AddNoteDialog from "../comps/UserInfoPanel/NewNote";
 
 const NotesContent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,9 +71,16 @@ const NotesContent = () => {
             </div>
           </div>
           <div>
-            <div className="flex cursor-pointer items-center justify-center text-sm text-gray-500 p-1 rounded-sm outline outline-[1px] outline-gray-200 hover:bg-slate-300 hover:text-black">
-              Add new note
-            </div>
+            <AddNoteDialog
+              trigger={
+                <Button
+                  variant="outline"
+                  className="flex cursor-pointer items-center justify-center text-sm text-gray-500 p-1 rounded-sm outline outline-[1px] outline-gray-200 hover:bg-slate-300 hover:text-black"
+                >
+                  Add new note
+                </Button>
+              }
+            />
           </div>
         </div>
         <div>
