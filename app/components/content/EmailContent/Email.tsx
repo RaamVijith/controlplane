@@ -17,12 +17,17 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { MdOutlineFileDownload } from "react-icons/md";
+import { Badge } from "@/components/ui/badge";
+
 const EmailDialog = ({ onClose }: { onClose: () => void }) => {
   const [showCC, setShowCC] = useState(false);
   const [showBCC, setShowBCC] = useState(false);
   const [attachments, setAttachments] = useState<File[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [emailBody, setEmailBody] = useState("");
+  const [toEmails, setToEmails] = useState<string[]>([]);
+  const [ccEmails, setCcEmails] = useState<string[]>([]);
+  const [bccEmails, setBccEmails] = useState<string[]>([]);
 
   const toggleCC = () => setShowCC(!showCC);
   const toggleBCC = () => setShowBCC(!showBCC);
@@ -32,11 +37,6 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Handle form submission logic
-    // console.log({ to, cc, bcc, subject, message, attachments });
-  };
   // Calculate height based on CC and BCC visibility
   const emailBodyBoxHeight =
     showCC && showBCC ? "55%" : showCC || showBCC ? "60%" : "70%";
@@ -47,6 +47,43 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
     setAttachments((prevAttachments) =>
       prevAttachments.filter((_, i) => i !== index)
     );
+  };
+
+  const handleEmailInput = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    emailType: "to" | "cc" | "bcc"
+  ) => {
+    const emailValue = e.currentTarget.value.trim();
+
+    if (e.key === " " || e.key === ",") {
+      if (emailValue) {
+        if (emailType === "to") {
+          setToEmails([...toEmails, emailValue]);
+        } else if (emailType === "cc") {
+          setCcEmails([...ccEmails, emailValue]);
+        } else if (emailType === "bcc") {
+          setBccEmails([...bccEmails, emailValue]);
+        }
+      }
+      e.currentTarget.value = ""; // Clear the input field
+      e.preventDefault();
+    }
+  };
+
+  const removeEmail = (emailType: "to" | "cc" | "bcc", index: number) => {
+    if (emailType === "to") {
+      setToEmails(toEmails.filter((_, i) => i !== index));
+    } else if (emailType === "cc") {
+      setCcEmails(ccEmails.filter((_, i) => i !== index));
+    } else if (emailType === "bcc") {
+      setBccEmails(bccEmails.filter((_, i) => i !== index));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Handle form submission logic
+    // console.log({ to, cc, bcc, subject, message, attachments });
   };
 
   const handleDownloadAttachment = (file: File) => {
@@ -97,7 +134,7 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
         <div className=" flex-1 overflow-y-auto">
           <div className="sticky top-0 bg-white z-10 ">
             {/* First Text Field */}
-            <div className="flex items-center border-b border-gray-300 mb-2 px-3">
+            <div className="flex items-center border-b border-gray-300 px-3">
               <Image
                 src="/users/4.jpg"
                 alt="First Icon"
@@ -122,11 +159,30 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
                   width={16}
                   height={16}
                 />
-                <Input
-                  type="text"
-                  placeholder="Second Text Field"
-                  className="flex-1 w-full border-none outline-none p-2 text-gray-700"
-                />
+                <div className="flex-1 flex flex-wrap gap-2 items-center">
+                  {toEmails.map((email, index) => (
+                    <Badge
+                      // variant="secondary"
+                      key={index}
+                      className="flex items-center gap-1"
+                    >
+                      {email}
+                      <button
+                        type="button"
+                        onClick={() => removeEmail("to", index)}
+                        className="ml-2"
+                      >
+                        <IoIosClose size={14} />
+                      </button>
+                    </Badge>
+                  ))}
+                  <Input
+                    type="text"
+                    placeholder="Second Text Field"
+                    className="flex-1 border-none outline-none p-2 text-gray-700"
+                    onKeyDown={(e) => handleEmailInput(e, "to")}
+                  />
+                </div>
               </div>
               <div className="text-sm flex items-center gap-1">
                 <p className="text-sm cursor-pointer" onClick={toggleCC}>
@@ -148,11 +204,26 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
                   width={16}
                   height={16}
                 />
-                <Input
-                  type="text"
-                  placeholder="Cc"
-                  className="flex-1 w-full border-none outline-none p-2 text-gray-700"
-                />
+                <div className="flex-1 flex flex-wrap gap-2 items-center">
+                  {ccEmails.map((email, index) => (
+                    <Badge key={index} className="flex items-center gap-1">
+                      {email}
+                      <button
+                        type="button"
+                        onClick={() => removeEmail("cc", index)}
+                        className="ml-2"
+                      >
+                        <IoIosClose size={14} />
+                      </button>
+                    </Badge>
+                  ))}
+                  <Input
+                    type="text"
+                    placeholder="Cc"
+                    className="flex-1 w-full border-none outline-none p-2 text-gray-700"
+                    onKeyDown={(e) => handleEmailInput(e, "cc")}
+                  />
+                </div>
               </div>
             )}
             {/* BCC Field */}
@@ -166,11 +237,26 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
                   width={16}
                   height={16}
                 />
-                <Input
-                  type="text"
-                  placeholder="Bcc"
-                  className="flex-1 w-full border-none outline-none p-2 text-gray-700"
-                />
+                <div className="flex-1 flex flex-wrap gap-2 items-center">
+                  {bccEmails.map((email, index) => (
+                    <Badge key={index} className="flex items-center gap-1">
+                      {email}
+                      <button
+                        type="button"
+                        onClick={() => removeEmail("bcc", index)}
+                        className="ml-2"
+                      >
+                        <IoIosClose size={14} />
+                      </button>
+                    </Badge>
+                  ))}
+                  <Input
+                    type="text"
+                    placeholder="Bcc"
+                    className="flex-1 w-full border-none outline-none p-2 text-gray-700"
+                    onKeyDown={(e) => handleEmailInput(e, "bcc")}
+                  />
+                </div>
               </div>
             )}
             <div className="gap-2 flex items-center justify-between border-b border-gray-300 mb-2 px-3">
