@@ -79,13 +79,48 @@ export const columns: ColumnDef<HistoryTable>[] = [
     cell: ({ row }) => {
       const date = new Date(row.getValue("createdAt"));
 
+      // // Format the date
+      // const dateFormatter = new Intl.DateTimeFormat("en-GB", {
+      //   day: "numeric",
+      //   month: "long",
+      //   year: "numeric",
+      // });
+      // const formattedDate = dateFormatter.format(date);
+
+      // // Format the time
+      // const timeFormatter = new Intl.DateTimeFormat("en-GB", {
+      //   hour: "2-digit",
+      //   minute: "2-digit",
+      //   second: "2-digit",
+      //   hour12: true,
+      // });
+      // const formattedTime = timeFormatter.format(date);
+      // const formattedDateTime = `${formattedDate} ${formattedTime}`;
+
+      // Function to get ordinal suffix
+      const getOrdinalSuffix = (day: number) => {
+        if (day > 3 && day < 21) return "th"; // Catch-all for 4-20
+        switch (day % 10) {
+          case 1:
+            return "st";
+          case 2:
+            return "nd";
+          case 3:
+            return "rd";
+          default:
+            return "th";
+        }
+      };
       // Format the date
-      const dateFormatter = new Intl.DateTimeFormat("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
+      const monthFormatter = new Intl.DateTimeFormat("en-GB", {
+        month: "short",
       });
-      const formattedDate = dateFormatter.format(date);
+      const day = date.getDate();
+      const year = date.getFullYear();
+      const formattedMonth = monthFormatter.format(date);
+      const ordinalSuffix = getOrdinalSuffix(day);
+
+      const formattedDate = `${formattedMonth} ${day}${ordinalSuffix} ${year}`;
 
       // Format the time
       const timeFormatter = new Intl.DateTimeFormat("en-GB", {
@@ -99,6 +134,20 @@ export const columns: ColumnDef<HistoryTable>[] = [
       return (
         <div className="font-medium">
           <span>{formattedDateTime}</span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "reason",
+    header: ({ column }) => {
+      return (
+        <div
+          className="flex items-center gap-2 cursor-pointer select-none"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Reason
+          <RiExpandUpDownLine className="ml-2 h-4 w-4" />
         </div>
       );
     },
