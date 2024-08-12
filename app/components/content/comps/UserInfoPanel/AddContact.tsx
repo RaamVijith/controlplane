@@ -40,7 +40,9 @@ import "react-phone-input-2/lib/style.css";
 // import FlagSelector from "../../Selector/FlagSelector";
 import { Country, State, City } from "country-state-city";
 import Flag from "react-world-flags";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import Switch from "react-switch";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { FaRegBuilding } from "react-icons/fa";
 // import {
 //   Select,
 //   SelectContent,
@@ -79,6 +81,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleButtonClick = () => {
     document.getElementById("fileInput")?.click();
@@ -133,6 +136,11 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
     ? City.getCitiesOfState(selectedCountry, selectedState)
     : [];
 
+  const handleSwitchChange = (checked: boolean) => {
+    setIsChecked(checked);
+    // Add your logic
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
@@ -144,33 +152,52 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
         </DialogTitle>
         <hr className="my-2" />
         <DialogDescription className="mt-2 mb-4 text-sm text-gray-500">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="rounded-full w-[50px] h-[50px] bg-gray-200 flex items-center justify-center">
-              {selectedImage ? (
-                <Image
-                  src={selectedImage}
-                  alt="Uploaded"
-                  className="rounded-full w-full h-full object-cover"
-                  width={50}
-                  height={50}
-                />
-              ) : (
-                <IoPerson className="text-xl" />
-              )}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="rounded-full w-[50px] h-[50px] bg-gray-200 flex items-center justify-center">
+                {selectedImage ? (
+                  <Image
+                    src={selectedImage}
+                    alt="Uploaded"
+                    className="rounded-full w-full h-full object-cover"
+                    width={50}
+                    height={50}
+                  />
+                ) : (
+                  <IoPerson className="text-xl" />
+                )}
+              </div>
+              <button
+                className="flex items-center bg-gray-200 text-black px-4 py-2"
+                onClick={handleButtonClick}
+              >
+                <MdOutlineFileUpload />
+                &nbsp; Uploads Image
+              </button>
+              <input
+                type="file"
+                id="fileInput"
+                className="hidden"
+                onChange={handleFileChange}
+              />
+
+              <button className="bg-gray-200 p-2 rounded-md">
+                <RiDeleteBin5Line size={20} />
+              </button>
             </div>
-            <button
-              className="flex items-center bg-gray-200 text-black px-4 py-2"
-              onClick={handleButtonClick}
-            >
-              <MdOutlineFileUpload />
-              &nbsp; Uploads Image
-            </button>
-            <input
-              type="file"
-              id="fileInput"
-              className="hidden"
-              onChange={handleFileChange}
-            />
+            <div className="flex items-center p-2 gap-2 cursor-pointer">
+              {" "}
+              <FaRegBuilding size={20} />
+              <Switch
+                onChange={handleSwitchChange}
+                checked={isChecked}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                width={25}
+                height={15}
+                className="mr-2"
+              />
+            </div>
           </div>
           <form className="space-y-4">
             <div className="flex flex-col md:flex-row md:space-x-4">
