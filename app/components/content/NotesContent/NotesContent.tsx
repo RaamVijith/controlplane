@@ -6,7 +6,11 @@ import { FaRegStickyNote, FaTasks } from "react-icons/fa";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { RiCalendarScheduleLine, RiDeleteBin5Line } from "react-icons/ri";
 import UpcomingActivityCard from "../comps/DataCard/UpcomingCard";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import {
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp,
+  MdOutlineKeyboardArrowUp,
+} from "react-icons/md";
 import { upcomingData } from "@/public/data/users";
 import clsx from "clsx";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,11 +28,15 @@ import { Button } from "@/components/ui/button";
 import AddNoteDialog from "../comps/UserInfoPanel/NewNote";
 
 const NotesContent = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [reminderOpen, setReminderOpen] = useState(false);
   const [taskPriorityOpen, setTaskPriorityOpen] = useState(false);
   const [assignedToOpen, setAssignedToOpen] = useState(false);
+  const [isSectionOpen, setIsSectionOpen] = useState(true);
 
+  const toggleSection = () => {
+    setIsSectionOpen(!isSectionOpen);
+  };
   const [reminder, setReminder] = useState("reminder");
   const [taskPriority, setTaskPriority] = useState("High");
   const [assignedTo, setAssignedTo] = useState("User");
@@ -64,6 +72,13 @@ const NotesContent = () => {
       <div className="border-gray-300 border-b-[1px] pb-10">
         <div className="flex items-center justify-between mr-2">
           <div className="flex gap-2 py-2 px-2 items-center text-[#1D62B4] font-[500]">
+            <span onClick={toggleSection} className="cursor-pointer">
+              {isSectionOpen ? (
+                <MdOutlineKeyboardArrowUp size={21} />
+              ) : (
+                <MdKeyboardArrowDown size={21} />
+              )}
+            </span>
             <FaRegStickyNote size={18} />
             <div className="cursor-default text-md font-semibold">Notes</div>
             <div className="bg-[#1D62B450] px-2 rounded-md cursor-default">
@@ -83,16 +98,20 @@ const NotesContent = () => {
             />
           </div>
         </div>
-        <div>
+        <div
+          className={`overflow-hidden transition-max-height duration-300 ease-in-out ${
+            isSectionOpen ? "max-h-screen" : "max-h-0"
+          }`}
+        >
           <div
             className="flex justify-between items-center py-2 px-2 cursor-pointer"
             onClick={toggleAccordion}
           >
             <div className="flex items-center gap-2">
               {isOpen ? (
-                <GoTriangleUp size={16} />
+                <MdOutlineKeyboardArrowUp size={16} />
               ) : (
-                <GoTriangleDown size={16} />
+                <MdKeyboardArrowDown size={16} />
               )}
 
               <span className="flex items-center gap-2 text-sm text-gray-600">

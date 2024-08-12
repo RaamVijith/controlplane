@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { CiCalendarDate } from "react-icons/ci";
-import { FaTasks } from "react-icons/fa";
+import { FaBars, FaTasks } from "react-icons/fa";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { RiCalendarScheduleLine, RiDeleteBin5Line } from "react-icons/ri";
 import UpcomingActivityCard from "../comps/DataCard/UpcomingCard";
@@ -35,18 +35,32 @@ import {
 
 const UpcomingActivity = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [isSectionOpen, setIsSectionOpen] = useState(true);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
+
+  const toggleSection = () => {
+    setIsSectionOpen(!isSectionOpen);
+  };
+
   const handleMenuItemClick = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
   };
+
   return (
     <>
-      <div className="border-gray-300 border-b-[1px] pb-10">
+      <div className="border-gray-300 border-b-[1px] pb-10 ">
         <div className="flex gap-2 py-2 px-2 items-center text-[#1D62B4] font-[500]">
+          <span onClick={toggleSection} className="cursor-pointer">
+            {isSectionOpen ? (
+              <MdOutlineKeyboardArrowUp size={21} />
+            ) : (
+              <MdKeyboardArrowDown size={21} />
+            )}
+          </span>
           <RiCalendarScheduleLine size={21} />
           <div className="cursor-default text-md font-semibold">
             Upcoming Activities
@@ -55,7 +69,13 @@ const UpcomingActivity = () => {
             20
           </div>
         </div>
-        <div>
+
+        {/* {isSectionOpen && ( */}
+        <div
+          className={`overflow-hidden transition-max-height duration-300 ease-in-out ${
+            isSectionOpen ? "max-h-screen" : "max-h-0"
+          }`}
+        >
           <div
             className="flex justify-between items-center py-2 px-2 cursor-pointer"
             onClick={toggleAccordion}
@@ -236,6 +256,7 @@ const UpcomingActivity = () => {
             </div>
           </div>
         </div>
+        {/* )} */}
       </div>
     </>
   );

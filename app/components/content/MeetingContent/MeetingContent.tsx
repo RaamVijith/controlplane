@@ -6,7 +6,11 @@ import { FaRegStickyNote, FaTasks } from "react-icons/fa";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { RiCalendarScheduleLine, RiDeleteBin5Line } from "react-icons/ri";
 import UpcomingActivityCard from "../comps/DataCard/UpcomingCard";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import {
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp,
+  MdOutlineKeyboardArrowUp,
+} from "react-icons/md";
 import { upcomingData } from "@/public/data/users";
 import clsx from "clsx";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,6 +32,15 @@ const MeetingContent = () => {
   const [reminderOpen, setReminderOpen] = useState(false);
   const [taskPriorityOpen, setTaskPriorityOpen] = useState(false);
   const [assignedToOpen, setAssignedToOpen] = useState(false);
+  const [isSectionOpen, setIsSectionOpen] = useState(true);
+
+  const toggleAccordion = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const toggleSection = () => {
+    setIsSectionOpen(!isSectionOpen);
+  };
 
   const [reminder, setReminder] = useState("reminder");
   const [taskPriority, setTaskPriority] = useState("High");
@@ -52,9 +65,7 @@ const MeetingContent = () => {
     setAssignedTo(option);
     setAssignedToOpen(false);
   };
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
+
   const handleMenuItemClick = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
@@ -64,6 +75,13 @@ const MeetingContent = () => {
       <div className="border-gray-300 border-b-[1px] pb-10">
         <div className="flex items-center justify-between">
           <div className="flex gap-2 py-2 px-2 items-center text-[#1D62B4] font-[500]">
+            <span onClick={toggleSection} className="cursor-pointer">
+              {isSectionOpen ? (
+                <MdOutlineKeyboardArrowUp size={21} />
+              ) : (
+                <MdKeyboardArrowDown size={21} />
+              )}
+            </span>
             <FaRegStickyNote size={18} />
             <div className="cursor-default text-md font-semibold">Meetings</div>
           </div>
@@ -73,16 +91,20 @@ const MeetingContent = () => {
             </div>
           </div>
         </div>
-        <div>
+        <div
+          className={`overflow-hidden transition-max-height duration-300 ease-in-out ${
+            isSectionOpen ? "max-h-screen" : "max-h-0"
+          }`}
+        >
           <div
             className="flex justify-between items-center py-2 px-2 cursor-pointer"
             onClick={toggleAccordion}
           >
             <div className="flex items-center gap-2">
               {isOpen ? (
-                <GoTriangleUp size={16} />
+                <MdOutlineKeyboardArrowUp size={16} />
               ) : (
-                <GoTriangleDown size={16} />
+                <MdKeyboardArrowDown size={16} />
               )}
 
               <p>Monthly Product Discussion</p>
