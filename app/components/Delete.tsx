@@ -29,7 +29,7 @@ const Delete: React.FC<DeleteDialogProps> = ({ trigger }) => {
               <p className="text-bold text-lg mb-3 text-black text-center">
                 Are you sure ?
               </p>
-              <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center gap-2 mb-4">
                 <Avatar>
                   <AvatarImage
                     src="https://github.com/shadcn.png"
@@ -37,7 +37,7 @@ const Delete: React.FC<DeleteDialogProps> = ({ trigger }) => {
                   />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-                <p className="text-md text-center mb-4">
+                <p className="text-md text-center">
                   This action cannot be undone, All values <br /> associated
                   with this field will be lost.
                 </p>
