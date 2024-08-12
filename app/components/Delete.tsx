@@ -10,6 +10,7 @@ import React from "react";
 import { FillButton } from "./libs/buttons";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 interface DeleteDialogProps {
   trigger: React.ReactNode;
 }
@@ -28,10 +29,20 @@ const Delete: React.FC<DeleteDialogProps> = ({ trigger }) => {
               <p className="text-bold text-lg mb-3 text-black text-center">
                 Are you sure ?
               </p>
-              <p className="text-md text-center mb-4">
-                This action cannot be undone, All values <br /> associated with
-                this field will be lost.
-              </p>
+              <div className="flex justify-center items-center">
+                <Avatar>
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <p className="text-md text-center mb-4">
+                  This action cannot be undone, All values <br /> associated
+                  with this field will be lost.
+                </p>
+              </div>
+
               <Textarea placeholder="Enter the Reason" />
               <div className="flex flex-col md:flex-row gap-1 mt-3">
                 <FillButton className="rounded-sm w-full md:w-1/2 p-4 bg-slate-300 hover:bg-slate-400">

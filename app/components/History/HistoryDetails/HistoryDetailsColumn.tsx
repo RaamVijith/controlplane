@@ -10,8 +10,7 @@ import {
 import { RiDeleteBin5Line, RiExpandUpDownLine } from "react-icons/ri";
 import { MoreHorizontal } from "lucide-react";
 import { MdOutlineHistory } from "react-icons/md";
-import AuditLogs from "@/app/components/History/AuditLogs/AuditLogs";
-import HistoryDetails from "@/app/components/History/HistoryDetails/HistoryDetails";
+// import AuditLogs from "@/app/components/History/AuditLogs/AuditLogs";
 
 export type HistoryTable = {
   id: string;
@@ -26,35 +25,35 @@ const handleMenuItemClick = (event: React.MouseEvent) => {
 };
 export const columns: ColumnDef<HistoryTable>[] = [
   {
-    accessorKey: "objectType",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <div
           className="flex items-center gap-2 cursor-pointer select-none"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Object Type
+          Name
           <RiExpandUpDownLine className="ml-2 h-4 w-4" />
         </div>
       );
     },
   },
   {
-    accessorKey: "objectServer",
+    accessorKey: "status",
     header: ({ column }) => {
       return (
         <div
           className="flex items-center gap-2 cursor-pointer select-none"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Object Name
+          Status
           <RiExpandUpDownLine className="ml-2 h-4 w-4" />
         </div>
       );
     },
   },
   {
-    accessorKey: "activity",
+    accessorKey: "createdby",
 
     header: ({ column }) => {
       return (
@@ -62,7 +61,7 @@ export const columns: ColumnDef<HistoryTable>[] = [
           className="flex items-center gap-2 cursor-pointer select-none"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Activity
+          Created By
           <RiExpandUpDownLine className="ml-2 h-4 w-4" />
         </div>
       );
@@ -145,20 +144,6 @@ export const columns: ColumnDef<HistoryTable>[] = [
     },
   },
   {
-    accessorKey: "reason",
-    header: ({ column }) => {
-      return (
-        <div
-          className="flex items-center gap-2 cursor-pointer select-none"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Reason
-          <RiExpandUpDownLine className="ml-2 h-4 w-4" />
-        </div>
-      );
-    },
-  },
-  {
     id: "actions",
     header: "Action",
     enableHiding: false,
@@ -180,19 +165,12 @@ export const columns: ColumnDef<HistoryTable>[] = [
               Copy user ID
             </DropdownMenuItem> */}
             {/* <DropdownMenuSeparator /> */}
-            <DropdownMenuItem onClick={handleMenuItemClick}>
-              {/* <span className="pl-2 gap-1 flex items-center justify-center"> */}
-              <HistoryDetails
-                trigger={
-                  <span className="pl-2 gap-1 flex items-center justify-center">
-                    <MdOutlineHistory className="mr-2" size={20} /> History
-                    Details
-                  </span>
-                }
-              />
-              {/* </span> */}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleMenuItemClick}>
+            {/* <DropdownMenuItem>
+              <span className="pl-2 gap-1 flex items-center justify-center">
+                <MdOutlineHistory className="mr-2" size={20} /> History Details
+              </span>
+            </DropdownMenuItem> */}
+            {/* <DropdownMenuItem onClick={handleMenuItemClick}>
               <AuditLogs
                 trigger={
                   <span className="pl-2 gap-1 flex items-center justify-center">
@@ -200,7 +178,7 @@ export const columns: ColumnDef<HistoryTable>[] = [
                   </span>
                 }
               />
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );
