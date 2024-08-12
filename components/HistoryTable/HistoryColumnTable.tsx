@@ -10,6 +10,7 @@ import {
 import { RiDeleteBin5Line, RiExpandUpDownLine } from "react-icons/ri";
 import { MoreHorizontal } from "lucide-react";
 import { MdOutlineHistory } from "react-icons/md";
+import AuditLogs from "@/app/components/History/AuditLogs/AuditLogs";
 
 export type HistoryTable = {
   id: string;
@@ -17,6 +18,10 @@ export type HistoryTable = {
   objectServer: string;
   activity: string;
   createdAt: string;
+};
+const handleMenuItemClick = (event: React.MouseEvent) => {
+  event.preventDefault();
+  event.stopPropagation();
 };
 export const columns: ColumnDef<HistoryTable>[] = [
   {
@@ -179,10 +184,14 @@ export const columns: ColumnDef<HistoryTable>[] = [
                 <MdOutlineHistory className="mr-2" size={20} /> History Details
               </span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <span className="pl-2 gap-1 flex items-center justify-center">
-                <RiDeleteBin5Line className="mr-2" size={20} /> Audit Logs
-              </span>
+            <DropdownMenuItem onClick={handleMenuItemClick}>
+              <AuditLogs
+                trigger={
+                  <span className="pl-2 gap-1 flex items-center justify-center">
+                    <RiDeleteBin5Line className="mr-2" size={20} /> Audit Logs
+                  </span>
+                }
+              />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
