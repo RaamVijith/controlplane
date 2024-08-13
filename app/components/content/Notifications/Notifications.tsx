@@ -1,10 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { IoIosSettings } from "react-icons/io";
+import InboxNotification from "./Inbox";
+import GeneralNotification from "./General";
+import ArchivedNotification from "./Archived";
 // import { Settings } from 'react-feather';
 
 const Notifications = () => {
   const [activeTab, setActiveTab] = useState("Inbox");
+
   const tabs = [
     { name: "Inbox", notificationCount: 4 },
     { name: "General", notificationCount: 4 },
@@ -19,7 +24,7 @@ const Notifications = () => {
           {tabs.map((tab, index) => (
             <div key={tab.name} className="flex items-center">
               <div
-                className={`relative cursor-pointer px-3 py-2 transition-all duration-300 ${
+                className={`relative cursor-pointer px-3 py-2 overflow-hidden transition-all duration-300 ease-in-out ${
                   activeTab === tab.name
                     ? "text-black border-b-2 border-black"
                     : "text-gray-500"
@@ -27,9 +32,9 @@ const Notifications = () => {
                 onClick={() => setActiveTab(tab.name)}
               >
                 <span className="flex items-center">
-                  <span className="mr-2">{tab.name}</span>
+                  <span className="mr-2 text-sm ">{tab.name}</span>
                   <span
-                    className={`text-xs rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 ${
+                    className={`text-xs rounded-full w-5 h-5 flex items-center justify-center overflow-hidden transition-all duration-300 ease-in-out ${
                       activeTab === tab.name
                         ? "bg-black text-white"
                         : "bg-white text-gray-500 border border-gray-300"
@@ -58,42 +63,9 @@ const Notifications = () => {
 
       {/* Content below the tabs */}
       <div className="mt-2">
-        {activeTab === "Inbox" && (
-          <div>
-            {/* <p>This is the content for the Inbox tab.</p> */}
-            <div className="w-full p-1 ">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className="relative">
-                    <Avatar className="w-12 h-12 mr-2 overflow-hidden">
-                      <AvatarImage src="/users/dp.jpg" alt="@shadcn" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                    <span className="absolute bottom-0 right-1 block w-4 h-4 bg-green-500 rounded-full border-2 border-white"></span>
-                  </div>
-                  <div>
-                    <p className="ml-2">hellow sdsddsdsdsddsdd</p>
-                    <p className="ml-2">hellow sdsddsdsdsddsdd</p>
-                  </div>
-                </div>
-                <div>hello</div>
-              </div>
-            </div>
-            <hr className="border-b border-slate-200" />
-          </div>
-        )}
-        {activeTab === "General" && (
-          <div>
-            <h2 className="text-xl font-semibold">General Content</h2>
-            <p>This is the content for the General tab.</p>
-          </div>
-        )}
-        {activeTab === "Archived" && (
-          <div>
-            <h2 className="text-xl font-semibold">Archived Content</h2>
-            <p>This is the content for the Archived tab.</p>
-          </div>
-        )}
+        {activeTab === "Inbox" && <InboxNotification />}
+        {activeTab === "General" && <GeneralNotification />}
+        {activeTab === "Archived" && <ArchivedNotification />}
       </div>
     </>
   );

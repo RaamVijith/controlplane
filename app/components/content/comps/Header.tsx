@@ -14,7 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import Notifications from "./UserInfoPanel/Notifications";
+import Notifications from "../Notifications/Notifications";
 
 const Header = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -51,8 +51,8 @@ const Header = () => {
           </PopoverTrigger>
           <PopoverContent className="w-[450px]">
             <div className="flex items-center justify-between">
-              <p>Notifications</p>
-              <p>Mark all as read</p>
+              <p className="text-sm text-black">Notifications</p>
+              <p className="text-sm text-gray-600">Mark all as read</p>
             </div>
             <Notifications />
           </PopoverContent>

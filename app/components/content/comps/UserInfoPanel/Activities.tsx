@@ -27,7 +27,7 @@ const Activities = () => {
           {tabs.map((tab) => (
             <button
               key={tab}
-              className={`flex-1 py-2 text-center border border-blue-500 text-blue-500 ${
+              className={`flex-1 py-2 text-center border border-[#1D62B4] text-[#1D62B4] ${
                 activeTab === tab
                   ? "bg-blue-100 font-medium"
                   : "hover:bg-blue-50"
