@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import { FillButton, InverseFillButton } from "../../libs/buttons";
 import UsersData from "@/public/data/users";
@@ -47,6 +47,7 @@ const ListFragment = () => {
   const [isSelected, setIsSelected] = useState<number>(1);
   const [searchInput, setSearchInput] = useState("");
   const [isIconMenuOpen, setIsIconMenuOpen] = useState(false);
+  const iconRef = useRef<HTMLDivElement>(null);
   // const usersheader = [
   //   { name: "Name", uid: "name" },
   //   { name: "Email", uid: "email" },
@@ -109,6 +110,19 @@ const ListFragment = () => {
   const toggleIconMenu = () => {
     setIsIconMenuOpen(!isIconMenuOpen);
   };
+  const handleClickOutside = (event: MouseEvent) => {
+    if (iconRef.current && !iconRef.current.contains(event.target as Node)) {
+      setIsIconMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   // const filteredData = getFilteredData();
   return (
     <div className="block w-full">
@@ -133,7 +147,7 @@ const ListFragment = () => {
         </div>
         <div className="flex items-center justify-center gap-3">
           {/* Horizontal Icon */}
-          <div className="relative">
+          <div className="relative" ref={iconRef}>
             <div
               className="cursor-pointer rounded-full hover:bg-gray-200 h-8 w-8 p-0 flex items-center justify-center ml-3"
               onClick={toggleIconMenu}
