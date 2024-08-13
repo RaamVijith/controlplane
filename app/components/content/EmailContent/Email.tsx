@@ -18,7 +18,16 @@ import {
 } from "@/components/ui/hover-card";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { Badge } from "@/components/ui/badge";
-
+// import {
+//   Select,
+//   SelectContent,
+//   SelectGroup,
+//   SelectItem,
+//   SelectLabel,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
+import Select from "react-select";
 const EmailDialog = ({ onClose }: { onClose: () => void }) => {
   const [showCC, setShowCC] = useState(false);
   const [showBCC, setShowBCC] = useState(false);
@@ -28,7 +37,7 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
   const [toEmails, setToEmails] = useState<string[]>([]);
   const [ccEmails, setCcEmails] = useState<string[]>([]);
   const [bccEmails, setBccEmails] = useState<string[]>([]);
-
+  const [selectedOption, setSelectedOption] = useState(null);
   const toggleCC = () => setShowCC(!showCC);
   const toggleBCC = () => setShowBCC(!showBCC);
   const onDrop = (acceptedFiles: File[]) => {
@@ -124,6 +133,14 @@ const EmailDialog = ({ onClose }: { onClose: () => void }) => {
             </div>
 
             <div className="flex items-center gap-4">
+              <select
+                id="fruits"
+                name="fruits"
+                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-transparent focus:ring focus:ring-transparent focus:ring-opacity-50"
+              >
+                <option value="template1">Template1</option>
+                <option value="template1">Template2</option>
+              </select>
               <button onClick={onClose} className="hover:text-gray-200">
                 <IoIosClose className="text-black" size={26} />
               </button>

@@ -9,6 +9,13 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
 import { FaRegBell } from "react-icons/fa";
 import { MdHelpOutline } from "react-icons/md";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import Notifications from "./UserInfoPanel/Notifications";
+
 const Header = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -34,11 +41,22 @@ const Header = () => {
     <div className="flex px-10 py-3 justify-between items-center border-b-2">
       <SearchBar />
       <div className="flex gap-2">
-        <ActionItem
-          title="Notifications"
-          Icon={<FaRegBell size={20} />}
-          className="hidden md:flex"
-        />
+        <Popover>
+          <PopoverTrigger>
+            <ActionItem
+              title="Notifications"
+              Icon={<FaRegBell size={20} />}
+              className="hidden md:flex"
+            />
+          </PopoverTrigger>
+          <PopoverContent className="w-[450px]">
+            <div className="flex items-center justify-between">
+              <p>Notifications</p>
+              <p>Mark all as read</p>
+            </div>
+            <Notifications />
+          </PopoverContent>
+        </Popover>
         <ActionItem
           title="Help Center"
           Icon={<MdHelpOutline size={20} />}
