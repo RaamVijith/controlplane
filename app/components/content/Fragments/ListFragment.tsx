@@ -6,9 +6,11 @@ import UsersData from "@/public/data/users";
 import UserInfoPanel from "../comps/UserInfoPanel/UserInfoPanel";
 import DataTable from "../comps/ContactTable/Table";
 import SearchBar from "../comps/SearchBar";
-import { FaSearch } from "react-icons/fa";
+import { FaEllipsisV, FaSearch } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import AddCategoryDialog from "../comps/UserInfoPanel/AddCategory";
+import { MdMoreHoriz, MdOutlineDelete, MdOutlineRefresh } from "react-icons/md";
+import { BsThreeDots } from "react-icons/bs";
 
 // const users: Users[] = UsersData;
 type Activity = {
@@ -44,7 +46,7 @@ type Users = {
 const ListFragment = () => {
   const [isSelected, setIsSelected] = useState<number>(1);
   const [searchInput, setSearchInput] = useState("");
-
+  const [isIconMenuOpen, setIsIconMenuOpen] = useState(false);
   // const usersheader = [
   //   { name: "Name", uid: "name" },
   //   { name: "Email", uid: "email" },
@@ -104,7 +106,9 @@ const ListFragment = () => {
   displayedUsers = displayedUsers.filter((user) =>
     user.name.toLowerCase().includes(searchInput.toLowerCase())
   );
-
+  const toggleIconMenu = () => {
+    setIsIconMenuOpen(!isIconMenuOpen);
+  };
   // const filteredData = getFilteredData();
   return (
     <div className="block w-full">
@@ -128,6 +132,31 @@ const ListFragment = () => {
           ))}
         </div>
         <div className="flex items-center justify-center gap-3">
+          {/* Horizontal Icon */}
+          <div className="relative">
+            <div
+              className="cursor-pointer rounded-full hover:bg-gray-200 h-8 w-8 p-0 flex items-center justify-center ml-3"
+              onClick={toggleIconMenu}
+            >
+              <BsThreeDots size={20} />
+            </div>
+
+            {/* Icons with Animation */}
+            <div
+              className={`flex items-center gap-3 absolute right-full top-1/2 transform -translate-y-1/2 transition-opacity duration-300 ${
+                isIconMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+              }`}
+            >
+              <MdOutlineRefresh
+                className="text-gray-400 cursor-pointer hover:text-gray-700"
+                size={20}
+              />
+              <MdOutlineDelete
+                className="text-gray-400 cursor-pointer hover:text-gray-700"
+                size={20}
+              />
+            </div>
+          </div>
           {/* SearchBar */}
           <div className="relative max-w-sm">
             {/* Search Icon */}
