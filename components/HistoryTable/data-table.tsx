@@ -131,7 +131,7 @@ export function CommonTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex justify-between items-center pb-4">
+      <div className="flex justify-between items-center pb-2">
         <div className="flex items-center gap-3">
           <p className="text-md">
             <strong>Period</strong>
@@ -163,7 +163,7 @@ export function CommonTable<TData, TValue>({
           />
         </div>
 
-        <div className="relative max-w-sm mt-4">
+        <div className="relative max-w-sm mt-1">
           <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <Input
             placeholder="Filter"

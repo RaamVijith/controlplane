@@ -12,6 +12,7 @@ import { MoreHorizontal } from "lucide-react";
 import { MdOutlineHistory } from "react-icons/md";
 import AuditLogs from "@/app/components/History/AuditLogs/AuditLogs";
 import HistoryDetails from "@/app/components/History/HistoryDetails/HistoryDetails";
+import HistoryData from "@/app/components/History/HistoryDetails/HistoryData";
 
 export type HistoryTable = {
   id: string;
@@ -182,7 +183,7 @@ export const columns: ColumnDef<HistoryTable>[] = [
             {/* <DropdownMenuSeparator /> */}
             <DropdownMenuItem onClick={handleMenuItemClick}>
               {/* <span className="pl-2 gap-1 flex items-center justify-center"> */}
-              <HistoryDetails
+              <HistoryData
                 trigger={
                   <span className="pl-2 gap-1 flex items-center justify-center">
                     <MdOutlineHistory className="mr-2" size={20} /> History
@@ -190,6 +191,7 @@ export const columns: ColumnDef<HistoryTable>[] = [
                   </span>
                 }
               />
+              {/* <HistoryData /> */}
               {/* </span> */}
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleMenuItemClick}>

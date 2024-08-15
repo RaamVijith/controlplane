@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { useRef } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -54,7 +55,11 @@ import { FaAngleDown } from "react-icons/fa";
 import AddContactDialog from "../UserInfoPanel/AddContact";
 import AddData from "../NodataComponent/AddData";
 import { FaFilePen } from "react-icons/fa6";
-import { MdDeleteOutline, MdOutlineHistory } from "react-icons/md";
+import {
+  MdDeleteOutline,
+  MdOutlineHistory,
+  MdViewColumn,
+} from "react-icons/md";
 import { GrContactInfo } from "react-icons/gr";
 import { BiTransfer } from "react-icons/bi";
 import ConvertContact from "../UserInfoPanel/ConvertContact";
@@ -66,6 +71,13 @@ import { FaEdit } from "react-icons/fa";
 import { HiOutlineMail, HiOutlineMailOpen } from "react-icons/hi";
 import { BiSolidEdit } from "react-icons/bi";
 import dynamic from "next/dynamic";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const EmailDialog = dynamic(() => import("../../EmailContent/Email"), {
   ssr: false,
@@ -100,17 +112,18 @@ export type Users = {
 };
 type DataTableProps = {
   users: Users[];
+  sheetTriggerRef: React.RefObject<HTMLButtonElement>;
 };
-const DataTable: React.FC<DataTableProps> = ({ users }) => {
+const DataTable: React.FC<DataTableProps> = ({ users, sheetTriggerRef }) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+    React.useState<VisibilityState>({ gender: false, location: false });
   const [rowSelection, setRowSelection] = React.useState({});
   const [isCardOpen, setIsCardOpen] = React.useState<boolean>(false);
-
+  const [searchQuery, setSearchQuery] = React.useState("");
   const { setPanelVisible, setPanelData, setExtendedUserInfoPanelVisible } =
     usePanel();
 
@@ -427,6 +440,134 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
       ),
     },
     {
+      accessorKey: "updatedon",
+      header: ({ column }) => {
+        return (
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   <div>Gender</div>
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Updated On
+            <RiExpandUpDownLine />
+          </Button>
+        );
+      },
+      // cell: ({ row }) => (
+      //   <div className="flex gap-2 items-center text-gray-500">
+      //     {row.getValue("gender") === "Male" ? (
+      //       <IoMdMale className="text-[16px] lg:text-[20px]" />
+      //     ) : (
+      //       <IoFemale className="text-[16px] lg:text-[20px]" />
+      //     )}
+      //     <div className="capitalize">{row.getValue("gender")}</div>
+      //   </div>
+      // ),
+    },
+    {
+      accessorKey: "createdby",
+      header: ({ column }) => {
+        return (
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   <div>Gender</div>
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Created By
+            <RiExpandUpDownLine />
+          </Button>
+        );
+      },
+      // cell: ({ row }) => (
+      //   <div className="flex gap-2 items-center text-gray-500">
+      //     {row.getValue("gender") === "Male" ? (
+      //       <IoMdMale className="text-[16px] lg:text-[20px]" />
+      //     ) : (
+      //       <IoFemale className="text-[16px] lg:text-[20px]" />
+      //     )}
+      //     <div className="capitalize">{row.getValue("gender")}</div>
+      //   </div>
+      // ),
+    },
+    {
+      accessorKey: "createdon",
+      header: ({ column }) => {
+        return (
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   <div>Gender</div>
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Created On
+            <RiExpandUpDownLine />
+          </Button>
+        );
+      },
+      // cell: ({ row }) => (
+      //   <div className="flex gap-2 items-center text-gray-500">
+      //     {row.getValue("gender") === "Male" ? (
+      //       <IoMdMale className="text-[16px] lg:text-[20px]" />
+      //     ) : (
+      //       <IoFemale className="text-[16px] lg:text-[20px]" />
+      //     )}
+      //     <div className="capitalize">{row.getValue("gender")}</div>
+      //   </div>
+      // ),
+    },
+    {
+      accessorKey: "updatedby",
+      header: ({ column }) => {
+        return (
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   <div>Gender</div>
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Updated By
+            <RiExpandUpDownLine />
+          </Button>
+        );
+      },
+      // cell: ({ row }) => (
+      //   <div className="flex gap-2 items-center text-gray-500">
+      //     {row.getValue("gender") === "Male" ? (
+      //       <IoMdMale className="text-[16px] lg:text-[20px]" />
+      //     ) : (
+      //       <IoFemale className="text-[16px] lg:text-[20px]" />
+      //     )}
+      //     <div className="capitalize">{row.getValue("gender")}</div>
+      //   </div>
+      // ),
+    },
+    {
       accessorKey: "id",
       header: () => <div className="text cursor-default">Action</div>,
       cell: ({ row }) => {
@@ -626,127 +767,228 @@ const DataTable: React.FC<DataTableProps> = ({ users }) => {
     setIsCardOpen(false);
   };
   return (
-    <div className="w-full py-4 px-8">
-      {table.getRowModel().rows?.length ? (
-        <>
-          <div className="rounded-md border">
-            <Table>
-              <TableHeader>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <TableHead key={header.id}>
-                        {header.isPlaceholder ? null : (
-                          <div>
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                          </div>
-                        )}
-                      </TableHead>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableHeader>
-              <TableBody>
-                {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
+    <>
+      <div>
+        {/* <Sheet>
+          <SheetTrigger asChild>
+            <button ref={sheetTriggerRef} style={{ display: "none" }}></button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Customize Column</SheetTitle>
+              <hr />
+            </SheetHeader>
+            <div className="px-3 mt-4">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => (
+                  <div
+                    key={column.id}
+                    className="flex items-center px-2 py-2 cursor-pointer capitalize "
+                  >
+                    <Checkbox
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) => {
+                        column.toggleVisibility(!!value);
+                      }}
+                      id={column.id}
+                      className="data-[state=checked]:bg-[#3f76ff] data-[state=checked]:border-[#3f76ff]"
+                    />
+                    <label
+                      htmlFor={column.id}
+                      className="ml-2 text-sm text-gray-600"
                     >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
+                      {column.id}
+                    </label>
+                  </div>
+                ))}
+            </div>
+          </SheetContent>
+        </Sheet> */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <button ref={sheetTriggerRef} style={{ display: "none" }}></button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Customize Column</SheetTitle>
+              <hr />
+              <label
+                // htmlFor="firstName"
+                className="block text-md font-medium text-black mb-1"
+              >
+                Search Columns
+              </label>
+              <input
+                type="text"
+                placeholder="Search Columns"
+                className="mt-2 p-1 border rounded w-full bg-slate-200 focus-visible:ring-transparent"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
+              />
+            </SheetHeader>
+            <div className="px-3 mt-4">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .filter((column) =>
+                  column.id.toLowerCase().includes(searchQuery)
+                )
+                .sort((a, b) => {
+                  const aMatches = a.id.toLowerCase().includes(searchQuery);
+                  const bMatches = b.id.toLowerCase().includes(searchQuery);
+                  if (aMatches && !bMatches) return -1;
+                  if (!aMatches && bMatches) return 1;
+                  return 0;
+                })
+                .map((column) => (
+                  <div
+                    key={column.id}
+                    className="flex items-center px-2 py-2 cursor-pointer capitalize "
+                  >
+                    <Checkbox
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) => {
+                        column.toggleVisibility(!!value);
+                      }}
+                      id={column.id}
+                      className="data-[state=checked]:bg-[#3f76ff] data-[state=checked]:border-[#3f76ff]"
+                    />
+                    <label
+                      htmlFor={column.id}
+                      className="ml-2 text-sm text-gray-600"
+                    >
+                      {column.id}
+                    </label>
+                  </div>
+                ))}
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+      <div className="w-full py-4 px-8">
+        {table.getRowModel().rows?.length ? (
+          <>
+            <div className="rounded-md border">
+              <Table>
+                <TableHeader>
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <TableRow key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => (
+                        <TableHead key={header.id}>
+                          {header.isPlaceholder ? null : (
+                            <div>
+                              {flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
+                            </div>
                           )}
-                        </TableCell>
+                        </TableHead>
                       ))}
                     </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center"
-                    >
-                      No results.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
-
-          <div className="flex items-center justify-between space-x-2 py-4">
-            <div className="flex gap-2 text-sm text-muted-foreground items-center justify-center">
-              <div className="text-gray-800">{"Show"}</div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <div className="cursor-pointer h-8 w-8 flex items-center justify-center border-2 border-gray-400 gap-2 px-[28px] py-[8px] rounded-md">
-                    <div>{table.getState().pagination.pageSize}</div>
-                    <div>
-                      <FaAngleDown />
-                    </div>
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {[10, 20, 30, 40, 50].map((pageSize) => (
-                    <DropdownMenuItem
-                      key={pageSize}
-                      onClick={() => {
-                        table.setPageSize(Number(pageSize));
-                      }}
-                      className="cursor-pointer"
-                      defaultValue={pageSize}
-                    >
-                      {pageSize}
-                    </DropdownMenuItem>
                   ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <div className="text-gray-800">{"Row"}</div>
+                </TableHeader>
+                <TableBody>
+                  {table.getRowModel().rows?.length ? (
+                    table.getRowModel().rows.map((row) => (
+                      <TableRow
+                        key={row.id}
+                        data-state={row.getIsSelected() && "selected"}
+                      >
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell
+                        colSpan={columns.length}
+                        className="h-24 text-center"
+                      >
+                        No results.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
             </div>
-            <div className="flex-grow flex items-center justify-center gap-2">
-              <Button
-                className={clsx(
-                  "bg-gray-100",
-                  !table.getCanPreviousPage() && "text-gray-400"
-                )}
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <IoIosArrowBack />
-              </Button>
-              <div className="flex flex-row gap-2">
-                {paginationButtons.map((u) => u)}
+
+            <div className="flex items-center justify-between space-x-2 py-4">
+              <div className="flex gap-2 text-sm text-muted-foreground items-center justify-center">
+                <div className="text-gray-800">{"Show"}</div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className="cursor-pointer h-8 w-8 flex items-center justify-center border-2 border-gray-400 gap-2 px-[28px] py-[8px] rounded-md">
+                      <div>{table.getState().pagination.pageSize}</div>
+                      <div>
+                        <FaAngleDown />
+                      </div>
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {[10, 20, 30, 40, 50].map((pageSize) => (
+                      <DropdownMenuItem
+                        key={pageSize}
+                        onClick={() => {
+                          table.setPageSize(Number(pageSize));
+                        }}
+                        className="cursor-pointer"
+                        defaultValue={pageSize}
+                      >
+                        {pageSize}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <div className="text-gray-800">{"Row"}</div>
               </div>
-              <Button
-                className={clsx(
-                  "bg-gray-100",
-                  !table.getCanNextPage() && "text-gray-400"
-                )}
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <IoIosArrowForward />
-              </Button>
+              <div className="flex-grow flex items-center justify-center gap-2">
+                <Button
+                  className={clsx(
+                    "bg-gray-100",
+                    !table.getCanPreviousPage() && "text-gray-400"
+                  )}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <IoIosArrowBack />
+                </Button>
+                <div className="flex flex-row gap-2">
+                  {paginationButtons.map((u) => u)}
+                </div>
+                <Button
+                  className={clsx(
+                    "bg-gray-100",
+                    !table.getCanNextPage() && "text-gray-400"
+                  )}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <IoIosArrowForward />
+                </Button>
+              </div>
             </div>
-          </div>
-        </>
-      ) : (
-        // <div className="h-full w-full flex items-center justify-center">
-        //   <div className="text-center text-gray-800">No results.</div>
-        // </div>
-        <AddData buttonText="Add Contact" />
-      )}
-    </div>
+          </>
+        ) : (
+          // <div className="h-full w-full flex items-center justify-center">
+          //   <div className="text-center text-gray-800">No results.</div>
+          // </div>
+          <AddData buttonText="Add Contact" />
+        )}
+      </div>{" "}
+    </>
   );
 };
 

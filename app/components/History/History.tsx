@@ -78,7 +78,7 @@ const History: React.FC<AddHistoryDialogProps> = ({ trigger }) => {
                   {dataLength}
                 </span>
               </div>
-              <hr className="my-3" />
+              <hr className="my-2" />
             </DialogTitle>
             <CommonTable
               columns={columns}

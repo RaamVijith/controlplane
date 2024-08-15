@@ -16,44 +16,46 @@ import axios from "axios";
 //   columns,
 // } from "../../../components/HistoryTable/HistoryColumnTable";
 import { FaCompress, FaExpand } from "react-icons/fa";
-import { columns } from "./AuditLogColumn";
-import { AuditTable } from "./AuditTable";
+import { HistoryDetailsTable } from "./HistoryDetailsTable";
+import { columns } from "./HistoryDetailsColumn";
+import HistoryDataCard from "./HistoryDataCard";
+// import { columns } from "./AuditLogColumn";
+// import { AuditTable } from "./AuditTable";
 // import { columns } from "@/components/HistoryTable/HistoryColumnTable";
 
-interface AddHistoryDialogProps {
+interface AddHistoryDetailsProps {
   trigger: React.ReactNode;
 }
 
-const AuditLogs: React.FC<AddHistoryDialogProps> = ({ trigger }) => {
+const HistoryData: React.FC<AddHistoryDetailsProps> = ({ trigger }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [data, setData] = useState<any[]>([]);
   const [dataLength, setDataLength] = useState<number>(0);
 
   const toggleExpand = () => setIsExpanded(!isExpanded);
-
-  useEffect(() => {
-    // Fetch data from the URL
-    axios
-      .get("https://66b94295fa763ff550f8043c.mockapi.io/api/logs")
-      .then((response) => {
-        // Set the data to state and log it
-        setData(response.data);
-        setDataLength(response.data.length);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error("There was an error fetching the data!", error);
-      });
-  }, []);
-
+  const datavalues = [
+    { name: "Action", previousValue: "", latestValue: "Added" },
+    { name: "Created by", previousValue: "", latestValue: "Adam Williams" },
+    { name: "Status", previousValue: "", latestValue: "Active" },
+    {
+      name: "Workspace Name",
+      previousValue: "",
+      latestValue: "testing_testing",
+    },
+    {
+      name: "Created at",
+      previousValue: "",
+      latestValue: "July 23rd, 2024 2:05:33 PM",
+    },
+    { name: "Description", previousValue: "", latestValue: "test" },
+  ];
   return (
     <>
       <Dialog>
         <DialogTrigger asChild>{trigger}</DialogTrigger>
 
         <DialogContent
-          className={`fixed bg-white rounded-md shadow-lg left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-[1200px] max-h-[850px] transition-all duration-300 ${
+          className={`fixed bg-white rounded-md shadow-lg left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[900px] transition-all duration-300 ${
             isExpanded ? "w-full h-full max-w-full max-h-full" : ""
           }`}
         >
@@ -61,7 +63,7 @@ const AuditLogs: React.FC<AddHistoryDialogProps> = ({ trigger }) => {
           <DialogHeader>
             <DialogTitle className="text-lg font-semibold">
               <div className="flex items-center">
-                <button
+                {/* <button
                   type="button"
                   onClick={toggleExpand}
                   className="hover:text-gray-200 transition-transform duration-300 pr-2"
@@ -77,15 +79,29 @@ const AuditLogs: React.FC<AddHistoryDialogProps> = ({ trigger }) => {
                       size={18}
                     />
                   )}
-                </button>
-                Audit Logs
-                <span className="bg-[#1D62B450] ml-2 rounded-md cursor-default px-1">
+                </button> */}
+                History Details
+                {/* <span className="bg-[#1D62B450] ml-2 rounded-md cursor-default px-1">
                   {dataLength}
-                </span>
+                </span> */}
               </div>
-              <hr className="my-2" />
+              <hr className="my-3" />
             </DialogTitle>
-            <AuditTable columns={columns} data={data} isExpanded={isExpanded} />
+            <div className="card bg-gray-100 p-3 rounded-md shadow-md">
+              <div className="flex items-center justify-between p-2">
+                <p className="text-left flex-1 text-sm">Field Name</p>
+                <p className="text-left flex-1 text-sm">Previous Data Value</p>
+                <p className="text-left flex-1 text-sm">Latest Data Value</p>
+              </div>
+            </div>
+            {datavalues.map((item, index) => (
+              <HistoryDataCard
+                key={index}
+                fieldName={item.name}
+                prevValue={item.previousValue}
+                latestValue={item.latestValue}
+              />
+            ))}
           </DialogHeader>
 
           {/* <DialogDescription className="text-sm text-gray-500"> */}
@@ -100,4 +116,4 @@ const AuditLogs: React.FC<AddHistoryDialogProps> = ({ trigger }) => {
   );
 };
 
-export default AuditLogs;
+export default HistoryData;

@@ -9,7 +9,12 @@ import SearchBar from "../comps/SearchBar";
 import { FaEllipsisV, FaSearch } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import AddCategoryDialog from "../comps/UserInfoPanel/AddCategory";
-import { MdMoreHoriz, MdOutlineDelete, MdOutlineRefresh } from "react-icons/md";
+import {
+  MdMoreHoriz,
+  MdOutlineDelete,
+  MdOutlineRefresh,
+  MdViewColumn,
+} from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
 
 // const users: Users[] = UsersData;
@@ -48,6 +53,7 @@ const ListFragment = () => {
   const [searchInput, setSearchInput] = useState("");
   const [isIconMenuOpen, setIsIconMenuOpen] = useState(false);
   const iconRef = useRef<HTMLDivElement>(null);
+
   // const usersheader = [
   //   { name: "Name", uid: "name" },
   //   { name: "Email", uid: "email" },
@@ -123,6 +129,15 @@ const ListFragment = () => {
     };
   }, []);
 
+  // clicking on the icon MdViewColumn need to open the Datatable sheet
+  const sheetTriggerRef = useRef<HTMLButtonElement>(null);
+
+  const handleViewColumnClick = () => {
+    if (sheetTriggerRef.current) {
+      sheetTriggerRef.current.click();
+    }
+  };
+
   // const filteredData = getFilteredData();
   return (
     <div className="block w-full">
@@ -165,7 +180,9 @@ const ListFragment = () => {
                 className="text-gray-400 cursor-pointer hover:text-gray-700"
                 size={20}
               />
-              <MdOutlineDelete
+
+              <MdViewColumn
+                onClick={handleViewColumnClick}
                 className="text-gray-400 cursor-pointer hover:text-gray-700"
                 size={20}
               />
@@ -194,7 +211,7 @@ const ListFragment = () => {
         </div>
       </div>
       <div>
-        <DataTable users={displayedUsers} />
+        <DataTable users={displayedUsers} sheetTriggerRef={sheetTriggerRef} />
       </div>
     </div>
   );

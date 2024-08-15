@@ -16,18 +16,18 @@ const Activities = () => {
         <FaSearch className="absolute left-3 text-gray-500" size={16} />
         <Input
           type="text"
-          className="pl-10 pr-3 py-6 mt-1 w-full border-none focus:outline-none focus:ring focus:border-slate-200"
+          className="pl-10 pr-3 py-4 mt-1 w-full border-none focus:outline-none focus:ring focus:border-slate-200"
           placeholder="Search emails, activities, notes and more"
         />
       </div>
-      <hr className="my-2" />
+      <hr />
 
       <div className="w-full">
         <div className="flex justify-around border-b border-gray-200 p-3">
           {tabs.map((tab) => (
             <button
               key={tab}
-              className={`flex-1 py-2 text-center border border-[#1D62B4] text-[#1D62B4] ${
+              className={`flex-1 py-1 text-center border border-[#1D62B4] text-[#1D62B4] ${
                 activeTab === tab
                   ? "bg-blue-100 font-medium"
                   : "hover:bg-blue-50"

@@ -72,7 +72,7 @@ const Tabs = () => {
             >
               Created On
             </label>
-            <p className="text-sm mb-3">Aug 8th 2024</p>
+            <p className="text-sm mb-3">Aug 8th 2024 08:08:00 AM</p>
           </div>
         ) : (
           <div className="flex items-center gap-4">

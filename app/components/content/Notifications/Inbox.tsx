@@ -11,9 +11,9 @@ const InboxNotification = () => {
   return (
     <div>
       {/* <p>This is the content for the Inbox tab.</p> */}
-      <div className="w-full p-1 ">
+      <div className="w-full p-2">
         <div
-          className={`flex items-center justify-between cursor-pointer ${
+          className={`flex items-center justify-between cursor-pointer p-1 ${
             isExpanded ? "" : "bg-slate-100"
           }`}
           onClick={handleCardClick}

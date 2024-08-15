@@ -393,25 +393,25 @@ export const columns: ColumnDef<AuditLogTable>[] = [
 
       return (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          {/* <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-            {/* <DropdownMenuItem
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(user.id)}
             >
               Copy user ID
-            </DropdownMenuItem> */}
-            {/* <DropdownMenuSeparator /> */}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>
               <span className="pl-2 gap-1 flex items-center justify-center">
                 <MdOutlineHistory className="mr-2" size={20} /> Pending !!!
               </span>
             </DropdownMenuItem>
-            {/* <DropdownMenuItem onClick={handleMenuItemClick}>
+            <DropdownMenuItem onClick={handleMenuItemClick}>
               <AuditLogs
                 trigger={
                   <span className="pl-2 gap-1 flex items-center justify-center">
@@ -419,8 +419,8 @@ export const columns: ColumnDef<AuditLogTable>[] = [
                   </span>
                 }
               />
-            </DropdownMenuItem> */}
-          </DropdownMenuContent>
+            </DropdownMenuItem>
+          </DropdownMenuContent> */}
         </DropdownMenu>
       );
     },

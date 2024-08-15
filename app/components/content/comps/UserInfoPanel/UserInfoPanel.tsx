@@ -28,6 +28,9 @@ import Delete from "@/app/components/Delete";
 import UpcomingActivity from "../../ActivityContent/UpcomingActivity";
 import NotesContent from "../../NotesContent/NotesContent";
 import dynamic from "next/dynamic";
+import ActivityHistory from "../../ActivityContent/ActivityHistory";
+import EmailContact from "../../EmailContent/EmailContact";
+import MeetingContent from "../../MeetingContent/MeetingContent";
 
 const EmailDialog = dynamic(() => import("../../EmailContent/Email"), {
   ssr: false,
@@ -299,7 +302,16 @@ const UserInfoPanel = () => {
               </div>
 
               <div className="py-4 px-10 ">
+                <ActivityHistory />
+              </div>
+              <div className="py-4 px-10 ">
+                <EmailContact />
+              </div>
+              <div className="py-4 px-10 ">
                 <NotesContent />
+              </div>
+              <div className="py-4 px-10 ">
+                <MeetingContent />
               </div>
             </div>
           </div>
