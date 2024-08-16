@@ -13,7 +13,10 @@ import { FaRegNewspaper } from "react-icons/fa";
 import { BsPencil } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { FaAngleDown } from "react-icons/fa";
-import EmailDialog from "./Email";
+import dynamic from "next/dynamic";
+const EmailDialog = dynamic(() => import("./Email"), {
+  ssr: false,
+});
 const EmailsView = () => {
   const [isCardOpen, setIsCardOpen] = React.useState<boolean>(false);
   const handleAddEmailClick = () => {
@@ -44,7 +47,6 @@ const EmailsView = () => {
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-
       <EmailContact />
       {isCardOpen && <EmailDialog onClose={handleEmailCloseCard} />}
     </div>
