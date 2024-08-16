@@ -45,6 +45,7 @@
     "react-phone-input-2": "^2.15.1",
     "react-select": "^5.8.0",
     "react-switch": "^7.0.0",
+    "react-timezone-select": "^3.2.7",
     "react-world-flags": "^1.6.0",
     "sharp": "^0.33.4",
     "tailwind-merge": "^2.4.0",

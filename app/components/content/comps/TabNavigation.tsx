@@ -9,6 +9,7 @@ import KanbanFragment from "../Fragments/KanbanFragment";
 import GridFragment from "../Fragments/GridFragment";
 import { FillButton, OutlineButton } from "../../libs/buttons";
 import AddContactDialog from "./UserInfoPanel/AddContact";
+import CreateCompanyDialog from "../Company/AddCompany";
 // import AddContactDialog from "./AddContact";
 
 const TabNavigation = () => {
@@ -89,6 +90,16 @@ const TabNavigation = () => {
               </FillButton>
             }
           />
+          <div className="h-10 border-[1px] my-2"></div>
+          <CreateCompanyDialog
+            mode="add"
+            trigger={
+              <FillButton>
+                <IoAdd />
+                <div className="text-sm">Add Company</div>
+              </FillButton>
+            }
+          />
         </div>
       </div>
       <div>
@@ -109,6 +120,16 @@ const TabNavigation = () => {
               <FillButton>
                 <IoAdd />
                 <div className="text-sm">Add Contact</div>
+              </FillButton>
+            }
+          />
+          <div className="h-10 border-[1px]"></div>
+          <CreateCompanyDialog
+            mode="add"
+            trigger={
+              <FillButton>
+                <IoAdd />
+                <div className="text-sm">Add Company</div>
               </FillButton>
             }
           />

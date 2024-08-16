@@ -23,6 +23,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CiLocationOn } from "react-icons/ci";
+import { PiBuildingOfficeBold } from "react-icons/pi";
+import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import {
   Select,
   SelectContent,
@@ -32,6 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Image from "next/image";
 import { IoIosClose } from "react-icons/io";
@@ -40,9 +43,7 @@ import "react-phone-input-2/lib/style.css";
 // import FlagSelector from "../../Selector/FlagSelector";
 import { Country, State, City } from "country-state-city";
 import Flag from "react-world-flags";
-import Switch from "react-switch";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { FaRegBuilding } from "react-icons/fa";
+import { FaMapMarkerAlt } from "react-icons/fa";
 // import {
 //   Select,
 //   SelectContent,
@@ -53,23 +54,27 @@ import { FaRegBuilding } from "react-icons/fa";
 //   SelectValue,
 // } from "@/components/ui/select";
 // import { CiLocationOn } from "react-icons/ci";
+
+import TimezoneSelect, { type ITimezone } from "react-timezone-select";
+
 interface AddContactDialogProps {
   trigger: React.ReactNode;
   mode: "add" | "edit";
+  // change
   contactData?: {
-    firstName: string;
-    lastName: string;
-    category: string;
+    companyName: string;
+    industryType: string;
+    region: string;
+    contact: string;
+    identification: string;
     email: string;
     company: string;
-    birthDate: Date;
-    gender: string;
+    resume: string;
     country: string;
-    occupation: string;
     mode: string;
   };
 }
-const AddContactDialog: React.FC<AddContactDialogProps> = ({
+const CreateCompanyDialog: React.FC<AddContactDialogProps> = ({
   trigger,
   mode,
   contactData,
@@ -77,11 +82,17 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
   const [date, setDate] = useState<Date>();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [phone, setPhone] = useState<string>("");
+  const [mobile, setMobile] = useState<string>("");
+
   // country selector
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+
+  // TimeZone Select
+  const [selectedTimezone, setSelectedTimezone] = useState<ITimezone>(
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
 
   const handleButtonClick = () => {
     document.getElementById("fileInput")?.click();
@@ -98,18 +109,18 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
     }
   };
 
-  const Selection = [
+  const IndustrySelection = [
     {
-      value: "employee",
-      name: "Employee",
+      value: "type1",
+      name: "type1",
     },
     {
-      value: "partners",
-      name: "Partners",
+      value: "type2",
+      name: "type2",
     },
     {
-      value: "customers",
-      name: "Customers",
+      value: "type3",
+      name: "type3",
     },
   ];
 
@@ -126,6 +137,11 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
 
   const handleCityChange = (value: string) => {
     setSelectedCity(value);
+    setSelectedTimezone("");
+  };
+
+  const handleTimezoneChange = (value: string) => {
+    setSelectedTimezone(value);
   };
 
   const countries = Country.getAllCountries();
@@ -136,25 +152,19 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
     ? City.getCitiesOfState(selectedCountry, selectedState)
     : [];
 
-  const handleSwitchChange = (checked: boolean) => {
-    setIsChecked(checked);
-    // Add your logic
-  };
-
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      {/* <Dialog.Portal> */}
-      {/* <Dialog.Overlay className="bg-black bg-opacity-50 fixed inset-0" /> */}
-      <DialogContent className="fixed bg-white p-4 rounded-md shadow-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[650px]">
+
+      <DialogContent className="fixed bg-white p-4 rounded-md shadow-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[650px] max-h-screen">
         <DialogTitle className="text-lg font-medium">
-          {mode === "add" ? "Create New Contact" : "Update Contact"}
+          {mode === "add" ? "Create New Company" : "Update Company Details"}
           <hr className="my-1" />
         </DialogTitle>
 
-        <DialogDescription className="mt-1 mb-4 text-sm text-gray-500">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 mb-3">
+        <DialogDescription className="mt-2 mb-4 text-sm text-gray-500">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-3 mb-3">
               <div className="rounded-full w-[50px] h-[50px] bg-gray-200 flex items-center justify-center">
                 {selectedImage ? (
                   <Image
@@ -181,75 +191,54 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
                 className="hidden"
                 onChange={handleFileChange}
               />
-
-              <button className="bg-gray-200 p-2 rounded-md">
-                <RiDeleteBin5Line size={20} />
-              </button>
             </div>
-            <div className="flex items-center p-2 gap-2 cursor-pointer">
-              {" "}
-              <FaRegBuilding size={20} />
-              <Switch
-                onChange={handleSwitchChange}
-                checked={isChecked}
-                uncheckedIcon={false}
-                checkedIcon={false}
-                width={25}
-                height={15}
-                className="mr-2"
-              />
-            </div>
-          </div>
-          <form className="space-y-4">
-            <div className="flex flex-col md:flex-row md:space-x-4">
-              <div className="w-1/2 md:w-1/2">
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-medium text-black mb-1"
-                >
-                  First Name
-                </label>
-                <Input
-                  type="text"
-                  id="firstName"
-                  placeholder="Enter first name here"
-                  name="firstName"
-                  defaultValue={contactData?.firstName || ""}
+            <div className="flex flex-row items-center gap-2">
+              <div className="flex gap-4 items-baseline ">
+                <PiBuildingOfficeBold
+                  size={36}
+                  className="text-gray-400 cursor-pointer mb-1"
                 />
               </div>
-              <div className="w-1/2 md:w-1/2">
+
+              <Switch />
+            </div>
+          </div>
+
+          <form className="space-y-4">
+            <div className="flex flex-col md:flex-row md:space-x-4">
+              <div className="w-full">
                 <label
-                  htmlFor="lastName"
+                  htmlFor="companyName"
                   className="block text-sm font-medium text-black mb-1"
                 >
-                  Last Name
+                  Company Name
                 </label>
                 <Input
                   type="text"
-                  id="lastName"
-                  placeholder="Enter last name here"
-                  name="firstName"
-                  defaultValue={contactData?.lastName || ""}
+                  id="companyName"
+                  placeholder="Enter company name"
+                  name="companyName"
+                  defaultValue={contactData?.companyName || ""}
                 />
               </div>
             </div>
             <div className="flex flex-col md:flex-row md:space-x-4">
               <div className="w-full md:w-1/2">
                 <label
-                  htmlFor="contactCategories"
+                  htmlFor="industryType"
                   className="block text-sm font-medium text-black mb-1"
                 >
-                  Contact Categories
+                  Industry Type
                 </label>
 
-                <Select defaultValue={contactData?.category || ""}>
+                <Select defaultValue={contactData?.industryType || ""}>
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select Category" />
+                    <SelectValue placeholder="Select Industry Type" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
                       {/* <SelectLabel>Fruits</SelectLabel> */}
-                      {Selection.map((item, index) => (
+                      {IndustrySelection.map((item, index) => (
                         <SelectItem key={index} value={item.value}>
                           {item.name}
                         </SelectItem>
@@ -260,15 +249,47 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
               </div>
               <div className="w-full md:w-1/2">
                 <label
+                  htmlFor="region"
+                  className="block text-sm font-medium text-black mb-1"
+                >
+                  Region
+                </label>
+                <Input
+                  type="text"
+                  id="region"
+                  placeholder="Enter region"
+                  name="region"
+                  defaultValue={contactData?.region || ""}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row md:space-x-4">
+              <div className="w-full md:w-1/2">
+                <label
+                  htmlFor="contact"
+                  className="block text-sm font-medium text-black mb-1"
+                >
+                  Priliminary Contact
+                </label>
+                <Input
+                  type="text"
+                  id="contact"
+                  placeholder="Enter contact details"
+                  name="contact"
+                  defaultValue={contactData?.contact || ""}
+                />
+              </div>
+              <div className="w-full md:w-1/2">
+                <label
                   htmlFor="email"
                   className="block text-sm font-medium text-black mb-1"
                 >
                   Email
                 </label>
                 <Input
-                  type="text"
+                  type="email"
                   id="email"
-                  placeholder="Enter email here"
+                  placeholder="Enter email "
                   name="email"
                   defaultValue={contactData?.email || ""}
                 />
@@ -294,17 +315,19 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
               </div>
               <div className="w-full md:w-1/2">
                 <label
-                  htmlFor="company"
+                  htmlFor="mobile"
                   className="block text-sm font-medium text-black mb-1"
                 >
-                  Company
+                  Mobile
                 </label>
-                <Input
-                  type="text"
-                  id="company"
-                  placeholder="Enter company name here"
-                  name="company"
-                  defaultValue={contactData?.company || ""}
+                <PhoneInput
+                  country={"us"}
+                  value={mobile}
+                  onChange={(mobile) => setMobile(mobile)}
+                  inputStyle={{
+                    width: "100%",
+                    border: "1px solid #C7C8CC",
+                  }}
                 />
               </div>
             </div>
@@ -312,71 +335,33 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
             <div className="flex flex-col md:flex-row md:space-x-4">
               <div className="w-full md:w-1/2">
                 <label
-                  htmlFor="birthDate"
+                  htmlFor="Identification"
                   className="block text-sm font-medium text-black mb-1"
                 >
-                  Birth Date
-                </label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[300px] justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {date ? format(date, "PPP") : <span>Pick a date</span>}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={setDate}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-              <div className="w-1/2 md:w-1/2">
-                <label
-                  htmlFor="occupation"
-                  className="block text-sm font-medium text-black mb-1"
-                >
-                  Occupation
+                  Unique Number
                 </label>
                 <Input
                   type="text"
-                  id="occupation"
-                  placeholder="Enter occupation here"
-                  name="occupation"
-                  defaultValue={contactData?.occupation || ""}
+                  id="Identification"
+                  placeholder="Enter details here"
+                  name="identification"
+                  defaultValue={contactData?.identification || ""}
                 />
               </div>
-            </div>
-            <div className="flex flex-col md:flex-row md:space-x-4">
               <div className="w-full md:w-1/2">
                 <label
-                  htmlFor="gender"
+                  htmlFor="resume"
                   className="block text-sm font-medium text-black mb-1"
                 >
-                  Gender
+                  Revenue
                 </label>
-                <RadioGroup
-                  defaultValue={contactData?.gender || "male"}
-                  className="flex space-x-4"
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="male" id="r1" />
-                    <label htmlFor="r1">Male</label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="female" id="r2" />
-                    <label htmlFor="r2">Female</label>
-                  </div>
-                </RadioGroup>
+                <Input
+                  type="text"
+                  id="resume"
+                  placeholder="resume"
+                  name="resume"
+                  defaultValue={contactData?.resume || ""}
+                />
               </div>
             </div>
             {/*  */}
@@ -463,39 +448,73 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
               </div>
             </div>
 
-            <div className="w-full">
-              <label
-                htmlFor="city"
-                className="block text-sm font-medium text-black mb-1"
-              >
-                City
-              </label>
-              <Select
-                onValueChange={handleCityChange}
-                disabled={!selectedState}
-              >
-                <SelectTrigger className="w-full relative">
-                  <CiLocationOn className="absolute left-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <span className={`ml-8 ${!selectedCity && "pl-3"}`}>
+            <div className="flex flex-col md:flex-row md:space-x-4">
+              <div className="w-full md:w-1/2">
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-medium text-black mb-1"
+                >
+                  City
+                </label>
+                <Select
+                  onValueChange={handleCityChange}
+                  disabled={!selectedState}
+                >
+                  <SelectTrigger className="w-full relative">
+                    <CiLocationOn className="absolute left-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <span className={`ml-8 ${!selectedCity && "pl-3"}`}>
+                      {selectedCity
+                        ? cities.find((city) => city.name === selectedCity)
+                            ?.name
+                        : selectedState
+                        ? "Select City"
+                        : "Select a State First"}
+                    </span>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Select City</SelectLabel>
+                      {cities.map((city) => (
+                        <SelectItem key={city.name} value={city.name}>
+                          <div className="flex items-center">{city.name}</div>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="w-full md:w-1/2">
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-medium text-black mb-1"
+                >
+                  TimeZone
+                </label>
+                <Select onValueChange={handleTimezoneChange}>
+                  <SelectTrigger className="w-full relative">
+                    <div> Select Timezone</div>
+                    {/* <span className={`ml-8 ${!selectedCity && "pl-3"}`}>
                     {selectedCity
                       ? cities.find((city) => city.name === selectedCity)?.name
                       : selectedState
-                      ? "Select City"
-                      : "Select a State First"}
-                  </span>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Select City</SelectLabel>
-                    {cities.map((city) => (
+                        ? "Select City"
+                        : "Select a State First"}
+                  </span> */}
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Select TimeZone</SelectLabel>
+                      {/* {cities.map((city) => (
                       <SelectItem key={city.name} value={city.name}>
                         <div className="flex items-center">{city.name}</div>
                       </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+                    ))} */}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
+
             {/*  */}
             <div className="w-full">
               <label
@@ -530,4 +549,4 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
   );
 };
 
-export default AddContactDialog;
+export default CreateCompanyDialog;
