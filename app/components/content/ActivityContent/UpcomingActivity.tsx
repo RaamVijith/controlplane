@@ -138,8 +138,38 @@ const UpcomingActivity = () => {
                     Jenny Wilson
                   </div>
                 </div>
-                <div className="text-gray-500 text-sm p-4">
-                  10 June 2024 10:00AM
+                <div className="flex items-center p-4">
+                  <div className="text-gray-500 text-sm">
+                    10 June 2024 10:00AM
+                  </div>
+                  <span>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <div className="cursor-pointer rounded-full hover:bg-gray-200 h-8 w-8 p-0 flex items-center justify-center">
+                          <BsThreeDots className="h-4 w-4" />
+                        </div>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
+                        <DropdownMenuItem
+                          className="cursor-pointer"
+                          onClick={handleMenuItemClick}
+                        >
+                          <Delete
+                            trigger={
+                              <span className="pl-2 gap-1 flex items-center justify-center">
+                                <RiDeleteBin5Line
+                                  className="mr-2 text-red-500"
+                                  size={20}
+                                />{" "}
+                                Delete
+                              </span>
+                            }
+                          />
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </span>
                 </div>
               </div>
               {/* <hr className="border-1" /> */}
@@ -277,37 +307,7 @@ const UpcomingActivity = () => {
                       <FaRegImage size={12} /> <p className="text-xs">+4</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <FaRegStar size={20} className="shadow-md" />
-                    <span>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <div className="cursor-pointer rounded-full hover:bg-gray-200 h-8 w-8 p-0 flex items-center justify-center">
-                            <BsThreeDots className="h-4 w-4" />
-                          </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-                          <DropdownMenuItem
-                            className="cursor-pointer"
-                            onClick={handleMenuItemClick}
-                          >
-                            <Delete
-                              trigger={
-                                <span className="pl-2 gap-1 flex items-center justify-center">
-                                  <RiDeleteBin5Line
-                                    className="mr-2 text-red-500"
-                                    size={20}
-                                  />{" "}
-                                  Delete
-                                </span>
-                              }
-                            />
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </span>
-                  </div>
+                  <FaRegStar size={20} className="shadow-md" />
                 </div>
               </div>
             </div>

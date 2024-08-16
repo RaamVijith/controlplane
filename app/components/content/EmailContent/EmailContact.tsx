@@ -29,21 +29,16 @@ import { HiOutlineMail } from "react-icons/hi";
 import { PiDotsThreeBold } from "react-icons/pi";
 import { BsThreeDots } from "react-icons/bs";
 
-const icons = [
+const contentList = [
   {
     id: 1,
-    icon: <MdKeyboardArrowLeft size={18} />,
-    link: "",
+    avatar: "",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. n unknown printer took a galley of type and scrambled it to make a type specimen book",
   },
   {
     id: 2,
-    icon: <MdKeyboardArrowRight size={18} />,
-    link: "",
-  },
-  {
-    id: 3,
-    icon: <RiDeleteBin5Line size={18} />,
-    link: "",
+    avatar: "",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. n unknown printer took a galley of type and scrambled it to make a type specimen book",
   },
 ];
 
@@ -53,11 +48,8 @@ const EmailContact = () => {
   const [taskPriorityOpen, setTaskPriorityOpen] = useState(false);
   const [assignedToOpen, setAssignedToOpen] = useState(false);
 
-  const [reminder, setReminder] = useState("reminder");
-  const [taskPriority, setTaskPriority] = useState("High");
-  const [assignedTo, setAssignedTo] = useState("User");
   const [isSectionOpen, setIsSectionOpen] = useState(true);
-
+  const [isHovered, setIsHovered] = useState(false);
   const toggleSection = () => {
     setIsSectionOpen(!isSectionOpen);
   };
@@ -67,26 +59,20 @@ const EmailContact = () => {
     setTaskPriorityOpen(!taskPriorityOpen);
   const toggleAssignedToDropdown = () => setAssignedToOpen(!assignedToOpen);
 
-  const handleReminderSelect = (option: string) => {
-    setReminder(option);
-    setReminderOpen(false);
-  };
-
-  const handleTaskPrioritySelect = (option: string) => {
-    setTaskPriority(option);
-    setTaskPriorityOpen(false);
-  };
-
-  const handleAssignedToSelect = (option: string) => {
-    setAssignedTo(option);
-    setAssignedToOpen(false);
-  };
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
   const handleMenuItemClick = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   return (
@@ -135,7 +121,11 @@ const EmailContact = () => {
               isOpen ? "max-h-screen" : "max-h-0"
             }`}
           >
-            <div className="mx-5 border-[1px] border-gray-300 rounded-md shadow-lg">
+            <div
+              className="mx-5 border-[1px] border-gray-300 rounded-md shadow-lg"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <div className="flex justify-between items-center">
                 <div className="flex p-4 gap-3 ">
                   <Avatar className="w-[32px] h-[32px]">
@@ -150,8 +140,38 @@ const EmailContact = () => {
                     Jenny Wilson
                   </div>
                 </div>
-                <div className="text-gray-500 text-sm p-4">
-                  10 June 2024 10:00AM
+                <div>
+                  <span className="p-4 flex items-center">
+                    <div className="text-gray-500 text-sm ">
+                      10 June 2024 10:00AM
+                    </div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <div className="cursor-pointer rounded-full hover:bg-gray-200 h-8 w-8 p-0 flex items-center justify-center">
+                          <BsThreeDots className="h-4 w-4" />
+                        </div>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
+                        <DropdownMenuItem
+                          className="cursor-pointer"
+                          onClick={handleMenuItemClick}
+                        >
+                          <Delete
+                            trigger={
+                              <span className="pl-2 gap-1 flex items-center justify-center">
+                                <RiDeleteBin5Line
+                                  className="mr-2 text-red-500"
+                                  size={20}
+                                />{" "}
+                                Delete
+                              </span>
+                            }
+                          />
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </span>
                 </div>
               </div>
               {/* <hr className="border-1" /> */}
@@ -171,6 +191,49 @@ const EmailContact = () => {
                   passages, and more recently with desktop publishing software
                   like Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
+                <hr className="mt-2 border border-slate-100" />
+                {contentList.map((content, index) => (
+                  <div key={index}>
+                    <div className="flex items-start space-x-2 mt-4 relative">
+                      <div className="relative flex flex-col items-center">
+                        <Avatar className="w-[32px] h-[32px]">
+                          <AvatarImage
+                            src="https://github.com/shadcn.png"
+                            alt="@shadcn"
+                          />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                      </div>
+                      <p className="text-sm text-gray-400">{content.text}</p>
+                    </div>
+                    <hr className="mt-2 border border-slate-100" />
+                  </div>
+                ))}
+                <div
+                  className={`px-4 pb-4 mt-1 transition-opacity duration-300 ease-in-out ${
+                    isHovered ? "opacity-100 max-h-40" : "opacity-0 max-h-0"
+                  }`}
+                >
+                  <div className="flex items-center space-x-2 mt-3">
+                    <Avatar className="w-[32px] h-[32px]">
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="@shadcn"
+                      />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-grow relative">
+                      <Textarea
+                        placeholder="Type your message here."
+                        className="rounded-none pr-10 w-full"
+                      />
+                      <IoMdSend
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+                        size={20}
+                      />
+                    </div>
+                  </div>
+                </div>
                 <div className="flex justify-between items-center pt-3">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-6 border border-gray-300 rounded-full flex items-center justify-center shadow-md">
@@ -180,37 +243,8 @@ const EmailContact = () => {
                       <FaRegImage size={12} /> <p className="text-xs">+4</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <FaRegStar size={20} className="shadow-md" />
-                    <span>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <div className="cursor-pointer rounded-full hover:bg-gray-200 h-8 w-8 p-0 flex items-center justify-center">
-                            <BsThreeDots className="h-4 w-4" />
-                          </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-                          <DropdownMenuItem
-                            className="cursor-pointer"
-                            onClick={handleMenuItemClick}
-                          >
-                            <Delete
-                              trigger={
-                                <span className="pl-2 gap-1 flex items-center justify-center">
-                                  <RiDeleteBin5Line
-                                    className="mr-2 text-red-500"
-                                    size={20}
-                                  />{" "}
-                                  Delete
-                                </span>
-                              }
-                            />
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </span>
-                  </div>
+
+                  <FaRegStar size={20} className="shadow-md" />
                 </div>
               </div>
             </div>

@@ -439,38 +439,7 @@ const DataTable: React.FC<DataTableProps> = ({ users, sheetTriggerRef }) => {
         </div>
       ),
     },
-    {
-      accessorKey: "updatedon",
-      header: ({ column }) => {
-        return (
-          // <div
-          //   className="flex items-center gap-2 cursor-pointer select-none"
-          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          // >
-          //   <div>Gender</div>
-          //   <RiExpandUpDownLine />
-          // </div>
-          <Button
-            className="p-[1px] text-sm"
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Updated On
-            <RiExpandUpDownLine />
-          </Button>
-        );
-      },
-      // cell: ({ row }) => (
-      //   <div className="flex gap-2 items-center text-gray-500">
-      //     {row.getValue("gender") === "Male" ? (
-      //       <IoMdMale className="text-[16px] lg:text-[20px]" />
-      //     ) : (
-      //       <IoFemale className="text-[16px] lg:text-[20px]" />
-      //     )}
-      //     <div className="capitalize">{row.getValue("gender")}</div>
-      //   </div>
-      // ),
-    },
+
     {
       accessorKey: "createdby",
       header: ({ column }) => {
@@ -552,6 +521,38 @@ const DataTable: React.FC<DataTableProps> = ({ users, sheetTriggerRef }) => {
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Updated By
+            <RiExpandUpDownLine />
+          </Button>
+        );
+      },
+      // cell: ({ row }) => (
+      //   <div className="flex gap-2 items-center text-gray-500">
+      //     {row.getValue("gender") === "Male" ? (
+      //       <IoMdMale className="text-[16px] lg:text-[20px]" />
+      //     ) : (
+      //       <IoFemale className="text-[16px] lg:text-[20px]" />
+      //     )}
+      //     <div className="capitalize">{row.getValue("gender")}</div>
+      //   </div>
+      // ),
+    },
+    {
+      accessorKey: "updatedon",
+      header: ({ column }) => {
+        return (
+          // <div
+          //   className="flex items-center gap-2 cursor-pointer select-none"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // >
+          //   <div>Gender</div>
+          //   <RiExpandUpDownLine />
+          // </div>
+          <Button
+            className="p-[1px] text-sm"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Updated On
             <RiExpandUpDownLine />
           </Button>
         );

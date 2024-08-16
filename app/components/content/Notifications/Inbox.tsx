@@ -2,22 +2,22 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { FillButton } from "../../libs/buttons";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { BsThreeDots } from "react-icons/bs";
+import Image from "next/image";
 const InboxNotification = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const handleCardClick = () => {
-    setIsExpanded(!isExpanded);
-  };
   return (
     <div>
       {/* <p>This is the content for the Inbox tab.</p> */}
       <div className="w-full p-2">
-        <div
-          className={`flex items-center justify-between cursor-pointer p-1 ${
-            isExpanded ? "" : "bg-slate-100"
-          }`}
-          onClick={handleCardClick}
-        >
+        <div className="flex items-center justify-between cursor-pointer p-1">
           <div className="flex items-center">
             <div className="relative">
               <Avatar className="w-12 h-12 mr-2 overflow-hidden">
@@ -33,27 +33,46 @@ const InboxNotification = () => {
               <p className="ml-2 text-xs text-gray-600">40 mins ago</p>
             </div>
           </div>
-          <div>
+          <div className="flex items-center gap-2">
+            <div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div className="cursor-pointer rounded-full hover:bg-gray-200 h-8 w-8 p-0 flex items-center justify-center">
+                    <BsThreeDots className="h-4 w-4" />
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
+                  {/* <DropdownMenuSeparator /> */}
+                  <DropdownMenuItem>
+                    <Image
+                      src="/icons/accept.png"
+                      alt="accept.png"
+                      width={13}
+                      height={13}
+                      className="mx-2"
+                    />
+                    Accept
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    {" "}
+                    <Image
+                      src="/icons/cancel.png"
+                      alt="accept.png"
+                      width={13}
+                      height={13}
+                      className="mx-2"
+                    />{" "}
+                    Decline
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
           </div>
         </div>
-        {/* Expanded content with buttons */}
-        <div
-          className={`overflow-hidden transition-all duration-300 ease-in-out ${
-            isExpanded ? "max-h-20 opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="ml-16 mt-2 flex justify-start space-x-2">
-            <Button variant="outline" className="rounded-md">
-              <div className="text-sm">Decline</div>
-            </Button>
-            <Button className="rounded-md bg-[#3f76ff] text-white hover:bg-[#0b4092]">
-              <div className="text-sm">Accept</div>
-            </Button>
-          </div>
-        </div>
       </div>
-      <hr className="border-b border-slate-200" />
+      <hr className="mt-1 border border-slate-100" />
     </div>
   );
 };
