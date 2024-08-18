@@ -8,13 +8,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { CommonTable } from "@/components/HistoryTable/data-table";
 import axios from "axios";
-import {
-  HistoryTable,
-  columns,
-} from "../../../components/HistoryTable/HistoryColumnTable";
 import { FaCompress, FaExpand } from "react-icons/fa";
+import { CommonTable } from "../HistoryTable/data-table";
+import { HistoryTable, columns } from "../HistoryTable/HistoryColumnTable";
 interface AddHistoryDialogProps {
   trigger: React.ReactNode;
 }

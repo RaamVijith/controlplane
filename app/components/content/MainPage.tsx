@@ -1,5 +1,5 @@
-import Header from "./comps/Header";
-import TabNavigation from "./comps/TabNavigation";
+import Header from "../common/Header";
+import TabNavigation from "../common/TabNavigation";
 
 const MainPage = () => {
   return (

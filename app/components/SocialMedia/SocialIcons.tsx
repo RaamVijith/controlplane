@@ -14,17 +14,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { BsThreeDots } from "react-icons/bs";
-import AddContactDialog from "../content/comps/UserInfoPanel/AddContact";
+import AddContactDialog from "../ContactTable/AddContact";
 import { BiSolidEdit } from "react-icons/bi";
 import History from "../History/History";
 import { MdOutlineHistory } from "react-icons/md";
-import Delete from "../Delete";
+import Delete from "../common/Delete";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiPhone, FiPlus } from "react-icons/fi";
-import LogCallDialog from "../content/Call/LogCallDialog";
-const EmailDialog = dynamic(() => import("../content/EmailContent/Email"), {
+import LogCallDialog from "../Call/LogCallDialog";
+const EmailDialog = dynamic(() => import("../EmailContent/Email"), {
   ssr: false,
 });
+
 const SocialIcons = () => {
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
 
