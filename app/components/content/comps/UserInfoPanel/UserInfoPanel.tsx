@@ -31,6 +31,8 @@ import dynamic from "next/dynamic";
 import ActivityHistory from "../../ActivityContent/ActivityHistory";
 import EmailContact from "../../EmailContent/EmailContact";
 import MeetingContent from "../../MeetingContent/MeetingContent";
+import CreateNewChat from "../../Chat/CreateNewChat";
+import LogCallDialog from "../../Call/LogCallDialog";
 
 const EmailDialog = dynamic(() => import("../../EmailContent/Email"), {
   ssr: false,
@@ -161,18 +163,27 @@ const UserInfoPanel = () => {
                       </div>
                     </div>
                     <div className="flex text-gray-700 items-center justify-center gap-2">
-                      <div className="hidden sm:flex items-center justify-center p-2 border border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
-                        <PiPhoneLight />
-                      </div>
+                      <LogCallDialog
+                        trigger={
+                          <div className="hidden sm:flex items-center justify-center p-2 border border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
+                            <PiPhoneLight />
+                          </div>
+                        }
+                      />
                       <div
                         className="hidden sm:flex items-center justify-center p-2 border border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]"
                         onClick={handleAddEmailClick}
                       >
                         <TfiEmail />
                       </div>
-                      <div className="hidden sm:flex items-center justify-center p-2 border border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
-                        <VscSend />
-                      </div>
+                      <CreateNewChat
+                        trigger={
+                          <div className="hidden sm:flex items-center justify-center p-2 border border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
+                            <VscSend />
+                          </div>
+                        }
+                      />
+
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <div className="items-center justify-center p-2 border border-gray-600 rounded-full hover:bg-gray-200 cursor-pointer text-[16px]">
@@ -196,17 +207,43 @@ const UserInfoPanel = () => {
                               className="ml-2"
                             />
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer sm:hidden">
-                            <PiPhoneLight size={16} className="mr-2" /> Call
+                          <DropdownMenuItem
+                            className="cursor-pointer sm:hidden"
+                            onClick={handleMenuItemClick}
+                          >
+                            <LogCallDialog
+                              trigger={
+                                <span className="pl-2 gap-3 flex items-center justify-center">
+                                  <PiPhoneLight
+                                    size={16}
+                                    className="text-black"
+                                  />{" "}
+                                  Call
+                                </span>
+                              }
+                            />
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             className="cursor-pointer sm:hidden"
                             onClick={handleAddEmailClick}
                           >
-                            <TfiEmail size={16} className="mr-2" /> Email
+                            <span className="pl-2 gap-3 flex items-center justify-center">
+                              <TfiEmail size={16} className="text-black" />{" "}
+                              Email
+                            </span>
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="cursor-pointer sm:hidden">
-                            <VscSend size={16} className="mr-2" /> Send
+                          <DropdownMenuItem
+                            className="cursor-pointer sm:hidden"
+                            onClick={handleMenuItemClick}
+                          >
+                            <CreateNewChat
+                              trigger={
+                                <span className="pl-2 gap-3 flex items-center justify-center">
+                                  <VscSend size={16} className="text-black" />{" "}
+                                  Chat
+                                </span>
+                              }
+                            />
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             className="cursor-pointer"

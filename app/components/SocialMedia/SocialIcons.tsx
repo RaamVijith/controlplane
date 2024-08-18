@@ -21,6 +21,7 @@ import { MdOutlineHistory } from "react-icons/md";
 import Delete from "../Delete";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiPhone, FiPlus } from "react-icons/fi";
+import LogCallDialog from "../content/Call/LogCallDialog";
 const EmailDialog = dynamic(() => import("../content/EmailContent/Email"), {
   ssr: false,
 });
@@ -41,12 +42,16 @@ const SocialIcons = () => {
   };
   const icons = [
     { icon: <FiPlus />, label: "Log" },
-    { icon: <FiPhone />, label: "Call" },
+    {
+      icon: <LogCallDialog trigger={<FiPhone />} />,
+      label: "Call",
+    },
     {
       icon: <HiOutlineMail size={19} onClick={handleAddEmailClick} />,
       label: "Email",
     },
     // { icon: <IoEllipsisHorizontal />, label: "More" },
+
     {
       icon: (
         <DropdownMenu>

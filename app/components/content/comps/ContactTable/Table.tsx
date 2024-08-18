@@ -78,6 +78,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import LogCallDialog from "../../Call/LogCallDialog";
 
 const EmailDialog = dynamic(() => import("../../EmailContent/Email"), {
   ssr: false,
@@ -692,10 +693,17 @@ const DataTable: React.FC<DataTableProps> = ({ users, sheetTriggerRef }) => {
                     />
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="cursor-pointer">
-                    <span className="pl-2 gap-3 flex items-center justify-center">
-                      <FiPhone className="" size={20} /> Call
-                    </span>
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleMenuItemClick}
+                  >
+                    <LogCallDialog
+                      trigger={
+                        <span className="pl-2 gap-3 flex items-center justify-center">
+                          <FiPhone className="" size={20} /> Call
+                        </span>
+                      }
+                    />
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="cursor-pointer"

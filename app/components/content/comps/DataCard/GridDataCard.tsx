@@ -40,6 +40,7 @@ import { FiPhone } from "react-icons/fi";
 import { HiOutlineMailOpen } from "react-icons/hi";
 // import { User } from "@/public/data/users";
 import dynamic from "next/dynamic";
+import LogCallDialog from "../../Call/LogCallDialog";
 
 const EmailDialog = dynamic(() => import("../../EmailContent/Email"), {
   ssr: false,
@@ -233,10 +234,17 @@ const GridCard: React.FC<GridCardProps> = ({ users }) => {
                         />
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem className="cursor-pointer">
-                        <span className="pl-2 gap-3 flex items-center justify-center">
-                          <FiPhone size={20} /> Call
-                        </span>
+                      <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={handleMenuItemClick}
+                      >
+                        <LogCallDialog
+                          trigger={
+                            <span className="pl-2 gap-3 flex items-center justify-center">
+                              <FiPhone size={20} /> Call
+                            </span>
+                          }
+                        />
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         className="cursor-pointer"
