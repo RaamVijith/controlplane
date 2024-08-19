@@ -34,6 +34,13 @@ import AvatarGroup from "@/components/ui/AvatarGroup";
 import { CgAttachment } from "react-icons/cg";
 import { BiMessageRounded } from "react-icons/bi";
 import Delete from "../common/Delete";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { FiPlus } from "react-icons/fi";
 
 const contentList = [
   {
@@ -101,8 +108,8 @@ const MeetingContent = () => {
   return (
     <>
       <div className="border-gray-300 border-b-[1px] pb-10">
-        <div className="flex items-center justify-between">
-          <div className="flex gap-2 py-2 px-2 items-center text-[#1D62B4] font-[500]">
+        <div className="flex py-2 px-2 items-center justify-between">
+          <div className="flex gap-2 items-center text-[#1D62B4] font-[500]">
             <span onClick={toggleSection} className="cursor-pointer">
               {isSectionOpen ? (
                 <MdOutlineKeyboardArrowUp size={21} />
@@ -113,11 +120,25 @@ const MeetingContent = () => {
             <FaRegStickyNote size={18} />
             <div className="cursor-default text-md font-semibold">Meetings</div>
           </div>
-          <div>
-            <div className="flex cursor-pointer items-center justify-center text-sm text-gray-500 p-1 rounded-sm outline outline-[1px] outline-gray-200 hover:bg-slate-300 hover:text-black">
-              Log new meetings
-            </div>
-          </div>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div>
+                  <button className="bg-transparent border-none">
+                    <FiPlus size={18} />
+                  </button>
+                  {/* <AddNoteDialog
+                    trigger={
+                     
+                    }
+                  /> */}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Add Meeting</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
         <div
           className={`overflow-hidden transition-max-height duration-300 ease-in-out ${
@@ -196,17 +217,17 @@ const MeetingContent = () => {
                 </div>
                 <div>
                   <span className="p-4 flex items-center">
-                    {/* <div className="text-gray-500 text-sm ">
-                      10 June 2024 10:00AM
-                    </div> */}
-                    <DropdownMenu>
+                    <div className="text-gray-500 text-sm ">
+                      10th June 2024 10:10:10 AM
+                    </div>
+                    {/* <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <div className="cursor-pointer rounded-full hover:bg-gray-200 h-8 w-8 p-0 flex items-center justify-center">
                           <BsThreeDots className="h-4 w-4" />
                         </div>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
+                         
                         <DropdownMenuItem
                           className="cursor-pointer"
                           onClick={handleMenuItemClick}
@@ -224,7 +245,7 @@ const MeetingContent = () => {
                           />
                         </DropdownMenuItem>
                       </DropdownMenuContent>
-                    </DropdownMenu>
+                    </DropdownMenu> */}
                   </span>
                 </div>
               </div>

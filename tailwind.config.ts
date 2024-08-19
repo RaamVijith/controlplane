@@ -52,6 +52,14 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        indicator: {
+          //using for sidebar highlight button color
+          DEFAULT: "hsl(var(--indicator))",
+        },
+        spacing: {
+          //using for sidebar indigator spacing
+          "indicator-width": "5px",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -33,6 +33,13 @@ import { GoHistory } from "react-icons/go";
 import { Button } from "@/components/ui/button";
 import AddNoteDialog from "./NewNote";
 import Delete from "../common/Delete";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { FiPlus } from "react-icons/fi";
 // import AddNoteDialog from "../comps/UserInfoPanel/NewNote";
 const contentList = [
   {
@@ -98,8 +105,8 @@ const NotesContent = () => {
   return (
     <>
       <div className="border-gray-300 border-b-[1px] pb-10">
-        <div className="flex items-center justify-between mr-2">
-          <div className="flex gap-2 py-2 px-2 items-center text-[#1D62B4] font-[500]">
+        <div className="flex  py-2 px-2 items-center justify-between">
+          <div className="flex gap-2 items-center text-[#1D62B4] font-[500]">
             <span onClick={toggleSection} className="cursor-pointer">
               {isSectionOpen ? (
                 <MdOutlineKeyboardArrowUp size={21} />
@@ -113,18 +120,25 @@ const NotesContent = () => {
               20
             </div>
           </div>
-          <div>
-            <AddNoteDialog
-              trigger={
-                <Button
-                  variant="outline"
-                  className="flex cursor-pointer items-center justify-center text-sm text-gray-500 p-1 rounded-sm outline outline-[1px] outline-gray-200 hover:bg-slate-300 hover:text-black"
-                >
-                  Add new note
-                </Button>
-              }
-            />
-          </div>
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div>
+                  <AddNoteDialog
+                    trigger={
+                      <button className="bg-transparent border-none">
+                        <FiPlus size={18} />
+                      </button>
+                    }
+                  />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Add Note</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
         <div
           className={`overflow-hidden transition-max-height duration-300 ease-in-out ${

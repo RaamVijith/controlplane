@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { CiCalendarDate, CiStar } from "react-icons/ci";
-import { FaRegImage, FaRegStar, FaTasks } from "react-icons/fa";
+import { FaRegImage, FaRegNewspaper, FaRegStar, FaTasks } from "react-icons/fa";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { RiCalendarScheduleLine, RiDeleteBin5Line } from "react-icons/ri";
 // import UpcomingActivityCard from "../comps/DataCard/UpcomingCard";
@@ -19,6 +19,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -27,9 +28,13 @@ import { IoMdSend } from "react-icons/io";
 import { GoHistory } from "react-icons/go";
 import { HiOutlineMail } from "react-icons/hi";
 import { PiDotsThreeBold } from "react-icons/pi";
-import { BsThreeDots } from "react-icons/bs";
+import { BsPencil, BsThreeDots } from "react-icons/bs";
 import Delete from "../common/Delete";
-
+import { FiPlus } from "react-icons/fi";
+import dynamic from "next/dynamic";
+const EmailDialog = dynamic(() => import("./Email"), {
+  ssr: false,
+});
 const contentList = [
   {
     id: 1,
@@ -48,7 +53,7 @@ const EmailContact = () => {
   const [reminderOpen, setReminderOpen] = useState(false);
   const [taskPriorityOpen, setTaskPriorityOpen] = useState(false);
   const [assignedToOpen, setAssignedToOpen] = useState(false);
-
+  const [isCardOpen, setIsCardOpen] = React.useState<boolean>(false);
   const [isSectionOpen, setIsSectionOpen] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const toggleSection = () => {
@@ -76,19 +81,49 @@ const EmailContact = () => {
     setIsHovered(false);
   };
 
+  const handleAddEmailClick = () => {
+    setIsCardOpen(true);
+  };
+
+  const handleEmailCloseCard = () => {
+    setIsCardOpen(false);
+  };
   return (
     <>
       <div className="border-gray-300 border-b-[1px] pb-10 mt-4">
-        <div className="flex gap-2 py-2 px-2 items-center text-[#1D62B4] font-[500]">
-          <span onClick={toggleSection} className="cursor-pointer">
-            {isSectionOpen ? (
-              <MdOutlineKeyboardArrowUp size={21} />
-            ) : (
-              <MdKeyboardArrowDown size={21} />
-            )}
-          </span>
-          <HiOutlineMail size={18} />
-          <div className="cursor-default text-md font-semibold">Emails</div>
+        <div className="flex px-4 py-2 items-center justify-between">
+          <div className="flex gap-2 items-center text-[#1D62B4] font-[500]">
+            <span onClick={toggleSection} className="cursor-pointer">
+              {isSectionOpen ? (
+                <MdOutlineKeyboardArrowUp size={21} />
+              ) : (
+                <MdKeyboardArrowDown size={21} />
+              )}
+            </span>
+            <HiOutlineMail size={18} />
+            <div className="cursor-default text-md font-semibold">Emails</div>
+          </div>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <FiPlus size={18} />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-full ml-8">
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  className="pl-3"
+                  onClick={handleAddEmailClick}
+                >
+                  <BsPencil size={17} className="mr-3" />
+                  Create a new email
+                </DropdownMenuItem>
+                <DropdownMenuItem className="pl-3">
+                  <FaRegNewspaper size={17} className="mr-3" />
+                  Log email activity
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         <div
@@ -252,6 +287,7 @@ const EmailContact = () => {
           </div>
         </div>
       </div>
+      {isCardOpen && <EmailDialog onClose={handleEmailCloseCard} />}
     </>
   );
 };
