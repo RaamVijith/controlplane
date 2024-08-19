@@ -854,7 +854,7 @@ const DataTableCompany: React.FC<DataTableProps> = ({ companies }) => {
     //     id: false,
     //     companyName:false //hide the id column by default
     //   },
-    //   expanded: true, //expand all rows by default
+    //   expanded: true, //expand all rows by default ass
 
     // },
     onPaginationChange: setPagination,
