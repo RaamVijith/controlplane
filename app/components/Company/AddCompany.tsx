@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
+import Switch from "react-switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Image from "next/image";
 import { IoIosClose } from "react-icons/io";
@@ -43,7 +43,7 @@ import "react-phone-input-2/lib/style.css";
 // import FlagSelector from "../../Selector/FlagSelector";
 import { Country, State, City } from "country-state-city";
 import Flag from "react-world-flags";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaRegBuilding } from "react-icons/fa";
 // import {
 //   Select,
 //   SelectContent,
@@ -56,6 +56,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 // import { CiLocationOn } from "react-icons/ci";
 
 import TimezoneSelect, { type ITimezone } from "react-timezone-select";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 interface AddContactDialogProps {
   trigger: React.ReactNode;
@@ -83,7 +84,7 @@ const CreateCompanyDialog: React.FC<AddContactDialogProps> = ({
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [phone, setPhone] = useState<string>("");
   const [mobile, setMobile] = useState<string>("");
-
+  const [isChecked, setIsChecked] = useState(false);
   // country selector
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
@@ -152,6 +153,11 @@ const CreateCompanyDialog: React.FC<AddContactDialogProps> = ({
     ? City.getCitiesOfState(selectedCountry, selectedState)
     : [];
 
+  const handleSwitchChange = (checked: boolean) => {
+    setIsChecked(checked);
+    // Add your logic
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
@@ -161,10 +167,9 @@ const CreateCompanyDialog: React.FC<AddContactDialogProps> = ({
           {mode === "add" ? "Create New Company" : "Update Company Details"}
           <hr className="my-1" />
         </DialogTitle>
-
         <DialogDescription className="mt-2 mb-4 text-sm text-gray-500">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3 mb-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 mb-3">
               <div className="rounded-full w-[50px] h-[50px] bg-gray-200 flex items-center justify-center">
                 {selectedImage ? (
                   <Image
@@ -191,16 +196,23 @@ const CreateCompanyDialog: React.FC<AddContactDialogProps> = ({
                 className="hidden"
                 onChange={handleFileChange}
               />
-            </div>
-            <div className="flex flex-row items-center gap-2">
-              <div className="flex gap-4 items-baseline ">
-                <PiBuildingOfficeBold
-                  size={36}
-                  className="text-gray-400 cursor-pointer mb-1"
-                />
-              </div>
 
-              <Switch />
+              <button className="bg-gray-200 p-2 rounded-md">
+                <RiDeleteBin5Line size={20} />
+              </button>
+            </div>
+            <div className="flex items-center p-2 gap-2 cursor-pointer">
+              {" "}
+              <FaRegBuilding size={24} />
+              <Switch
+                onChange={handleSwitchChange}
+                checked={isChecked}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                width={25}
+                height={15}
+                className="mr-2"
+              />
             </div>
           </div>
 

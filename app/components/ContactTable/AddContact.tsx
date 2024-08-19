@@ -188,7 +188,7 @@ const AddContactDialog: React.FC<AddContactDialogProps> = ({
             </div>
             <div className="flex items-center p-2 gap-2 cursor-pointer">
               {" "}
-              <FaRegBuilding size={20} />
+              {/* <FaRegBuilding size={24} /> */}
               <Switch
                 onChange={handleSwitchChange}
                 checked={isChecked}
