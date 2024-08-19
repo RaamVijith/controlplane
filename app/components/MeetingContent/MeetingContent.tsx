@@ -1,24 +1,18 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { CiCalendarDate } from "react-icons/ci";
 import {
   FaRegImage,
   FaRegStar,
   FaRegStickyNote,
   FaTasks,
 } from "react-icons/fa";
-import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { RiCalendarScheduleLine, RiDeleteBin5Line } from "react-icons/ri";
-// import UpcomingActivityCard from "../comps/DataCard/UpcomingCard";
 import {
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
   MdOutlineKeyboardArrowUp,
   MdPushPin,
 } from "react-icons/md";
-import { upcomingData } from "@/public/data/users";
-import clsx from "clsx";
 import { Textarea } from "@/components/ui/textarea";
 import { BsThreeDots } from "react-icons/bs";
 import {
@@ -27,12 +21,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-// import Delete from "../../Delete";
 import { IoMdSend } from "react-icons/io";
-import { GoHistory } from "react-icons/go";
 import AvatarGroup from "@/components/ui/AvatarGroup";
-import { CgAttachment } from "react-icons/cg";
-import { BiMessageRounded } from "react-icons/bi";
 import Delete from "../common/Delete";
 import {
   Tooltip,
@@ -41,6 +31,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { FiPlus } from "react-icons/fi";
+import AddNewMeeting from "./AddNewMeeting";
 
 const contentList = [
   {
@@ -124,14 +115,18 @@ const MeetingContent = () => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <div>
-                  <button className="bg-transparent border-none">
-                    <FiPlus size={18} />
-                  </button>
+                 
                   {/* <AddNoteDialog
                     trigger={
                      
                     }
                   /> */}
+                  <AddNewMeeting 
+                    trigger={
+                      <button className="bg-transparent border-none">
+                        <FiPlus size={18} />
+                      </button>
+                    } />
                 </div>
               </TooltipTrigger>
               <TooltipContent>

@@ -6,6 +6,7 @@ import UserInfoPanel from "../components/content/UserInfoPanel/UserInfoPanel";
 import SideNav from "../components/sidenav/SideNav";
 import MainPage from "../components/content/MainPage";
 import ExtendedUserInfoPanel from "../components/content/UserInfoPanel/ExtendedUserInfoPanel";
+import CompanyMainPage from "./companyComponent/company/CompanyMainPage";
 
 export default function Company() {
   const [data, setData] = useState<null | object>({});
@@ -14,9 +15,13 @@ export default function Company() {
   return (
     <main className="flex relative h-full w-full">
       {/* side nav */}
-
-      <SideNav />
-      <p>Hello</p>
+      <UserPanelProvider>
+        <UserInfoPanel/>
+        <ExtendedUserInfoPanel/>
+        <SideNav />
+        <CompanyMainPage/>
+      </UserPanelProvider>
+      
     </main>
   );
 }
