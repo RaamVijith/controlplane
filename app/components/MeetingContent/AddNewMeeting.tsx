@@ -6,7 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Clock } from "lucide-react";
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { FiPlus } from "react-icons/fi";
 import {
   Popover,
   PopoverContent,
@@ -35,6 +41,7 @@ import InputWithButton from "./InputWithButton";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TimePickerDemo } from "../../components/common/dateTimePicker/Time-picker-demo";
+import AddGuestDialog from "./AddGuestDialog";
 
 interface Meeting {
   trigger: React.ReactNode;
@@ -47,6 +54,8 @@ interface Meeting {
 
 const AddNewMeeting: React.FC<Meeting> = ({ trigger, meetingData }) => {
   const [eventName, setEventName] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
+  const [description, setDescription] = useState("");
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [time, setTime] = useState<Date | undefined>(new Date());
   const [duration, setDuration] = useState("3h 45m");
@@ -67,11 +76,17 @@ const AddNewMeeting: React.FC<Meeting> = ({ trigger, meetingData }) => {
   const [reminder, setReminder] = useState("1 hour before event");
   const [attachments, setAttachments] = useState<File[]>([]);
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+  const handleMouseLeave = () => {
+    description ? setIsHovered(true) : setIsHovered(false);
+  };
 
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="fixed bg-white p-4 rounded-md shadow-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[650px]">
+      <DialogContent className="fixed bg-white p-4 rounded-md shadow-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[650px] overflow-y-scroll max-h-screen">
         <DialogTitle className="text-lg font-medium">
           Create New Meeting
         </DialogTitle>
@@ -79,17 +94,49 @@ const AddNewMeeting: React.FC<Meeting> = ({ trigger, meetingData }) => {
         <DialogDescription className="mt-2 mb-4 text-sm text-gray-500">
           <form className="space-y-4">
             {/* Event Name */}
-            <div className="w-full">
+            <div
+              className="w-full"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <Label
                 htmlFor="eventName"
                 className="block text-sm font-medium text-black mb-1"
               >
                 Event Name
               </Label>
-              <InputWithButton
-                btnName="Add description"
-                placeholder="Enter event name"
-              />
+              <div>
+                <Input
+                  type="text"
+                  id="eventName"
+                  placeholder="Enter event name"
+                  name="eventName"
+                />
+              </div>
+
+              {/* Hover Button */}
+              <div
+                className={`mt-2 transition-opacity duration-100 ease-out ${
+                  isHovered ? "opacity-100 max-h-40" : "opacity-0 max-h-0"
+                }`}
+              >
+                <div className="w-full">
+                  <Label
+                    htmlFor="addDescription"
+                    className="block text-sm font-medium text-black mb-1"
+                  >
+                    Add Description
+                  </Label>
+                  <Input
+                    type="text"
+                    id="addDescription"
+                    placeholder="Add description hear"
+                    name="addDescription"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </div>
+              </div>
             </div>
             {/* Date */}
             <div className="flex space-x-4 justify-between">
@@ -130,13 +177,7 @@ const AddNewMeeting: React.FC<Meeting> = ({ trigger, meetingData }) => {
                 >
                   Time
                 </Label>
-                <div>
-                  {/* <Input
-                    id="time"
-                    type="time"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                  /> */}
+                <div>                  
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
@@ -147,7 +188,11 @@ const AddNewMeeting: React.FC<Meeting> = ({ trigger, meetingData }) => {
                         )}
                       >
                         <Clock className="ml-2 h-4 w-4" />
-                        <span>{time ? time.toLocaleString().slice(11, 20) : 'No date provided'}</span>
+                        <span>
+                          {time
+                            ? time.toLocaleString().slice(11, 20)
+                            : "No date provided"}
+                        </span>
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-1">
@@ -156,26 +201,7 @@ const AddNewMeeting: React.FC<Meeting> = ({ trigger, meetingData }) => {
                   </Popover>
                 </div>
               </div>
-              {/* <div className="flex-1">
-            <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        " justify-start text-left font-normal ",
-                        !date && "text-muted-foreground"
-                      )}
-                    >
-                         <Clock className="ml-2 h-4 w-4" />
-                       <span>00:00:00</span>
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-1">
-                  <TimePickerDemo date={date} setDate={setDate}/>
-
-                  </PopoverContent>
-                </Popover>
-            </div> */}
+             
               <div className="flex-1">
                 <Label
                   htmlFor="eventName"
@@ -198,14 +224,16 @@ const AddNewMeeting: React.FC<Meeting> = ({ trigger, meetingData }) => {
 
             <div className="w-full">
               <Label
-                htmlFor="eventName"
+                htmlFor="location"
                 className="block text-sm font-medium text-black mb-1"
               >
                 Location
               </Label>
-              <InputWithButton
-                btnName="Set meeting room"
-                placeholder="Choose Location"
+              <Input
+                type="text"
+                id="location"
+                placeholder="Choose location"
+                name="location"
               />
             </div>
 
@@ -217,10 +245,28 @@ const AddNewMeeting: React.FC<Meeting> = ({ trigger, meetingData }) => {
                 >
                   Add Guests
                 </Label>
-                <InputWithButton
-                  btnName="  Add  "
-                  placeholder="contect@example.com"
-                />
+                <div className="flex justify-between pr-2 rounded-md border items-center border-input bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                  <Input
+                    className="border-none w-3/4"
+                    placeholder="contact@example.com"
+                  />
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <AddGuestDialog 
+                         trigger={
+                          <FiPlus className="cursor-pointer" size={18} />
+
+                         }
+                        />
+                        
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Add Guests</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>{" "}
+                </div>
               </div>
               <div className="flex mt-2 space-x-1">
                 {guests.slice(0, 5).map((guest) => (
